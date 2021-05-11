@@ -28,6 +28,10 @@ public class ConnectPage implements Page {
         return scene;
     }
 
+    private void addConnections() {
+        
+    }
+
     private void addToExplorePane(Scene scene, Pane pane) {
         Pane explorePane = (Pane) scene.lookup("#explore_pane");
         explorePane.getChildren().add(pane);
