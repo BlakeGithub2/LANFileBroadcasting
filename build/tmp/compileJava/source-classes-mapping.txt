@@ -8,10 +8,10 @@ example/simpleconnection/ClientHandler.java
  example.simpleconnection.ClientHandler
 example/chatroom/Client.java
  example.chatroom.Client
-main/Connection.java
- main.Connection
 main/Page.java
  main.Page
+main/Connection.java
+ main.Connection
 example/simpleconnection/ServerConnection.java
  example.simpleconnection.ServerConnection
 example/chatroom/ClientThread.java
@@ -22,12 +22,13 @@ main/LoginPage.java
  main.LoginPage
 example/simpleconnection/Server.java
  example.simpleconnection.Server
+broadcast/BroadcastServerThread.java
+ broadcast.BroadcastServerThread
 main/Main.java
  main.Main
 main/ConnectPage.java
  main.ConnectPage
-broadcast/BroadcastServerThread.java
- broadcast.BroadcastServerThread
+ main.ConnectPage$1
 broadcast/BroadcastClient.java
  broadcast.BroadcastClient
 broadcast/BroadcastClientThread.java

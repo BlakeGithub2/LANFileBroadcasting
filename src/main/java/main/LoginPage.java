@@ -12,9 +12,11 @@ import java.io.IOException;
 
 public class LoginPage implements Page {
     private String name;
+    private Scene scene;
 
     @Override
-    public Scene getScene() {
+    public void createScene() {
+
         Pane pane = new VBox();
         Label nameLabel = new Label("Name: ");
         TextField nameInput = new TextField();
@@ -27,15 +29,18 @@ public class LoginPage implements Page {
 
         try {
             Pane root = FXMLLoader.load(getClass().getResource("/scenes/login.fxml"));
-            Scene scene = new Scene(root, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
-
-            return scene;
+            scene = new Scene(root, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
         } catch (IOException e) {
             System.out.println("Exception loading login page scene. See LoginPage.java.");
             e.printStackTrace();
         }
+    }
 
-        return null;
-        //return new Scene(pane, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
+    @Override
+    public Scene getScene() {
+        if (scene == null) {
+            createScene();
+        }
+        return scene;
     }
 }
