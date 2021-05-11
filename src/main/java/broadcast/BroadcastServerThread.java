@@ -60,7 +60,7 @@ public class BroadcastServerThread extends Thread {
 
             InetAddress group = null;
 
-            group = InetAddress.getByName("230.0.0.1");
+            group = InetAddress.getByName("230.0.0.255");
 
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length, group, 4446);
 

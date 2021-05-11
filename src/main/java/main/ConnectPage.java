@@ -1,5 +1,6 @@
 package main;
 
+import broadcast.BroadcastClient;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -8,6 +9,19 @@ import java.io.IOException;
 
 public class ConnectPage implements Page {
     private String name;
+    private boolean broadcasting;
+
+    private void addConnections() throws IOException {
+        BroadcastClient client = new BroadcastClient();
+        client.searchForBroadcasts();
+    }
+
+    private void addToExplorePane(Scene scene, Pane pane) {
+        Pane explorePane = (Pane) scene.lookup("#explore_pane");
+        explorePane.getChildren().add(pane);
+    }
+
+    // Getters
 
     @Override
     public Scene getScene() {
@@ -25,15 +39,17 @@ public class ConnectPage implements Page {
         Connection selfConnection = new Connection("Your Files");
         addToExplorePane(scene, selfConnection.getPane());
 
+        try {
+            addConnections();
+        } catch (IOException e) {
+            System.out.println("Could not add connections. (ConnectPage.java)");
+            e.printStackTrace();
+        }
+
         return scene;
     }
 
-    private void addConnections() {
-        
-    }
-
-    private void addToExplorePane(Scene scene, Pane pane) {
-        Pane explorePane = (Pane) scene.lookup("#explore_pane");
-        explorePane.getChildren().add(pane);
+    public boolean isBroadcasting() {
+        return broadcasting;
     }
 }
