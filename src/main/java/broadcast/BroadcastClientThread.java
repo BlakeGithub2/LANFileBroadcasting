@@ -31,7 +31,7 @@
 
 package broadcast;
 
-import main.ConnectPage;
+import main.connectpage.ConnectPage;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -61,7 +61,6 @@ public class BroadcastClientThread extends Thread {
     @Override
     public void run() {
         while (true) {
-            System.out.println("Searching for broadcasted messages...");
             try {
                 DatagramPacket packet;
 
@@ -73,7 +72,6 @@ public class BroadcastClientThread extends Thread {
 
                 // Find received message
                 String received = new String(packet.getData(), 0, packet.getLength());
-                System.out.println("Received Message from Broadcast: " + received);
                 page.addConnection(received);
             } catch (IOException e) {
                 System.out.println("Could not receive broadcasted messages.");

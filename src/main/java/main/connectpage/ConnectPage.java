@@ -1,17 +1,26 @@
-package main;
+package main.connectpage;
 
 import broadcast.BroadcastClient;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
+import main.Connection;
+import main.Main;
+import main.Page;
 
 import java.io.IOException;
 
 public class ConnectPage implements Page {
-    private String name;
-    private boolean broadcasting;
+    private static boolean broadcasting;
     private Scene scene;
+
+    public ConnectPage() {
+        loadScene();
+        onCreation();
+        System.out.println("Connect page created.");
+    }
 
     private void addConnections() throws IOException {
         BroadcastClient client = new BroadcastClient(this);
@@ -19,7 +28,6 @@ public class ConnectPage implements Page {
     }
 
     public void addConnection(String name) {
-        System.out.println("Adding connection...");
         Connection selfConnection = new Connection(name);
         addToExplorePane(selfConnection.getPane());
     }
@@ -35,8 +43,22 @@ public class ConnectPage implements Page {
         });
     }
 
+    public void triggerBroadcasting() {
+        // Toggle broadcasting status
+        broadcasting = !broadcasting;
+
+        // Switch button text
+        Button broadcastButton = (Button) scene.lookup("#broadcast_button");
+        if (broadcasting) {
+            broadcastButton.setText("Stop Broadcasting");
+        } else {
+            broadcastButton.setText("Start Broadcasting");
+        }
+
+    }
+
     @Override
-    public void createScene() {
+    public void loadScene() {
         try {
             Pane root = FXMLLoader.load(getClass().getResource("/scenes/connectcode.fxml"));
             scene = new Scene(root, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
@@ -45,7 +67,9 @@ public class ConnectPage implements Page {
             e.printStackTrace();
             return;
         }
+    }
 
+    private void onCreation() {
         addConnection("Your Files");
 
         try {
@@ -60,10 +84,6 @@ public class ConnectPage implements Page {
 
     @Override
     public Scene getScene() {
-        if (scene == null) {
-            createScene();
-        }
-
         return scene;
     }
 

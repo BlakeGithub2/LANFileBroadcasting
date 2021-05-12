@@ -15,7 +15,7 @@ public class LoginPage implements Page {
     private Scene scene;
 
     @Override
-    public void createScene() {
+    public void loadScene() {
 
         Pane pane = new VBox();
         Label nameLabel = new Label("Name: ");
@@ -39,7 +39,7 @@ public class LoginPage implements Page {
     @Override
     public Scene getScene() {
         if (scene == null) {
-            createScene();
+            loadScene();
         }
         return scene;
     }

@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.connectpage.ConnectPageController">
    <children>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Explore" textAlignment="CENTER" wrappingWidth="78.5263671875">
          <font>
@@ -21,7 +21,7 @@
       </TilePane>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Button mnemonicParsing="false" text="Start Broadcasting" textAlignment="CENTER" />
+            <Button id="broadcast_button" mnemonicParsing="false" onMouseClicked="#triggerBroadcasting" text="Start Broadcasting" textAlignment="CENTER" />
          </children>
       </HBox>
    </children>

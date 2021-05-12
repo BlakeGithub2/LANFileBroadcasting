@@ -1,6 +1,6 @@
 package broadcast;
 
-import main.ConnectPage;
+import main.connectpage.ConnectPage;
 
 import java.io.IOException;
 

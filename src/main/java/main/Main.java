@@ -1,8 +1,9 @@
 package main;
 
 import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
+import main.connectpage.ConnectPage;
+import main.connectpage.ConnectPageController;
 
 public class Main extends Application {
     private Stage mainWindow;
@@ -19,14 +20,7 @@ public class Main extends Application {
         mainWindow = primaryStage;
         mainWindow.setTitle("Peer to Peer Version Control");
 
-        showConnectScreen();
-    }
-
-    private void showConnectScreen() {
-        ConnectPage page = new ConnectPage();
-        Scene scene = page.getScene();
-
-        mainWindow.setScene(scene);
-        mainWindow.show();
+        ConnectPageController.addModel(new ConnectPage());
+        ConnectPageController.goTo(mainWindow);
     }
 }
