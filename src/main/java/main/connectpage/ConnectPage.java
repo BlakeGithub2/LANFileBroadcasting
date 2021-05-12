@@ -1,6 +1,7 @@
 package main.connectpage;
 
 import broadcast.BroadcastClient;
+import broadcast.BroadcastServer;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -13,12 +14,13 @@ import main.Page;
 import java.io.IOException;
 
 public class ConnectPage implements Page {
-    private static boolean broadcasting;
     private Scene scene;
+    private BroadcastServer server;
 
     public ConnectPage() {
         loadScene();
         onCreation();
+        server = new BroadcastServer();
         System.out.println("Connect page created.");
     }
 
@@ -44,17 +46,22 @@ public class ConnectPage implements Page {
     }
 
     public void triggerBroadcasting() {
-        // Toggle broadcasting status
-        broadcasting = !broadcasting;
+        // Toggle server broadcast
+        try {
+            server.toggle();
+        } catch (IOException e) {
+            System.out.println("Could not toggle broadcast.");
+            e.printStackTrace();
+            return;
+        }
 
         // Switch button text
         Button broadcastButton = (Button) scene.lookup("#broadcast_button");
-        if (broadcasting) {
+        if (server.isBroadcasting()) {
             broadcastButton.setText("Stop Broadcasting");
         } else {
             broadcastButton.setText("Start Broadcasting");
         }
-
     }
 
     @Override
@@ -88,6 +95,6 @@ public class ConnectPage implements Page {
     }
 
     public boolean isBroadcasting() {
-        return broadcasting;
+        return server.isBroadcasting();
     }
 }

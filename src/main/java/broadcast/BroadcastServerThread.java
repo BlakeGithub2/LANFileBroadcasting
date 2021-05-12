@@ -34,6 +34,7 @@ package broadcast;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.Inet4Address;
 import java.net.InetAddress;
 
 public class BroadcastServerThread extends Thread {
@@ -56,11 +57,13 @@ public class BroadcastServerThread extends Thread {
 
             // Construct the buffer
             String message = "Test Connection Text";
-            buffer = message.getBytes();
+            message = Inet4Address.getLocalHost().getHostName();
+            ;
 
             InetAddress group = null;
 
             group = InetAddress.getByName("230.0.0.255");
+            buffer = message.getBytes();
 
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length, group, 4446);
 
