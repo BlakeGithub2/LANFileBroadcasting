@@ -58,7 +58,6 @@ public class BroadcastServerThread extends Thread {
             // Construct the buffer
             String message = "Test Connection Text";
             message = Inet4Address.getLocalHost().getHostName();
-            ;
 
             InetAddress group = null;
 

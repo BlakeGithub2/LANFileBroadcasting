@@ -72,7 +72,7 @@ public class BroadcastClientThread extends Thread {
 
                 // Find received message
                 String received = new String(packet.getData(), 0, packet.getLength());
-                page.addConnection(received);
+                page.getConnectionList().addConnection(received, packet.getAddress());
             } catch (IOException e) {
                 System.out.println("Could not receive broadcasted messages.");
                 break;

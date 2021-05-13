@@ -2,12 +2,10 @@ package main.connectpage;
 
 import broadcast.BroadcastClient;
 import broadcast.BroadcastServer;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
-import main.Connection;
 import main.Main;
 import main.Page;
 
@@ -15,34 +13,36 @@ import java.io.IOException;
 
 public class ConnectPage implements Page {
     private Scene scene;
+    private ConnectionList connections;
     private BroadcastServer server;
 
     public ConnectPage() {
         loadScene();
+        createConnectionsList();
         onCreation();
         server = new BroadcastServer();
         System.out.println("Connect page created.");
     }
 
+    private void createConnectionsList() {
+        Pane explorePane = (Pane) scene.lookup("#explore_pane");
+        connections = new ConnectionList(explorePane);
+    }
+
+    private void onCreation() {
+        connections.addConnection("Your Files", null);
+
+        try {
+            addConnections();
+        } catch (IOException e) {
+            System.out.println("Could not add connections. (ConnectPage.java)");
+            e.printStackTrace();
+        }
+    }
+
     private void addConnections() throws IOException {
         BroadcastClient client = new BroadcastClient(this);
         client.searchForBroadcasts();
-    }
-
-    public void addConnection(String name) {
-        Connection selfConnection = new Connection(name);
-        addToExplorePane(selfConnection.getPane());
-    }
-
-    private void addToExplorePane(Pane pane) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                Pane explorePane = (Pane) scene.lookup("#explore_pane");
-                explorePane.getChildren().add(pane);
-                System.out.println("Connection added.");
-            }
-        });
     }
 
     public void triggerBroadcasting() {
@@ -76,17 +76,6 @@ public class ConnectPage implements Page {
         }
     }
 
-    private void onCreation() {
-        addConnection("Your Files");
-
-        try {
-            addConnections();
-        } catch (IOException e) {
-            System.out.println("Could not add connections. (ConnectPage.java)");
-            e.printStackTrace();
-        }
-    }
-
     // Getters
 
     @Override
@@ -96,5 +85,9 @@ public class ConnectPage implements Page {
 
     public boolean isBroadcasting() {
         return server.isBroadcasting();
+    }
+
+    public ConnectionList getConnectionList() {
+        return connections;
     }
 }

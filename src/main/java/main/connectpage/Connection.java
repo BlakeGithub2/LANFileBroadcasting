@@ -1,4 +1,4 @@
-package main;
+package main.connectpage;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -11,13 +11,16 @@ import javafx.scene.text.Text;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.net.InetAddress;
 import java.net.URL;
 
 public class Connection {
     private String name = "";
+    private InetAddress ip;
 
-    public Connection(String name) {
+    public Connection(String name, InetAddress ip) {
         this.name = name;
+        this.ip = ip;
     }
 
     public HBox getPane() {
@@ -55,5 +58,9 @@ public class Connection {
         nameAndButton.setAlignment(Pos.CENTER);
 
         return pane;
+    }
+
+    public InetAddress getAddress() {
+        return ip;
     }
 }

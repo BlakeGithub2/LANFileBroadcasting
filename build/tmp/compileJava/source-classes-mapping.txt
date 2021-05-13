@@ -2,8 +2,8 @@ example/chatroom/ServerThread.java
  example.chatroom.ServerThread
 example/simpleconnection/Client.java
  example.simpleconnection.Client
-broadcast/BroadcastServerThread.java
- broadcast.BroadcastServerThread
+broadcast/BroadcastServer.java
+ broadcast.BroadcastServer
 main/Page.java
  main.Page
 example/simpleconnection/ClientHandler.java
@@ -14,24 +14,26 @@ example/simpleconnection/Server.java
  example.simpleconnection.Server
 main/LoginPage.java
  main.LoginPage
-main/Connection.java
- main.Connection
+broadcast/BroadcastServerThread.java
+ broadcast.BroadcastServerThread
 example/simpleconnection/ServerConnection.java
  example.simpleconnection.ServerConnection
 example/chatroom/ClientThread.java
  example.chatroom.ClientThread
 example/chatroom/ChatServer.java
  example.chatroom.ChatServer
-main/connectpage/ConnectPageController.java
- main.connectpage.ConnectPageController
+main/connectpage/Connection.java
+ main.connectpage.Connection
+main/connectpage/ConnectionList.java
+ main.connectpage.ConnectionList
+ main.connectpage.ConnectionList$1
 main/Main.java
  main.Main
 main/connectpage/ConnectPage.java
  main.connectpage.ConnectPage
- main.connectpage.ConnectPage$1
-broadcast/BroadcastServer.java
- broadcast.BroadcastServer
 broadcast/BroadcastClient.java
  broadcast.BroadcastClient
+main/connectpage/ConnectPageController.java
+ main.connectpage.ConnectPageController
 broadcast/BroadcastClientThread.java
  broadcast.BroadcastClientThread
