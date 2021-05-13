@@ -40,6 +40,7 @@ import java.net.InetAddress;
 public class BroadcastServerThread extends Thread {
 
     private DatagramSocket socket = null;
+    private boolean shouldStop;
 
     public BroadcastServerThread() throws IOException {
         this("BroadcastServerThread");
@@ -52,25 +53,38 @@ public class BroadcastServerThread extends Thread {
 
     @Override
     public void run() {
-        try {
-            byte[] buffer = new byte[256];
+        while (!shouldStop) {
+            try {
+                byte[] buffer = new byte[256];
 
-            // Construct the buffer
-            String message = "Test Connection Text";
-            message = Inet4Address.getLocalHost().getHostName();
+                // Construct the buffer
+                String message = "Not Found";
+                message = Inet4Address.getLocalHost().getHostName();
 
-            InetAddress group = null;
+                InetAddress group = null;
 
-            group = InetAddress.getByName("230.0.0.255");
-            buffer = message.getBytes();
+                group = InetAddress.getByName("230.0.0.255");
+                buffer = message.getBytes();
 
-            DatagramPacket packet = new DatagramPacket(buffer, buffer.length, group, 4446);
+                DatagramPacket packet = new DatagramPacket(buffer, buffer.length, group, 4446);
 
-            socket.send(packet);
-        } catch (IOException e) {
-            System.out.println("Failed to broadcast packet. (BroadcastServerThread.java)");
-            e.printStackTrace();
+                socket.send(packet);
+            } catch (IOException e) {
+                System.out.println("Failed to broadcast packet.");
+                e.printStackTrace();
+            }
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                // sleep was interrupted
+            }
         }
         socket.close();
+    }
+
+    public void stopBroadcast() {
+        shouldStop = true;
+        interrupt();
     }
 }

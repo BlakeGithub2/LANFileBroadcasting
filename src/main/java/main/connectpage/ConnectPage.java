@@ -2,7 +2,6 @@ package main.connectpage;
 
 import broadcast.BroadcastClient;
 import broadcast.BroadcastServer;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
@@ -17,7 +16,8 @@ public class ConnectPage implements Page {
     private BroadcastServer server;
 
     public ConnectPage() {
-        loadScene();
+        scene = Main.getSceneController().getScene("connectcode");
+
         createConnectionsList();
         onCreation();
         server = new BroadcastServer();
@@ -64,30 +64,17 @@ public class ConnectPage implements Page {
         }
     }
 
-    @Override
-    public void loadScene() {
-        try {
-            Pane root = FXMLLoader.load(getClass().getResource("/scenes/connectcode.fxml"));
-            scene = new Scene(root, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
-        } catch (IOException e) {
-            System.out.println("Exception loading login page scene. See ConnectPage.java.");
-            e.printStackTrace();
-            return;
-        }
-    }
-
     // Getters
-
-    @Override
-    public Scene getScene() {
-        return scene;
-    }
-
     public boolean isBroadcasting() {
         return server.isBroadcasting();
     }
 
     public ConnectionList getConnectionList() {
         return connections;
+    }
+
+    @Override
+    public Scene getScene() {
+        return scene;
     }
 }

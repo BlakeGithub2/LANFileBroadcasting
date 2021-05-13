@@ -53,6 +53,8 @@ public class Connection {
 
         // Create VBox within HBox
         Button connectButton = new Button("Connect");
+        //connectButton.setId("connectbutton" + ip);
+
         nameAndButton.getChildren().add(connectButton);
         nameAndButton.setSpacing(5);
         nameAndButton.setAlignment(Pos.CENTER);

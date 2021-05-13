@@ -1,39 +1,44 @@
+main/browse/BrowseFilePage.java
+ main.browse.BrowseFilePage
 example/chatroom/ServerThread.java
  example.chatroom.ServerThread
 example/simpleconnection/Client.java
  example.simpleconnection.Client
+broadcast/BroadcastServerThread.java
+ broadcast.BroadcastServerThread
 broadcast/BroadcastServer.java
  broadcast.BroadcastServer
-main/Page.java
- main.Page
 example/simpleconnection/ClientHandler.java
  example.simpleconnection.ClientHandler
 example/chatroom/Client.java
  example.chatroom.Client
 example/simpleconnection/Server.java
  example.simpleconnection.Server
-main/LoginPage.java
- main.LoginPage
-broadcast/BroadcastServerThread.java
- broadcast.BroadcastServerThread
+main/Page.java
+ main.Page
+main/connectpage/Connection.java
+ main.connectpage.Connection
 example/simpleconnection/ServerConnection.java
  example.simpleconnection.ServerConnection
 example/chatroom/ClientThread.java
  example.chatroom.ClientThread
 example/chatroom/ChatServer.java
  example.chatroom.ChatServer
-main/connectpage/Connection.java
- main.connectpage.Connection
+main/browse/BrowseFilePageController.java
+ main.browse.BrowseFilePageController
 main/connectpage/ConnectionList.java
  main.connectpage.ConnectionList
  main.connectpage.ConnectionList$1
-main/Main.java
- main.Main
-main/connectpage/ConnectPage.java
- main.connectpage.ConnectPage
-broadcast/BroadcastClient.java
- broadcast.BroadcastClient
-main/connectpage/ConnectPageController.java
- main.connectpage.ConnectPageController
 broadcast/BroadcastClientThread.java
  broadcast.BroadcastClientThread
+main/connectpage/ConnectPageController.java
+ main.connectpage.ConnectPageController
+broadcast/BroadcastClient.java
+ broadcast.BroadcastClient
+main/Main.java
+ main.Main
+main/SceneController.java
+ main.SceneController
+ main.SceneController$1
+main/connectpage/ConnectPage.java
+ main.connectpage.ConnectPage

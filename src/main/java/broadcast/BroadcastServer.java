@@ -11,7 +11,7 @@ public class BroadcastServer {
             thread = new BroadcastServerThread();
             thread.start();
         } else {
-            thread.interrupt();
+            thread.stopBroadcast();
         }
         broadcasting = !broadcasting;
     }

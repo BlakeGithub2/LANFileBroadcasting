@@ -18,13 +18,16 @@ public class ConnectionList {
     }
 
     // Misc.
-    public void addConnection(String name, InetAddress ip) {
+    public boolean addConnection(String name, InetAddress ip) {
         Connection connection = new Connection(name, ip);
 
         if (!containsAddress(connection.getAddress())) {
             connections.add(connection);
             addToPane(connection);
+            return true;
         }
+
+        return false;
     }
     private void addToPane(Connection connection) {
         Platform.runLater(new Runnable() {

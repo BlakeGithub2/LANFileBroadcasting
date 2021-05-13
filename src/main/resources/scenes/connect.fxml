@@ -25,16 +25,6 @@
                         <Image url="@../../../../build/resources/main/sprites/sprites/folder.png" />
                      </image>
                   </ImageView>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="127.0.0.1">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Text>
-                        <Button mnemonicParsing="false" text="View Files" />
-                     </children>
-                  </VBox>
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
@@ -44,16 +34,6 @@
                         <Image url="@../../../../build/resources/main/sprites/sprites/folder.png" />
                      </image>
                   </ImageView>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="127.0.0.1">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Text>
-                        <Button mnemonicParsing="false" text="View Files" />
-                     </children>
-                  </VBox>
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
@@ -63,16 +43,6 @@
                         <Image url="@../../../../build/resources/main/sprites/sprites/folder.png" />
                      </image>
                   </ImageView>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="127.0.0.1">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Text>
-                        <Button mnemonicParsing="false" text="View Files" />
-                     </children>
-                  </VBox>
                </children>
             </HBox>
          </children>

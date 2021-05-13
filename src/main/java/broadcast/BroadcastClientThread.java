@@ -42,8 +42,7 @@ public class BroadcastClientThread extends Thread {
     private MulticastSocket socket;
     private InetAddress address;
     private ConnectPage page;
-
-    private static final int FIVE_SECONDS = 5000;
+    private boolean shouldStop;
 
     public BroadcastClientThread(ConnectPage page) throws IOException {
         this("BroadcastClientThread", page);
@@ -52,7 +51,6 @@ public class BroadcastClientThread extends Thread {
     public BroadcastClientThread(String name, ConnectPage page) throws IOException {
         super(name);
         socket = new MulticastSocket(4446);
-        socket.setSoTimeout(FIVE_SECONDS);
         address = InetAddress.getByName("230.0.0.255");
         socket.joinGroup(address);
         this.page = page;
@@ -60,7 +58,9 @@ public class BroadcastClientThread extends Thread {
 
     @Override
     public void run() {
-        while (true) {
+        while (!shouldStop) {
+            boolean shouldSleep = true;
+
             try {
                 DatagramPacket packet;
 
@@ -72,20 +72,24 @@ public class BroadcastClientThread extends Thread {
 
                 // Find received message
                 String received = new String(packet.getData(), 0, packet.getLength());
-                page.getConnectionList().addConnection(received, packet.getAddress());
+                if (!page.getConnectionList().addConnection(received, packet.getAddress())) {
+                    shouldSleep = false;
+                }
             } catch (IOException e) {
                 System.out.println("Could not receive broadcasted messages.");
                 break;
             }
 
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                System.out.println("Could not delay searching for broadcasted messages.");
-                e.printStackTrace();
+            if (shouldSleep) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    System.out.println("Could not delay searching for broadcasted messages.");
+                    e.printStackTrace();
+                }
             }
         }
-
+        System.out.println("disconnecting socket...");
         try {
             socket.leaveGroup(address);
         } catch (IOException e) {
@@ -93,5 +97,10 @@ public class BroadcastClientThread extends Thread {
             e.printStackTrace();
         }
         socket.close();
+    }
+
+    public void stopListening() {
+        shouldStop = true;
+        interrupt();
     }
 }
