@@ -14,7 +14,7 @@ import java.util.HashMap;
 public class SceneController {
     // Thanks to https://stackoverflow.com/questions/37200845/how-to-switch-scenes-in-javafx!
     private HashMap<String, Scene> sceneMap = new HashMap<>();
-    private static Stage mainWindow;
+    private Stage mainWindow;
 
     public SceneController(Stage primaryStage) {
         mainWindow = primaryStage;
@@ -67,7 +67,7 @@ public class SceneController {
         return sceneMap.get(name);
     }
 
-    public static Stage getMainWindow() {
+    public Stage getMainWindow() {
         return mainWindow;
     }
 }
