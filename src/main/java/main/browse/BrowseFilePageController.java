@@ -1,6 +1,8 @@
 package main.browse;
 
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import main.Main;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -12,6 +14,11 @@ public class BrowseFilePageController implements Initializable {
 
     public static void addModel(BrowseFilePage page) {
         BrowseFilePageController.page = page;
+    }
+
+    @FXML
+    private void goBack() {
+        Main.getSceneController().activate("connectcode");
     }
 
     @Override

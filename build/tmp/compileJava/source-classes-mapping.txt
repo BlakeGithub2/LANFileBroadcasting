@@ -16,8 +16,9 @@ example/simpleconnection/Server.java
  example.simpleconnection.Server
 main/Page.java
  main.Page
-main/Main.java
- main.Main
+main/connectpage/Connection.java
+ main.connectpage.Connection
+ main.connectpage.Connection$1
 example/simpleconnection/ServerConnection.java
  example.simpleconnection.ServerConnection
 example/chatroom/ClientThread.java
@@ -26,8 +27,9 @@ example/chatroom/ChatServer.java
  example.chatroom.ChatServer
 main/connectpage/ConnectPage.java
  main.connectpage.ConnectPage
-main/browse/BrowseFilePageController.java
- main.browse.BrowseFilePageController
+main/connectpage/ConnectionList.java
+ main.connectpage.ConnectionList
+ main.connectpage.ConnectionList$1
 broadcast/BroadcastClientThread.java
  broadcast.BroadcastClientThread
 main/connectpage/ConnectPageController.java
@@ -37,9 +39,7 @@ broadcast/BroadcastClient.java
 main/SceneController.java
  main.SceneController
  main.SceneController$1
-main/connectpage/Connection.java
- main.connectpage.Connection
- main.connectpage.Connection$1
-main/connectpage/ConnectionList.java
- main.connectpage.ConnectionList
- main.connectpage.ConnectionList$1
+main/browse/BrowseFilePageController.java
+ main.browse.BrowseFilePageController
+main/Main.java
+ main.Main
