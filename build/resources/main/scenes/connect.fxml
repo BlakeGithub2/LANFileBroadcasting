@@ -47,9 +47,10 @@
             </HBox>
          </children>
       </TilePane>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
          <children>
             <Button id="broadcast_button" fx:id="ConnectPage" mnemonicParsing="false" onMouseClicked="#triggerBroadcasting" text="Start Broadcasting" textAlignment="CENTER" />
+            <Button id="broadcast_button" fx:id="ConnectPage1" mnemonicParsing="false" onMouseClicked="#triggerBroadcasting" text="Refresh Connections" textAlignment="CENTER" />
          </children>
       </HBox>
    </children>

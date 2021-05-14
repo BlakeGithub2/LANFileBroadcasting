@@ -1,5 +1,7 @@
 package main.connectpage;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -8,6 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import main.Main;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -53,7 +56,16 @@ public class Connection {
 
         // Create VBox within HBox
         Button connectButton = new Button("Connect");
-        //connectButton.setId("connectbutton" + ip);
+
+        // TODO: Move to a Controller class?
+        if (ip == null) {
+            connectButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    Main.getSceneController().activate("browse");
+                }
+            });
+        }
 
         nameAndButton.getChildren().add(connectButton);
         nameAndButton.setSpacing(5);
