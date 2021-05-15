@@ -3,6 +3,7 @@ package main.connectpage;
 import broadcast.BroadcastClient;
 import broadcast.BroadcastServer;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import main.Main;
@@ -51,6 +52,12 @@ public class ConnectPage implements Page {
             server.toggle();
         } catch (IOException e) {
             System.out.println("Could not toggle broadcast.");
+
+            String errorText = e.getMessage();
+
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setContentText(e.getMessage());
+            a.show();
             e.printStackTrace();
             return;
         }
