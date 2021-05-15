@@ -7,8 +7,8 @@ example/simpleconnection/Client.java
 utils/FileUtils.java
  utils.FileUtils
  utils.FileUtils$1
-main/browse/BrowseFilePageController.java
- main.browse.BrowseFilePageController
+broadcast/BroadcastClientThread.java
+ broadcast.BroadcastClientThread
 example/simpleconnection/ClientHandler.java
  example.simpleconnection.ClientHandler
 example/chatroom/Client.java
@@ -32,17 +32,17 @@ main/connectpage/Connection.java
 main/connectpage/ConnectionList.java
  main.connectpage.ConnectionList
  main.connectpage.ConnectionList$1
-main/Main.java
- main.Main
-broadcast/BroadcastClientThread.java
- broadcast.BroadcastClientThread
-main/connectpage/ConnectPage.java
- main.connectpage.ConnectPage
-main/connectpage/ConnectPageController.java
- main.connectpage.ConnectPageController
-broadcast/BroadcastClient.java
- broadcast.BroadcastClient
-broadcast/BroadcastServerThread.java
- broadcast.BroadcastServerThread
 broadcast/BroadcastServer.java
  broadcast.BroadcastServer
+broadcast/BroadcastServerThread.java
+ broadcast.BroadcastServerThread
+main/connectpage/ConnectPageController.java
+ main.connectpage.ConnectPageController
+main/connectpage/ConnectPage.java
+ main.connectpage.ConnectPage
+broadcast/BroadcastClient.java
+ broadcast.BroadcastClient
+main/browse/BrowseFilePageController.java
+ main.browse.BrowseFilePageController
+main/Main.java
+ main.Main
