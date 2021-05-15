@@ -49,21 +49,19 @@ public class BrowseFilePageController implements Initializable {
         contentText = contentText.concat("Remaining disk storage: " + FileUtils.getByteValueString(selectedDir.getUsableSpace()) + "\n");
         alert.setContentText(contentText);
 
-        createAddProjectConfirmationAlertButtons(alert);
+        createAddProjectConfirmationAlertButtons(selectedDir, alert);
     }
-    private void createAddProjectConfirmationAlertButtons(Alert alert) {
+    private void createAddProjectConfirmationAlertButtons(File selectedDir, Alert alert) {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
-            addProject();
-        } else {
-            cancelAddProject();
+            addProject(selectedDir);
         }
     }
-    private void addProject() {
+    private void addProject(File selectedDir) {
+        // TODO: Copy project over so that local version control works
 
-    }
-    private void cancelAddProject() {
-
+        // Add project directory to list
+        page.addProject(selectedDir);
     }
 
     @Override

@@ -14,6 +14,8 @@ public class Main extends Application {
     public static int SCREEN_WIDTH = 620;
     public static int SCREEN_HEIGHT = 480;
 
+    public static String IMAGE_PACKAGE = "/sprites/";
+
     public static void main(String[] args) {
         launch(args);
     }

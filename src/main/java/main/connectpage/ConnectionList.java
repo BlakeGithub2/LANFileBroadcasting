@@ -1,20 +1,15 @@
 package main.connectpage;
 
-import javafx.application.Platform;
 import javafx.scene.layout.Pane;
+import main.GUIPane;
+import main.GUIPaneList;
 
 import java.net.InetAddress;
-import java.util.ArrayList;
 
-public class ConnectionList {
-    // Variables
-    private ArrayList<Connection> connections;
-    private Pane pane;
-
+public class ConnectionList extends GUIPaneList {
     // Constructors
     public ConnectionList(Pane pane) {
-        this.pane = pane;
-        this.connections = new ArrayList<>();
+        super(pane);
     }
 
     // Misc.
@@ -22,23 +17,15 @@ public class ConnectionList {
         Connection connection = new Connection(name, ip);
 
         if (!containsAddress(connection.getAddress())) {
-            connections.add(connection);
-            addToPane(connection);
+            add(connection);
             return true;
         }
 
         return false;
     }
-    private void addToPane(Connection connection) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                pane.getChildren().add(connection.getPane());
-            }
-        });
-    }
     public boolean containsAddress(InetAddress ip) {
-        for (Connection c : connections) {
+        for (GUIPane element : getElementList()) {
+            Connection c = (Connection) element;
             if (c.getAddress() == null) {
                 continue;
             }
@@ -48,10 +35,4 @@ public class ConnectionList {
         }
         return false;
     }
-
-    // Getters
-    public ArrayList<Connection> getConnections() {
-        return connections;
-    }
-
 }
