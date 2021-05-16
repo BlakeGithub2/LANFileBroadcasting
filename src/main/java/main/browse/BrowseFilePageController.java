@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import main.Main;
 import utils.FileUtils;
@@ -16,11 +17,12 @@ import java.util.ResourceBundle;
 public class BrowseFilePageController implements Initializable {
     private static BrowseFilePage page;
 
-    public BrowseFilePageController() { }
-
     public static void addModel(BrowseFilePage page) {
         BrowseFilePageController.page = page;
     }
+
+    @FXML
+    private VBox filePane;
 
     @FXML
     private void goBack() {
@@ -30,6 +32,7 @@ public class BrowseFilePageController implements Initializable {
     @FXML
     private void add() {
         File selectedDir = chooseDirectory();
+        System.out.println("filePane: " + filePane);
         showAddProjectConfirmation(selectedDir);
     }
     private File chooseDirectory() {

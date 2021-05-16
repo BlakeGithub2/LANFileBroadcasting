@@ -22,7 +22,6 @@ public class ConnectPage implements Page {
         createConnectionsList();
         onCreation();
         server = new BroadcastServer();
-        System.out.println("Connect page created.");
     }
 
     private void createConnectionsList() {

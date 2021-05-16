@@ -23,6 +23,12 @@ public abstract class GUIPaneList {
         addToPane(element);
     }
     protected void addToPane(GUIPane element) {
+        if (element == null) {
+            throw new NullPointerException("GUI Element cannot be null.");
+        }
+        if (pane == null) {
+            throw new NullPointerException("Pane to GUI Element to cannot be null.");
+        }
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
