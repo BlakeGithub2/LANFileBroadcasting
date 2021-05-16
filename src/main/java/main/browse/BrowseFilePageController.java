@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.ListView;
 import javafx.stage.DirectoryChooser;
 import main.Main;
 import utils.FileUtils;
@@ -22,7 +22,7 @@ public class BrowseFilePageController implements Initializable {
     }
 
     @FXML
-    private VBox filePane;
+    private ListView projectList;
 
     @FXML
     private void goBack() {
@@ -31,8 +31,8 @@ public class BrowseFilePageController implements Initializable {
 
     @FXML
     private void add() {
+        projectList.setItems(page.getProjects());
         File selectedDir = chooseDirectory();
-        System.out.println("filePane: " + filePane);
         showAddProjectConfirmation(selectedDir);
     }
     private File chooseDirectory() {
