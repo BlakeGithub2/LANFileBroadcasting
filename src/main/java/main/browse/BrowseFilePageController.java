@@ -33,7 +33,9 @@ public class BrowseFilePageController implements Initializable {
     private void add() {
         projectList.setItems(page.getProjects());
         File selectedDir = chooseDirectory();
-        showAddProjectConfirmation(selectedDir);
+        if (selectedDir != null) {
+            showAddProjectConfirmation(selectedDir);
+        }
     }
     private File chooseDirectory() {
         DirectoryChooser chooser = new DirectoryChooser();
