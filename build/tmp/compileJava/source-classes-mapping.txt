@@ -50,8 +50,6 @@ main/browse/BrowseFilePage.java
  main.browse.BrowseFilePage
 main/browse/Project.java
  main.browse.Project
-main/browse/ProjectList.java
- main.browse.ProjectList
 main/browse/BrowseFilePageController.java
  main.browse.BrowseFilePageController
  main.browse.BrowseFilePageController$1

@@ -91,6 +91,18 @@ public class BrowseFilePageController implements Initializable {
         page.addProject(selectedDir);
     }
 
+    @FXML
+    private void delete() {
+        Project toDelete = (Project) projectList.getSelectionModel().getSelectedItem();
+        if (toDelete == null) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setContentText("No project selected for deletion.");
+        } else {
+            // Delete the project
+            projectList.getItems().remove(toDelete);
+        }
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
