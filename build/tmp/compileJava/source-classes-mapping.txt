@@ -26,14 +26,14 @@ example/chatroom/ClientThread.java
  example.chatroom.ClientThread
 example/chatroom/ChatServer.java
  example.chatroom.ChatServer
-main/browse/ProjectList.java
- main.browse.ProjectList
+main/connectpage/ConnectPage.java
+ main.connectpage.ConnectPage
 broadcast/BroadcastServerThread.java
  broadcast.BroadcastServerThread
 example/simpleconnection/Server.java
  example.simpleconnection.Server
-main/browse/Project.java
- main.browse.Project
+utils/ImageUtils.java
+ utils.ImageUtils
 main/connectpage/ConnectPageController.java
  main.connectpage.ConnectPageController
 broadcast/BroadcastClient.java
@@ -46,13 +46,14 @@ main/SceneController.java
 main/connectpage/Connection.java
  main.connectpage.Connection
  main.connectpage.Connection$1
-utils/ImageUtils.java
- utils.ImageUtils
-main/connectpage/ConnectPage.java
- main.connectpage.ConnectPage
 main/browse/BrowseFilePage.java
  main.browse.BrowseFilePage
+main/browse/Project.java
+ main.browse.Project
+main/browse/ProjectList.java
+ main.browse.ProjectList
 main/browse/BrowseFilePageController.java
  main.browse.BrowseFilePageController
+ main.browse.BrowseFilePageController$1
 main/Main.java
  main.Main

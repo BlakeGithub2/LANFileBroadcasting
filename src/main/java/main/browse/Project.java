@@ -33,4 +33,8 @@ public class Project implements GUIPane {
 
         return pane;
     }
+
+    public String getName() {
+        return filepath.getFileName().toString();
+    }
 }

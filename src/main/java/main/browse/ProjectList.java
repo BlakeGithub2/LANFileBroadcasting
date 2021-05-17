@@ -10,6 +10,5 @@ public class ProjectList extends GUIPaneList {
 
     public void addProject(Project p) {
         add(p);
-        System.out.println("Project added.");
     }
 }

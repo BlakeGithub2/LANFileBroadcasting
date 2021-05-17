@@ -12,14 +12,9 @@
 
 <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="464.0" prefWidth="654.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.browse.BrowseFilePageController">
    <children>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Your Projects">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Text>
-      <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="265.0">
+      <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="307.0" prefWidth="654.0">
          <content>
-            <VBox id="filePane" fx:id="filePane" alignment="TOP_CENTER" prefHeight="255.0" prefWidth="342.0">
+            <VBox id="filePane" fx:id="filePane" alignment="TOP_CENTER" prefHeight="255.0" prefWidth="654.0">
                <children>
                   <HBox alignment="CENTER" prefHeight="44.0" prefWidth="595.0" spacing="10.0">
                      <children>
@@ -28,14 +23,14 @@
                               <Image url="@../../../../build/resources/main/sprites/folder.png" />
                            </image>
                         </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="EChest2">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Projects">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Text>
                      </children>
                   </HBox>
-                  <ListView fx:id="projectList" prefHeight="200.0" prefWidth="200.0" />
+                  <ListView fx:id="projectList" prefHeight="248.0" prefWidth="654.0" />
                </children>
             </VBox>
          </content>
