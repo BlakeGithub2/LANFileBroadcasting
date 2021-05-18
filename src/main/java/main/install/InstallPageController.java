@@ -53,8 +53,8 @@ public class InstallPageController {
     }
     private void showCreateFileFailureAlert() {
         Alert a = new Alert(Alert.AlertType.ERROR);
-        a.setContentText("Could not create file. Check to ensure a folder can be made at the inputted" +
-                "directory, no directory or file with the same name exists, " +
+        a.setContentText("Could not create folder. Check to ensure a folder can be made at the inputted" +
+                "path, no folder or file with the same name exists, " +
                 "and you have proper permissions.");
         a.show();
     }
