@@ -6,9 +6,8 @@ import main.browse.BrowseFilePage;
 import main.browse.BrowseFilePageController;
 import main.connectpage.ConnectPage;
 import main.connectpage.ConnectPageController;
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import main.install.InstallPage;
+import main.install.InstallPageController;
 
 public class Main extends Application {
 
@@ -16,6 +15,7 @@ public class Main extends Application {
 
     public static int SCREEN_WIDTH = 620;
     public static int SCREEN_HEIGHT = 480;
+    public static String MAIN_FILE_NAME = "LANVersionControl";
 
     public static String IMAGE_PACKAGE = "/sprites/";
 
@@ -29,20 +29,21 @@ public class Main extends Application {
 
         addPages();
         addModels();
-        Path root = Paths.get(".").normalize().toAbsolutePath();
-        System.out.println(root);
-        sceneController.activate("connectcode");
+
+        sceneController.activate("installer");
     }
 
     private void addPages() {
         sceneController.addPage("connectcode");
         sceneController.addPage("browse");
+        sceneController.addPage("installer");
     }
 
     private void addModels() {
         // TODO: Find a way to automatically do this so package structure is correct
         ConnectPageController.addModel(new ConnectPage());
         BrowseFilePageController.addModel(new BrowseFilePage());
+        InstallPageController.addModel(new InstallPage());
     }
 
     public static SceneController getSceneController() {

@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="InstallPageController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.install.InstallPageController">
    <children>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Installer" textAlignment="CENTER">
          <font>
@@ -27,14 +27,14 @@
                   <Font size="14.0" />
                </font>
             </TextField>
-            <Button fx:id="selectFolderButton" mnemonicParsing="false" text="...">
+            <Button fx:id="selectFolderButton" mnemonicParsing="false" onMouseClicked="#selectFolder" text="...">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
          </children>
       </HBox>
-      <Button fx:id="submit" mnemonicParsing="false" text="Continue">
+      <Button fx:id="submitButton" mnemonicParsing="false" onMouseClicked="#submit" text="Continue">
          <font>
             <Font size="14.0" />
          </font>
