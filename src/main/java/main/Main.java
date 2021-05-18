@@ -7,6 +7,9 @@ import main.browse.BrowseFilePageController;
 import main.connectpage.ConnectPage;
 import main.connectpage.ConnectPageController;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 public class Main extends Application {
 
     private static SceneController sceneController;
@@ -26,7 +29,8 @@ public class Main extends Application {
 
         addPages();
         addModels();
-
+        Path root = Paths.get(".").normalize().toAbsolutePath();
+        System.out.println(root);
         sceneController.activate("connectcode");
     }
 
