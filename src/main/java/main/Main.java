@@ -20,7 +20,7 @@ public class Main extends Application {
 
     public static String IMAGE_PACKAGE = "/sprites/";
 
-    private static BaseFile addressFile;
+    private static BaseFile baseFile;
 
     public static void main(String[] args) {
         launch(args);
@@ -29,7 +29,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         sceneController = new SceneController(primaryStage);
-        addressFile = new BaseFile();
+        baseFile = new BaseFile();
 
         addPages();
         addModels();
@@ -38,9 +38,9 @@ public class Main extends Application {
     }
 
     private void goToFirstScene() {
-        if (addressFile.addressFileExists()) {
+        if (baseFile.addressFileExists()) {
             sceneController.activate("connectcode");
-            addressFile.loadBasePath();
+            baseFile.loadBasePath();
         } else {
             sceneController.activate("installer");
         }
@@ -63,7 +63,7 @@ public class Main extends Application {
         return sceneController;
     }
 
-    public static BaseFile getAddressFile() {
-        return addressFile;
+    public static BaseFile getBaseFile() {
+        return baseFile;
     }
 }

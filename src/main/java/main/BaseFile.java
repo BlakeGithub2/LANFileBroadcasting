@@ -117,4 +117,19 @@ public class BaseFile {
                 "Exiting the program.");
         a.showAndWait();
     }
+
+    public File getBaseFile() {
+        if (file != null && !file.exists()) {
+            showCouldNotLoadBaseAddressSoGoInstallMessage();
+            Main.getSceneController().activate("install");
+        }
+
+        return file;
+    }
+    private void showCouldNotLoadBaseAddressSoGoInstallMessage() {
+        Alert a = new Alert(Alert.AlertType.ERROR);
+        a.setContentText("Could not load base address of program.\n" +
+                "Please locate it again.");
+        a.showAndWait();
+    }
 }
