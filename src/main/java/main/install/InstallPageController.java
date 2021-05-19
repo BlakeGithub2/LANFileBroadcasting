@@ -2,7 +2,6 @@ package main.install;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
 import main.Main;
@@ -15,9 +14,6 @@ public class InstallPageController {
     @FXML
     private TextField selectFolderBox;
 
-    @FXML
-    private Button selectFolderButton;
-
     public static void addModel(InstallPage page) {
         InstallPageController.page = page;
     }
@@ -29,7 +25,6 @@ public class InstallPageController {
         File selectedDir = dirChooser.showDialog(Main.getSceneController().getMainWindow());
 
         if (selectedDir == null) {
-            // Cancelled
             return;
         }
 
@@ -38,7 +33,13 @@ public class InstallPageController {
 
     @FXML
     private void submit() {
-        String dirStr = selectFolderBox.getText() + "/" + Main.MAIN_FILE_NAME;
+        // Return if text box does not contain text
+        if (selectFolderBox.getText().equals("")) {
+            showNoTextFailureAlert();
+            return;
+        }
+
+        String dirStr = selectFolderBox.getText().trim() + "/" + Main.MAIN_FILE_NAME;
         File file = new File(dirStr);
 
         boolean createdFile = file.mkdir();
@@ -50,10 +51,19 @@ public class InstallPageController {
             showCreateFileFailureAlert();
             return;
         }
+
+        // Save file
+        Main.getFileSystem().saveBasePath(dirStr);
+    }
+
+    private void showNoTextFailureAlert() {
+        Alert a = new Alert(Alert.AlertType.ERROR);
+        a.setContentText("No save path inputted.");
+        a.show();
     }
     private void showCreateFileFailureAlert() {
         Alert a = new Alert(Alert.AlertType.ERROR);
-        a.setContentText("Could not create folder. Check to ensure a folder can be made at the inputted" +
+        a.setContentText("Could not create folder. Check to ensure a folder can be created at the inputted " +
                 "path, no folder or file with the same name exists, " +
                 "and you have proper permissions.");
         a.show();

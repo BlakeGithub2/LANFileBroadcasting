@@ -12,10 +12,12 @@ import main.install.InstallPageController;
 public class Main extends Application {
 
     private static SceneController sceneController;
+    private static FileSystem fileSystem;
 
     public static int SCREEN_WIDTH = 620;
     public static int SCREEN_HEIGHT = 480;
     public static String MAIN_FILE_NAME = "LANVersionControl";
+    public static String LOCAL_ADDRESS_FILE_PATH = "basefile.txt";
 
     public static String IMAGE_PACKAGE = "/sprites/";
 
@@ -26,11 +28,21 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         sceneController = new SceneController(primaryStage);
+        fileSystem = new FileSystem();
 
         addPages();
         addModels();
 
-        sceneController.activate("installer");
+        goToFirstScene();
+    }
+
+    private void goToFirstScene() {
+        if (fileSystem.addressFileExists()) {
+            sceneController.activate("connectcode");
+            fileSystem.loadBasePath();
+        } else {
+            sceneController.activate("installer");
+        }
     }
 
     private void addPages() {
@@ -48,5 +60,9 @@ public class Main extends Application {
 
     public static SceneController getSceneController() {
         return sceneController;
+    }
+
+    public static FileSystem getFileSystem() {
+        return fileSystem;
     }
 }
