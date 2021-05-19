@@ -45,9 +45,8 @@ main/browse/BrowseFilePage.java
 main/connectpage/Connection.java
  main.connectpage.Connection
  main.connectpage.Connection$1
-main/browse/BrowseFilePageController.java
- main.browse.BrowseFilePageController
- main.browse.BrowseFilePageController$1
+utils/ImageUtils.java
+ utils.ImageUtils
 main/Main.java
  main.Main
 main/SceneController.java
@@ -59,5 +58,6 @@ main/BaseFile.java
  main.BaseFile
 main/install/InstallPageController.java
  main.install.InstallPageController
-utils/ImageUtils.java
- utils.ImageUtils
+main/browse/BrowseFilePageController.java
+ main.browse.BrowseFilePageController
+ main.browse.BrowseFilePageController$1

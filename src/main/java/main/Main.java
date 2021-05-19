@@ -2,8 +2,6 @@ package main;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import main.browse.BrowseFilePage;
-import main.browse.BrowseFilePageController;
 import main.connectpage.ConnectPage;
 import main.connectpage.ConnectPageController;
 import main.install.InstallPage;
@@ -15,7 +13,9 @@ public class Main extends Application {
 
     public static int SCREEN_WIDTH = 620;
     public static int SCREEN_HEIGHT = 480;
+
     public static String MAIN_FILE_NAME = "LANVersionControl";
+    public static String PROJECT_INFO_FILE_PATH = "projectinfo.txt";
     public static String LOCAL_ADDRESS_FILE_PATH = "basefile.txt";
 
     public static String IMAGE_PACKAGE = "/sprites/";
@@ -31,6 +31,10 @@ public class Main extends Application {
         sceneController = new SceneController(primaryStage);
         baseFile = new BaseFile();
 
+        if (baseFile.addressFileExists()) {
+            baseFile.loadBasePath();
+        }
+
         addPages();
         addModels();
 
@@ -40,7 +44,6 @@ public class Main extends Application {
     private void goToFirstScene() {
         if (baseFile.addressFileExists()) {
             sceneController.activate("connectcode");
-            baseFile.loadBasePath();
         } else {
             sceneController.activate("installer");
         }
@@ -55,7 +58,6 @@ public class Main extends Application {
     private void addModels() {
         // TODO: Find a way to automatically do this so package structure is correct
         ConnectPageController.addModel(new ConnectPage());
-        BrowseFilePageController.addModel(new BrowseFilePage());
         InstallPageController.addModel(new InstallPage());
     }
 

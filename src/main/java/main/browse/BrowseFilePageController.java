@@ -13,16 +13,13 @@ import utils.FileUtils;
 import utils.ImageUtils;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class BrowseFilePageController implements Initializable {
     private static BrowseFilePage page;
-
-    public static void addModel(BrowseFilePage page) {
-        BrowseFilePageController.page = page;
-    }
 
     @FXML
     private ListView projectList;
@@ -34,30 +31,10 @@ public class BrowseFilePageController implements Initializable {
 
     @FXML
     private void add() {
-        projectList.setItems(page.getProjects());
         File selectedDir = chooseDirectory();
         if (selectedDir != null) {
             showAddProjectConfirmation(selectedDir);
         }
-        projectList.setCellFactory(param -> new ListCell<Project>() {
-            @Override
-            protected void updateItem(Project item, boolean empty) {
-                super.updateItem(item, empty);
-
-                if (empty || item == null) {
-                    setText(null);
-                    setGraphic(null);
-                } else {
-                    setText(item.getName());
-
-                    ImageView graphic = ImageUtils.loadImageView("folder.png");
-                    graphic.setFitWidth(64);
-                    graphic.setFitHeight(64);
-
-                    setGraphic(graphic);
-                }
-            }
-        });
     }
     private File chooseDirectory() {
         DirectoryChooser chooser = new DirectoryChooser();
@@ -87,8 +64,21 @@ public class BrowseFilePageController implements Initializable {
     private void addProject(File selectedDir) {
         // TODO: Copy project over so that local version control works
 
-        // Add project directory to list
         page.addProject(selectedDir);
+        trySave();
+    }
+    private void showCouldNotSavePageMessage() {
+        Alert a = new Alert(Alert.AlertType.ERROR);
+        a.setContentText("Could not save projects arrangement.");
+        a.showAndWait();
+    }
+    private void trySave() {
+        try {
+            page.save();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showCouldNotSavePageMessage();
+        }
     }
 
     @FXML
@@ -101,10 +91,36 @@ public class BrowseFilePageController implements Initializable {
             // Delete the project
             projectList.getItems().remove(toDelete);
         }
+        trySave();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        page = new BrowseFilePage();
+        try {
+            page.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        projectList.setItems(page.getProjects());
+        projectList.setCellFactory(param -> new ListCell<Project>() {
+            @Override
+            protected void updateItem(Project item, boolean empty) {
+                super.updateItem(item, empty);
 
+                if (empty || item == null) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    setText(item.getName());
+
+                    ImageView graphic = ImageUtils.loadImageView("folder.png");
+                    graphic.setFitWidth(64);
+                    graphic.setFitHeight(64);
+
+                    setGraphic(graphic);
+                }
+            }
+        });
     }
 }

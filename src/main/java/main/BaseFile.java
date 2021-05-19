@@ -12,8 +12,27 @@ import java.io.PrintWriter;
 public class BaseFile {
     private File file;
 
-    public File getFileAt(String appendDir) {
-        return new File(file.getPath().toString() + "/" + appendDir);
+    public File getFileAt(String appendDir) throws IOException {
+        File result = new File(getFile().getPath() + "/" + appendDir);
+
+        if (!result.exists()) {
+            result.createNewFile();
+        }
+
+        return result;
+    }
+
+    public File getDirectoryAt(String appendDir) throws IOException {
+        File result = new File(getFile().getPath() + "/" + appendDir);
+
+        if (!result.exists()) {
+            if (!result.mkdir()) {
+                throw new IOException("Could not create file at appended " +
+                        "directory " + appendDir);
+            }
+        }
+
+        return result;
     }
 
     public void saveBasePath(String dirStr) {
@@ -118,10 +137,11 @@ public class BaseFile {
         a.showAndWait();
     }
 
-    public File getBaseFile() {
-        if (file != null && !file.exists()) {
+    public File getFile() throws FileNotFoundException {
+        if (file == null || (file != null && !file.exists())) {
             showCouldNotLoadBaseAddressSoGoInstallMessage();
             Main.getSceneController().activate("install");
+            throw new FileNotFoundException("Could not find base file.");
         }
 
         return file;
