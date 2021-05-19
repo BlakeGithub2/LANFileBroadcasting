@@ -12,7 +12,6 @@ import main.install.InstallPageController;
 public class Main extends Application {
 
     private static SceneController sceneController;
-    private static FileSystem fileSystem;
 
     public static int SCREEN_WIDTH = 620;
     public static int SCREEN_HEIGHT = 480;
@@ -21,6 +20,8 @@ public class Main extends Application {
 
     public static String IMAGE_PACKAGE = "/sprites/";
 
+    private static BaseFile addressFile;
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -28,7 +29,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         sceneController = new SceneController(primaryStage);
-        fileSystem = new FileSystem();
+        addressFile = new BaseFile();
 
         addPages();
         addModels();
@@ -37,9 +38,9 @@ public class Main extends Application {
     }
 
     private void goToFirstScene() {
-        if (fileSystem.addressFileExists()) {
+        if (addressFile.addressFileExists()) {
             sceneController.activate("connectcode");
-            fileSystem.loadBasePath();
+            addressFile.loadBasePath();
         } else {
             sceneController.activate("installer");
         }
@@ -62,7 +63,7 @@ public class Main extends Application {
         return sceneController;
     }
 
-    public static FileSystem getFileSystem() {
-        return fileSystem;
+    public static BaseFile getAddressFile() {
+        return addressFile;
     }
 }

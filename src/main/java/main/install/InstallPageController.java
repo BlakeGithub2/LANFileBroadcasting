@@ -53,7 +53,7 @@ public class InstallPageController {
         }
 
         // Save file
-        Main.getFileSystem().saveBasePath(dirStr);
+        Main.getAddressFile().saveBasePath(dirStr);
     }
 
     private void showNoTextFailureAlert() {

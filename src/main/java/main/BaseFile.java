@@ -9,8 +9,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class FileSystem {
-    private File baseFile;
+public class BaseFile {
+    private File file;
+
+    public File getFileAt(String appendDir) {
+        return new File(file.getPath().toString() + "/" + appendDir);
+    }
 
     public void saveBasePath(String dirStr) {
         File addressFile = new File(Main.LOCAL_ADDRESS_FILE_PATH);
@@ -96,7 +100,7 @@ public class FileSystem {
         File newFile = new File(filePath);
 
         if (newFile.exists() && newFile != null) {
-            baseFile = newFile;
+            file = newFile;
         } else {
             showMessageIfBaseAddressDoesNotExist();
         }
@@ -111,21 +115,6 @@ public class FileSystem {
         Alert a = new Alert(Alert.AlertType.ERROR);
         a.setContentText("Could not load base address of program.\n" +
                 "Exiting the program.");
-        a.showAndWait();
-    }
-
-    public File getBaseFile() {
-        if (baseFile != null && !baseFile.exists()) {
-            showCouldNotLoadBaseAddressSoGoInstallMessage();
-            Main.getSceneController().activate("install");
-        }
-
-        return baseFile;
-    }
-    private void showCouldNotLoadBaseAddressSoGoInstallMessage() {
-        Alert a = new Alert(Alert.AlertType.ERROR);
-        a.setContentText("Could not load base address of program.\n" +
-                "Please locate it again.");
         a.showAndWait();
     }
 }

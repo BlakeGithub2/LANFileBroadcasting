@@ -10,7 +10,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.text.DecimalFormat;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class FileUtils {
+public final class FileUtils {
     public static long BYTES_PER_KILOBYTE = 1024;
     public static long BYTES_PER_MEGABYTE = 1024 * BYTES_PER_KILOBYTE;
     public static long BYTES_PER_GIGABYTE = 1024 * BYTES_PER_MEGABYTE;

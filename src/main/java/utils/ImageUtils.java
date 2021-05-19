@@ -8,7 +8,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
 
-public class ImageUtils {
+public final class ImageUtils {
     public static ImageView loadImageView(String imagePath) {
         FileInputStream fileImage = null;
         try {
