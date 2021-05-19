@@ -97,11 +97,17 @@ public class BrowseFilePageController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         page = new BrowseFilePage();
-        try {
-            page.load();
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        // Has to check if address file exists or program will not go to install
+        // screen if file isn't found, due to program being in initialization phase
+        if (Main.getBaseFile().addressFileExists()) {
+            try {
+                page.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+
         projectList.setItems(page.getProjects());
         projectList.setCellFactory(param -> new ListCell<Project>() {
             @Override
