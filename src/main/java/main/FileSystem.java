@@ -59,12 +59,12 @@ public class FileSystem {
 
         BufferedReader br = initializeBufferedReader();
         if (br == null) {
-            showCouldNotLoadBaseAddressMessage();
+            showCouldNotLoadBaseAddressSoExitingMessage();
         }
 
         String filePath = loadString(br);
         if (filePath == null) {
-            showCouldNotLoadBaseAddressMessage();
+            showCouldNotLoadBaseAddressSoExitingMessage();
         }
 
         assignToBaseFileIfExists(filePath);
@@ -103,11 +103,11 @@ public class FileSystem {
     }
     private void showMessageIfBaseAddressDoesNotExist() {
         if (!addressFileExists()) {
-            showCouldNotLoadBaseAddressMessage();
+            showCouldNotLoadBaseAddressSoExitingMessage();
             System.exit(1);
         }
     }
-    private void showCouldNotLoadBaseAddressMessage() {
+    private void showCouldNotLoadBaseAddressSoExitingMessage() {
         Alert a = new Alert(Alert.AlertType.ERROR);
         a.setContentText("Could not load base address of program.\n" +
                 "Exiting the program.");
@@ -115,6 +115,17 @@ public class FileSystem {
     }
 
     public File getBaseFile() {
+        if (baseFile != null && !baseFile.exists()) {
+            showCouldNotLoadBaseAddressSoGoInstallMessage();
+            Main.getSceneController().activate("install");
+        }
+
         return baseFile;
+    }
+    private void showCouldNotLoadBaseAddressSoGoInstallMessage() {
+        Alert a = new Alert(Alert.AlertType.ERROR);
+        a.setContentText("Could not load base address of program.\n" +
+                "Please locate it again.");
+        a.showAndWait();
     }
 }
