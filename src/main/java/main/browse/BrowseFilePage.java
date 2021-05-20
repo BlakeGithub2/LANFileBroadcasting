@@ -3,6 +3,7 @@ package main.browse;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import main.Main;
 import main.Page;
 
@@ -47,6 +48,35 @@ public class BrowseFilePage implements Page {
             out.write(project.getFilePath().toString());
             out.close();
         }
+
+        // Delete duplicate projects
+        String[] projectNames = file.list();
+        for (String name : projectNames) {
+            boolean projectDeleted = true;
+            for (Project project : projects) {
+                if (project.getName().equals(name)) {
+                    projectDeleted = false;
+                    break;
+                }
+            }
+
+            // TODO: If could not delete file, adds project back
+            if (projectDeleted) {
+                File internalProjectFile = getInternalProjectFile(file, name);
+                File projectInfoFile = new File(internalProjectFile + "/" + Main.PROJECT_INFO_FILE_PATH);
+
+                boolean couldDelete;
+                couldDelete = projectInfoFile.delete() && internalProjectFile.delete();
+                if (!couldDelete) {
+                    showCouldNotDeleteMessage();
+                }
+            }
+        }
+    }
+    private void showCouldNotDeleteMessage() {
+        Alert a = new Alert(Alert.AlertType.ERROR);
+        a.setContentText("Could not delete project.");
+        a.showAndWait();
     }
     public void load() throws IOException {
         File file = Main.getBaseFile().getDirectoryAt("projects");

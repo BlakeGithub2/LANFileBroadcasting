@@ -40,8 +40,8 @@ main/connectpage/ConnectPageController.java
  main.connectpage.ConnectPageController
 main/GUIPane.java
  main.GUIPane
-main/browse/BrowseFilePage.java
- main.browse.BrowseFilePage
+main/install/InstallPageController.java
+ main.install.InstallPageController
 main/connectpage/Connection.java
  main.connectpage.Connection
  main.connectpage.Connection$1
@@ -56,8 +56,8 @@ main/connectpage/ConnectPage.java
  main.connectpage.ConnectPage
 main/BaseFile.java
  main.BaseFile
-main/install/InstallPageController.java
- main.install.InstallPageController
+main/browse/BrowseFilePage.java
+ main.browse.BrowseFilePage
 main/browse/BrowseFilePageController.java
  main.browse.BrowseFilePageController
  main.browse.BrowseFilePageController$1
