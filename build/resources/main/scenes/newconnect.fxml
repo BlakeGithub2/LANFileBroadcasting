@@ -14,10 +14,10 @@
             <Font size="36.0" />
          </font>
       </Text>
-      <TilePane id="explorePane" fx:id="explore_pane" prefHeight="335.0" prefWidth="600.0" />
+      <TilePane id="explorePane" prefHeight="335.0" prefWidth="600.0" />
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
          <children>
-            <Button id="broadcastButton" fx:id="broadcastButton" mnemonicParsing="false" onMouseClicked="#triggerBroadcasting" text="Start Broadcasting">
+            <Button fx:id="broadcastButton" mnemonicParsing="false" onMouseClicked="#triggerBroadcasting" text="Start Broadcasting">
                <font>
                   <Font size="14.0" />
                </font>

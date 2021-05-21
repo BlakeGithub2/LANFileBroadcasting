@@ -21,12 +21,16 @@ import java.util.ResourceBundle;
 public class BrowseFilePageController implements Initializable {
     private static BrowseFilePage page;
 
+    public static void addModel(BrowseFilePage page) {
+        BrowseFilePageController.page = page;
+    }
+
     @FXML
     private ListView projectList;
 
     @FXML
     private void goBack() {
-        Main.getSceneController().activate("connectcode");
+        Main.getSceneController().activate("newconnect");
     }
 
     @FXML

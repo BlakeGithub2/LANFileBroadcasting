@@ -2,6 +2,12 @@ package main;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import main.browse.BrowseFilePage;
+import main.browse.BrowseFilePageController;
+import main.connectpage.ConnectPage;
+import main.connectpage.ConnectPageController;
+import main.install.InstallPage;
+import main.install.InstallPageController;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,6 +43,8 @@ public class Main extends Application {
         }
 
         addPages();
+        addModels();
+
         goToFirstScene();
     }
     public static void prepareTest(Stage primaryStage) throws IOException {
@@ -63,9 +71,17 @@ public class Main extends Application {
     }
     private static void addPages() {
         for (String page : pageList) {
-            System.out.println("Adding page: " +page);
             sceneController.addPage(page);
         }
+    }
+    private static void addModels() {
+        // Register all pages here!
+        // Necessary because otherwise controller under construction
+        // will load page while page is being created.
+
+        ConnectPageController.addModel(new ConnectPage());
+        BrowseFilePageController.addModel(new BrowseFilePage());
+        InstallPageController.addModel(new InstallPage());
     }
 
     public static SceneController getSceneController() {

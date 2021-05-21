@@ -9,12 +9,12 @@ example/simpleconnection/ClientHandler.java
  example.simpleconnection.ClientHandler
 example/chatroom/Client.java
  example.chatroom.Client
-example/chatroom/ChatServer.java
- example.chatroom.ChatServer
+main/Page.java
+ main.Page
 example/simpleconnection/ServerConnection.java
  example.simpleconnection.ServerConnection
-utils/ImageUtils.java
- utils.ImageUtils
+example/chatroom/ChatServer.java
+ example.chatroom.ChatServer
 example/chatroom/ClientThread.java
  example.chatroom.ClientThread
 main/connectpage/ConnectionList.java
@@ -25,8 +25,8 @@ main/BaseFileTest.java
  main.BaseFileTest
 main/browse/Project.java
  main.browse.Project
-broadcast/BroadcastClientThread.java
- broadcast.BroadcastClientThread
+main/GUIPane.java
+ main.GUIPane
 main/GUIPaneList.java
  main.GUIPaneList
  main.GUIPaneList$1
@@ -38,10 +38,10 @@ broadcast/BroadcastServerThread.java
  broadcast.BroadcastServerThread
 broadcast/BroadcastClient.java
  broadcast.BroadcastClient
-main/GUIPane.java
- main.GUIPane
-main/Page.java
- main.Page
+broadcast/BroadcastClientThread.java
+ broadcast.BroadcastClientThread
+main/connectpage/ConnectPageController.java
+ main.connectpage.ConnectPageController
 main/browse/BrowseFilePage.java
  main.browse.BrowseFilePage
 main/connectpage/Connection.java
@@ -61,5 +61,5 @@ main/BaseFile.java
  main.BaseFile
 main/install/InstallPageController.java
  main.install.InstallPageController
-main/connectpage/ConnectPageController.java
- main.connectpage.ConnectPageController
+utils/ImageUtils.java
+ utils.ImageUtils

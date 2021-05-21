@@ -49,7 +49,7 @@ public class InstallPageController implements Initializable {
 
         // File could not be created
         if (createdFile) {
-            Main.getSceneController().activate("connectcode");
+            Main.getSceneController().activate("newconnect");
         } else {
             showCreateFileFailureAlert();
             return;
