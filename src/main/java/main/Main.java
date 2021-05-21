@@ -2,8 +2,6 @@ package main;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import main.browse.BrowseFilePage;
-import main.browse.BrowseFilePageController;
 import main.connectpage.ConnectPage;
 import main.connectpage.ConnectPageController;
 import main.install.InstallPage;
@@ -80,7 +78,6 @@ public class Main extends Application {
         // will load page while page is being created.
 
         ConnectPageController.addModel(new ConnectPage());
-        BrowseFilePageController.addModel(new BrowseFilePage());
         InstallPageController.addModel(new InstallPage());
     }
 

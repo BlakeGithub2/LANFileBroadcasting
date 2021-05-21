@@ -16,12 +16,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 public class BrowseFilePage implements Page {
-    private Scene scene;
     private ObservableList<Project> projects = FXCollections.observableArrayList();
-
-    public BrowseFilePage() {
-        scene = Main.getSceneController().getScene("browse");
-    }
 
     public void addProject(File selectedDir) {
         Project project = new Project(selectedDir.getAbsoluteFile().toPath());
@@ -115,6 +110,6 @@ public class BrowseFilePage implements Page {
 
     @Override
     public Scene getScene() {
-        return scene;
+        return null;
     }
 }
