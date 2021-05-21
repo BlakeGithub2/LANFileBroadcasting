@@ -45,12 +45,11 @@ public class SceneController {
             Scene scene = new Scene(root, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
             return scene;
         } catch (IOException e) {
-            System.out.println("Exception loading login page scene.");
+            System.out.println("Exception loading login page scene. Attempted to load: " + loadText);
             e.printStackTrace();
             return null;
         }
     }
-
 
     public void activate(String name) {
         Scene scene = sceneMap.get(name);

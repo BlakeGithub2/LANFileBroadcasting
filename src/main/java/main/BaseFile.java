@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class BaseFile {
-    private File file;
+    protected File file;
 
     public File getFileAt(String appendDir) throws IOException {
         File result = new File(getFile().getPath() + "/" + appendDir);

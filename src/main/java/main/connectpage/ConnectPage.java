@@ -17,7 +17,7 @@ public class ConnectPage implements Page {
     private BroadcastServer server;
 
     public ConnectPage() {
-        scene = Main.getSceneController().getScene("connectcode");
+        scene = Main.getSceneController().getScene("newconnect");
 
         createConnectionsList();
         onCreation();
@@ -25,7 +25,7 @@ public class ConnectPage implements Page {
     }
 
     private void createConnectionsList() {
-        Pane explorePane = (Pane) scene.lookup("#explore_pane");
+        Pane explorePane = (Pane) scene.lookup("#explorePane");
         connections = new ConnectionList(explorePane);
     }
 
@@ -62,7 +62,7 @@ public class ConnectPage implements Page {
         }
 
         // Switch button text
-        Button broadcastButton = (Button) scene.lookup("#broadcast_button");
+        Button broadcastButton = (Button) scene.lookup("#broadcastButton");
         if (server.isBroadcasting()) {
             broadcastButton.setText("Stop Broadcasting");
         } else {

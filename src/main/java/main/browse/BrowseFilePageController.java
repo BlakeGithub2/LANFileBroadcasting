@@ -129,4 +129,8 @@ public class BrowseFilePageController implements Initializable {
             }
         });
     }
+
+    public BrowseFilePage getPage() {
+        return page;
+    }
 }

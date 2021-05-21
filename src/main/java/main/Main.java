@@ -2,10 +2,10 @@ package main;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import main.connectpage.ConnectPage;
-import main.connectpage.ConnectPageController;
-import main.install.InstallPage;
-import main.install.InstallPageController;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class Main extends Application {
 
@@ -21,6 +21,7 @@ public class Main extends Application {
     public static String IMAGE_PACKAGE = "/sprites/";
 
     private static BaseFile baseFile;
+    private static ArrayList<String> pageList = initializePageList();
 
     public static void main(String[] args) {
         launch(args);
@@ -36,29 +37,35 @@ public class Main extends Application {
         }
 
         addPages();
-        addModels();
-
         goToFirstScene();
     }
+    public static void prepareTest(Stage primaryStage) throws IOException {
+        sceneController = new SceneController(primaryStage);
+        baseFile = new BaseFileTest();
+        ((BaseFileTest) baseFile).setFile(new File("test"));
 
+    }
+
+    private static ArrayList<String> initializePageList() {
+        ArrayList<String> pageList = new ArrayList<>();
+        pageList.add("newconnect");
+        pageList.add("browse");
+        pageList.add("installer");
+
+        return pageList;
+    }
     private void goToFirstScene() {
         if (baseFile.addressFileExists()) {
-            sceneController.activate("connectcode");
+            sceneController.activate("newconnect");
         } else {
             sceneController.activate("installer");
         }
     }
-
-    private void addPages() {
-        sceneController.addPage("connectcode");
-        sceneController.addPage("browse");
-        sceneController.addPage("installer");
-    }
-
-    private void addModels() {
-        // TODO: Find a way to automatically do this so package structure is correct
-        ConnectPageController.addModel(new ConnectPage());
-        InstallPageController.addModel(new InstallPage());
+    private static void addPages() {
+        for (String page : pageList) {
+            System.out.println("Adding page: " +page);
+            sceneController.addPage(page);
+        }
     }
 
     public static SceneController getSceneController() {
@@ -67,5 +74,9 @@ public class Main extends Application {
 
     public static BaseFile getBaseFile() {
         return baseFile;
+    }
+
+    public static ArrayList<String> getPageList() {
+        return pageList;
     }
 }
