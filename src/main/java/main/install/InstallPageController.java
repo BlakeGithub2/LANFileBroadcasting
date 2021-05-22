@@ -1,14 +1,17 @@
 package main.install;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
 import main.Main;
 
 import java.io.File;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class InstallPageController {
+public class InstallPageController implements Initializable {
     private static InstallPage page;
 
     @FXML
@@ -46,7 +49,7 @@ public class InstallPageController {
 
         // File could not be created
         if (createdFile) {
-            Main.getSceneController().activate("connectcode");
+            Main.getSceneController().activate("newconnect");
         } else {
             showCreateFileFailureAlert();
             return;
@@ -67,5 +70,10 @@ public class InstallPageController {
                 "path, no folder or file with the same name exists, " +
                 "and you have proper permissions.");
         a.show();
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        InstallPageController.addModel(new InstallPage());
     }
 }

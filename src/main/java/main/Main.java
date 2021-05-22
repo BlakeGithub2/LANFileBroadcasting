@@ -7,6 +7,10 @@ import main.connectpage.ConnectPageController;
 import main.install.InstallPage;
 import main.install.InstallPageController;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+
 public class Main extends Application {
 
     private static SceneController sceneController;
@@ -21,6 +25,7 @@ public class Main extends Application {
     public static String IMAGE_PACKAGE = "/sprites/";
 
     private static BaseFile baseFile;
+    private static ArrayList<String> pageList = initializePageList();
 
     public static void main(String[] args) {
         launch(args);
@@ -40,23 +45,38 @@ public class Main extends Application {
 
         goToFirstScene();
     }
+    public static void prepareTest(Stage primaryStage) throws IOException {
+        sceneController = new SceneController(primaryStage);
+        baseFile = new BaseFileTest();
+        ((BaseFileTest) baseFile).setFile(new File("test"));
 
+    }
+
+    private static ArrayList<String> initializePageList() {
+        ArrayList<String> pageList = new ArrayList<>();
+        pageList.add("newconnect");
+        pageList.add("browse");
+        pageList.add("installer");
+
+        return pageList;
+    }
     private void goToFirstScene() {
         if (baseFile.addressFileExists()) {
-            sceneController.activate("connectcode");
+            sceneController.activate("newconnect");
         } else {
             sceneController.activate("installer");
         }
     }
-
-    private void addPages() {
-        sceneController.addPage("connectcode");
-        sceneController.addPage("browse");
-        sceneController.addPage("installer");
+    private static void addPages() {
+        for (String page : pageList) {
+            sceneController.addPage(page);
+        }
     }
+    private static void addModels() {
+        // Register all pages here!
+        // Necessary because otherwise controller under construction
+        // will load page while page is being created.
 
-    private void addModels() {
-        // TODO: Find a way to automatically do this so package structure is correct
         ConnectPageController.addModel(new ConnectPage());
         InstallPageController.addModel(new InstallPage());
     }
@@ -67,5 +87,9 @@ public class Main extends Application {
 
     public static BaseFile getBaseFile() {
         return baseFile;
+    }
+
+    public static ArrayList<String> getPageList() {
+        return pageList;
     }
 }

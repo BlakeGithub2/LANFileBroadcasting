@@ -9,8 +9,6 @@ import java.util.ResourceBundle;
 public class ConnectPageController implements Initializable {
     private static ConnectPage page;
 
-    public ConnectPageController() { }
-
     public static void addModel(ConnectPage page) {
         ConnectPageController.page = page;
     }
@@ -22,6 +20,5 @@ public class ConnectPageController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
     }
 }
