@@ -2,10 +2,6 @@ package main;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import main.connectpage.ConnectPage;
-import main.connectpage.ConnectPageController;
-import main.install.InstallPage;
-import main.install.InstallPageController;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,7 +37,6 @@ public class Main extends Application {
         }
 
         addPages();
-        addModels();
 
         goToFirstScene();
     }
@@ -72,15 +67,6 @@ public class Main extends Application {
             sceneController.addPage(page);
         }
     }
-    private static void addModels() {
-        // Register all pages here!
-        // Necessary because otherwise controller under construction
-        // will load page while page is being created.
-
-        ConnectPageController.addModel(new ConnectPage());
-        InstallPageController.addModel(new InstallPage());
-    }
-
     public static SceneController getSceneController() {
         return sceneController;
     }

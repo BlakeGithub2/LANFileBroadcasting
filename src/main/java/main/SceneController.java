@@ -33,9 +33,8 @@ public class SceneController {
     public void addPage(String name) {
         Scene scene = loadScene(name);
         if (scene == null) {
-            throw new IllegalArgumentException("Scene not found and cannot be added to sceneMap.");
+            throw new IllegalArgumentException("Scene cannot be loaded.");
         }
-
         sceneMap.put(name, scene);
     }
 
@@ -53,8 +52,8 @@ public class SceneController {
     public void activate(String name) {
         Scene scene = sceneMap.get(name);
 
-        if (scene == null) {
-            throw new NullPointerException("Scene not found in sceneMap. Name: " + name);
+        if (!sceneMap.containsKey(name)) {
+            throw new IllegalArgumentException("Scene with that name has not been registered in sceneMap.");
         }
 
         mainWindow.setScene(scene);

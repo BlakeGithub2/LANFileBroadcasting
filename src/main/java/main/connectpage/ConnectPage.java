@@ -2,30 +2,24 @@ package main.connectpage;
 
 import broadcast.BroadcastClient;
 import broadcast.BroadcastServer;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
-import main.Main;
 import main.Page;
 
 import java.io.IOException;
 
 public class ConnectPage implements Page {
-    private Scene scene;
     private ConnectionList connections;
     private BroadcastServer server;
 
-    public ConnectPage() {
-        scene = Main.getSceneController().getScene("newconnect");
-
-        createConnectionsList();
+    public ConnectPage(Pane explorePane) {
+        createConnectionsList(explorePane);
         onCreation();
         server = new BroadcastServer();
     }
 
-    private void createConnectionsList() {
-        Pane explorePane = (Pane) scene.lookup("#explorePane");
+    private void createConnectionsList(Pane explorePane) {
         connections = new ConnectionList(explorePane);
     }
 
@@ -52,8 +46,6 @@ public class ConnectPage implements Page {
         } catch (IOException e) {
             System.out.println("Could not toggle broadcast.");
 
-            String errorText = e.getMessage();
-
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setContentText(e.getMessage());
             a.show();
@@ -61,8 +53,8 @@ public class ConnectPage implements Page {
             return;
         }
 
-        // Switch button text
-        Button broadcastButton = (Button) scene.lookup("#broadcastButton");
+    }
+    public void triggerButton(Button broadcastButton) {
         if (server.isBroadcasting()) {
             broadcastButton.setText("Stop Broadcasting");
         } else {
@@ -77,10 +69,5 @@ public class ConnectPage implements Page {
 
     public ConnectionList getConnectionList() {
         return connections;
-    }
-
-    @Override
-    public Scene getScene() {
-        return scene;
     }
 }
