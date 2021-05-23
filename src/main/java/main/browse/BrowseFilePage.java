@@ -95,6 +95,7 @@ public class BrowseFilePage implements Page {
     }
     public void load() throws IOException {
         File file = Main.getBaseFile().getDirectoryAt("projects");
+        projects.clear();
 
         String[] projectNames = file.list();
 
@@ -117,6 +118,7 @@ public class BrowseFilePage implements Page {
 
         BufferedReader br = new BufferedReader(new FileReader(projectInfo));
         String filePath = br.readLine();
+        br.close();
 
         return filePath;
     }
