@@ -9,6 +9,7 @@ import main.Page;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,9 +18,14 @@ import java.nio.file.Path;
 public class BrowseFilePage implements Page {
     private ObservableList<Project> projects = FXCollections.observableArrayList();
 
-    public void addProject(File selectedDir) {
+    public void addProject(File selectedDir) throws FileNotFoundException {
         Project project = new Project(selectedDir.getAbsoluteFile().toPath());
-        projects.add(project);
+
+        if (selectedDir.getAbsoluteFile().exists()) {
+            projects.add(project);
+        } else {
+            throw new FileNotFoundException("Could not find project file.");
+        }
     }
 
     // TODO: Refactor save/load methods into separate class

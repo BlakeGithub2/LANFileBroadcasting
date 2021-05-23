@@ -13,6 +13,7 @@ import utils.FileUtils;
 import utils.ImageUtils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -58,10 +59,20 @@ public class BrowseFilePageController implements Initializable {
     private void createAddProjectConfirmationAlertButtons(File selectedDir, Alert alert) {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
-            addProject(selectedDir);
+            try {
+                addProject(selectedDir);
+            } catch (FileNotFoundException e) {
+                showNonexistentFileErrorMessage();
+                e.printStackTrace();
+            }
         }
     }
-    private void addProject(File selectedDir) {
+    private void showNonexistentFileErrorMessage() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setContentText("Could not find the project file.");
+        alert.show();
+    }
+    private void addProject(File selectedDir) throws FileNotFoundException {
         // TODO: Copy project over so that local version control works
 
         page.addProject(selectedDir);

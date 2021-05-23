@@ -42,14 +42,13 @@ main/GUIPane.java
  main.GUIPane
 main/Page.java
  main.Page
-main/browse/BrowseFilePage.java
- main.browse.BrowseFilePage
+utils/ImageUtils.java
+ utils.ImageUtils
 main/connectpage/Connection.java
  main.connectpage.Connection
  main.connectpage.Connection$1
-main/browse/BrowseFilePageController.java
- main.browse.BrowseFilePageController
- main.browse.BrowseFilePageController$1
+main/install/InstallPageController.java
+ main.install.InstallPageController
 main/Main.java
  main.Main
 main/SceneController.java
@@ -57,7 +56,8 @@ main/SceneController.java
  main.SceneController$1
 main/BaseFile.java
  main.BaseFile
-main/install/InstallPageController.java
- main.install.InstallPageController
-utils/ImageUtils.java
- utils.ImageUtils
+main/browse/BrowseFilePage.java
+ main.browse.BrowseFilePage
+main/browse/BrowseFilePageController.java
+ main.browse.BrowseFilePageController
+ main.browse.BrowseFilePageController$1
