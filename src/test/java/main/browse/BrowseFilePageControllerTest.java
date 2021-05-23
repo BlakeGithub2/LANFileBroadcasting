@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -26,28 +27,38 @@ public class BrowseFilePageControllerTest extends ApplicationTest {
 
     @BeforeAll
     public static void beforeAll() {
-        int counter = 0;
-        baseFolder = new File("test");
-
-        if (baseFolder.exists()) {
-            System.out.println("WARNING: TEST BASE FOLDER ALREADY EXISTS. CREATING NEW FOLDER.");
-        }
-
-        while (baseFolder.exists()) {
-            baseFolder = new File("test" + counter);
-            counter++;
-        }
     }
 
     @BeforeEach
     public void beforeEach() throws Exception {
-        baseFolder.mkdir();
+        createEmptyBaseFolder();
+
         Main.activateTest(baseFolder);
         launch(Main.class);
         Platform.runLater(() -> {
             controller = new BrowseFilePageController();
         });
         WaitForAsyncUtils.waitForFxEvents();
+    }
+
+    private void createEmptyBaseFolder() {
+        int counter = 0;
+        baseFolder = new File("test");
+
+        if (baseFolder.exists()) {
+            try {
+                deleteTestBaseFile();
+            } catch (IOException e) {
+                System.out.println("WARNING: TEST BASE FOLDER ALREADY EXISTS. CREATING NEW FOLDER.");
+            }
+        }
+
+        while (baseFolder.exists()) {
+            baseFolder = new File("test" + counter);
+            counter++;
+        }
+
+        baseFolder.mkdir();
     }
 
     @Test
@@ -143,8 +154,6 @@ public class BrowseFilePageControllerTest extends ApplicationTest {
             newFile.createNewFile();
             files.add(newFile);
 
-            page.addProject(newFile);
-
             try {
                 page.addProject(new File(newFile.getPath()));
             } catch (FileNotFoundException e) {
@@ -165,6 +174,118 @@ public class BrowseFilePageControllerTest extends ApplicationTest {
             file.delete();
         }
     }
+    @Test
+    public void testAddDuplicateProject() throws IOException {
+        BrowseFilePage page = controller.getPage();
+        ArrayList<File> files = new ArrayList<>();
+
+        for (int i = 0; i < 5; i++) {
+            File newFile = new File(baseFolder + "/test" + i);
+            newFile.createNewFile();
+            files.add(newFile);
+
+            try {
+                page.addProject(new File(newFile.getPath()));
+            } catch (FileNotFoundException e) {
+                fail();
+            }
+        }
+
+        page.addProject(files.get(0));
+        page.addProject(files.get(1));
+        page.addProject(files.get(2));
+        page.addProject(files.get(2));
+
+        assertEquals(1, findNumInstancesOfProject("test0"));
+        assertEquals(1, findNumInstancesOfProject("test1"));
+        assertEquals(1, findNumInstancesOfProject("test2"));
+        assertEquals(1, findNumInstancesOfProject("test3"));
+        assertEquals(1, findNumInstancesOfProject("test4"));
+
+        for (File file : files) {
+            file.delete();
+        }
+    }
+    private int findNumInstancesOfProject(String projectName) {
+        BrowseFilePage page = controller.getPage();
+
+        int instances = 0;
+        for (Project project : page.getProjects()) {
+            if (project.getName().equals(projectName)) {
+                instances++;
+            }
+        }
+
+        return instances;
+    }
+
+    @Test
+    public void testDeleteProject() throws IOException {
+        BrowseFilePage page = controller.getPage();
+        LinkedList<File> files = new LinkedList<>();
+
+        for (int i = 0; i < 5; i++) {
+            File newFile = new File(baseFolder + "/test" + i);
+            newFile.createNewFile();
+            files.add(newFile);
+
+            try {
+                page.addProject(new File(newFile.getPath()));
+            } catch (FileNotFoundException e) {
+                fail();
+            }
+        }
+
+        page.deleteProject("test0");
+        page.deleteProject("test1");
+        page.deleteProject("test3");
+
+        assertFalse(page.contains("test0"));
+        assertFalse(page.contains("test1"));
+        assertFalse(page.contains("test3"));
+
+        assertTrue(page.contains("test2"));
+        assertTrue(page.contains("test4"));
+
+        for (File file : files) {
+            file.delete();
+        }
+    }
+    @Test
+    public void testDeleteProjectSaved() throws IOException {
+        BrowseFilePage page = controller.getPage();
+        LinkedList<File> files = new LinkedList<>();
+
+        for (int i = 0; i < 5; i++) {
+            File newFile = new File(baseFolder + "/test" + i);
+            newFile.createNewFile();
+            files.add(newFile);
+
+            try {
+                page.addProject(new File(newFile.getPath()));
+            } catch (FileNotFoundException e) {
+                fail();
+            }
+        }
+
+        page.save();
+        page.load();
+
+        page.deleteProject("test0");
+        page.deleteProject("test1");
+        page.deleteProject("test3");
+
+        assertFalse(page.contains("test0"));
+        assertFalse(page.contains("test1"));
+        assertFalse(page.contains("test3"));
+
+        assertTrue(page.contains("test2"));
+        assertTrue(page.contains("test4"));
+
+        for (File file : files) {
+            file.delete();
+        }
+    }
 
     @AfterEach
     public void afterEach() throws IOException {
@@ -173,22 +294,26 @@ public class BrowseFilePageControllerTest extends ApplicationTest {
 
     private static void deleteTestBaseFile() throws IOException {
         File projectsFile = new File(baseFolder.getPath() + "/projects");
+
         String[] projectNames = projectsFile.list();
 
-        for (String name : projectNames) {
-            String projectFilePath = projectsFile.getPath() + "/" + name;
-            File projectFile = new File(projectFilePath);
-            File projectInfo = new File(projectFile + "/" + Main.PROJECT_INFO_FILE_PATH);
+        if (projectNames != null) {
+            for (String name : projectNames) {
+                String projectFilePath = projectsFile.getPath() + "/" + name;
+                File projectFile = new File(projectFilePath);
+                File projectInfo = new File(projectFile + "/" + Main.PROJECT_INFO_FILE_PATH);
 
-            System.gc();
-            Files.delete(projectInfo.toPath());
-            Files.delete(projectFile.toPath());
+                System.gc();
+                Files.delete(projectInfo.toPath());
+                Files.delete(projectFile.toPath());
+            }
+            Files.delete(projectsFile.toPath());
         }
-        Files.delete(projectsFile.toPath());
 
-        boolean deleted = baseFolder.delete();
-        if (!deleted) {
-            throw new IOException("WARNING: COULD NOT DELETE TEST BASE FOLDER.");
+        try {
+            Files.delete(baseFolder.toPath());
+        } catch (Exception e) {
+            throw new IOException("WARNING: Could not delete base folder.");
         }
     }
 }

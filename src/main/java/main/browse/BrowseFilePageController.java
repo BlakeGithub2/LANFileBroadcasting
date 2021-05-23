@@ -13,7 +13,6 @@ import utils.FileUtils;
 import utils.ImageUtils;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -61,7 +60,7 @@ public class BrowseFilePageController implements Initializable {
         if (result.get() == ButtonType.OK) {
             try {
                 addProject(selectedDir);
-            } catch (FileNotFoundException e) {
+            } catch (Exception e) {
                 showNonexistentFileErrorMessage();
                 e.printStackTrace();
             }
@@ -72,7 +71,7 @@ public class BrowseFilePageController implements Initializable {
         alert.setContentText("Could not find the project file.");
         alert.show();
     }
-    private void addProject(File selectedDir) throws FileNotFoundException {
+    private void addProject(File selectedDir) throws Exception {
         // TODO: Copy project over so that local version control works
 
         page.addProject(selectedDir);
@@ -95,13 +94,14 @@ public class BrowseFilePageController implements Initializable {
     @FXML
     private void delete() {
         Project toDelete = (Project) projectList.getSelectionModel().getSelectedItem();
+
         if (toDelete == null) {
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setContentText("No project selected for deletion.");
         } else {
-            // Delete the project
-            projectList.getItems().remove(toDelete);
+            page.deleteProject(toDelete);
         }
+
         trySave();
     }
 
