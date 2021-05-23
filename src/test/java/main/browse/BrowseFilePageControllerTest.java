@@ -1,28 +1,25 @@
 package main.browse;
 
 import javafx.application.Platform;
-import javafx.stage.Stage;
 import main.Main;
+import org.junit.Rule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.rules.TemporaryFolder;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.util.WaitForAsyncUtils;
 
-import java.io.IOException;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BrowseFilePageControllerTest extends ApplicationTest {
     private static BrowseFilePageController controller;
-    private static Stage stage;
 
-    @Override
-    public void start(Stage primaryStage) throws IOException {
-        this.stage = primaryStage;
-    }
+    @Rule
+    public TemporaryFolder base = new TemporaryFolder();
 
     @BeforeEach
     public void before() throws Exception {
+        Main.activateTest(base.newFile());
         launch(Main.class);
         Platform.runLater(() -> {
             controller = new BrowseFilePageController();
@@ -32,8 +29,8 @@ public class BrowseFilePageControllerTest extends ApplicationTest {
 
     @Test
     public void testProjectsListEmpty() {
-        System.out.println(controller);
-        assertTrue(controller.getPage().getProjects().size() == 0);
+        System.out.println(Main.getBaseFile());
+        assertEquals(0, controller.getPage().getProjects().size());
     }
     @Test
     public void testAddProject() {

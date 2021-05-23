@@ -24,27 +24,22 @@ public class Main extends Application {
     private static ArrayList<String> pageList = initializePageList();
 
     public static void main(String[] args) {
+        baseFile = new BaseFile();
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) {
         sceneController = new SceneController(primaryStage);
-        baseFile = new BaseFile();
-
-        if (baseFile.addressFileExists()) {
-            baseFile.loadBasePath();
-        }
-
         addPages();
-
         goToFirstScene();
     }
-    public static void prepareTest(Stage primaryStage) throws IOException {
-        sceneController = new SceneController(primaryStage);
-        baseFile = new BaseFileTest();
-        ((BaseFileTest) baseFile).setFile(new File("test"));
+
+    public static void activateTest(File file) throws IOException {
+        baseFile = new BaseFile(file);
+        System.out.println("FILE: " + baseFile.getFile());
     }
+
     private static ArrayList<String> initializePageList() {
         ArrayList<String> pageList = new ArrayList<>();
         pageList.add("newconnect");
@@ -53,7 +48,7 @@ public class Main extends Application {
 
         return pageList;
     }
-    private void goToFirstScene() {
+    private static void goToFirstScene() {
         if (baseFile.addressFileExists()) {
             sceneController.activate("newconnect");
         } else {

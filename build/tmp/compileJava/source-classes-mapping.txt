@@ -8,8 +8,8 @@ example/simpleconnection/ClientHandler.java
  example.simpleconnection.ClientHandler
 example/chatroom/Client.java
  example.chatroom.Client
-main/BaseFileTest.java
- main.BaseFileTest
+example/chatroom/ChatServer.java
+ example.chatroom.ChatServer
 example/simpleconnection/ServerConnection.java
  example.simpleconnection.ServerConnection
 broadcast/BroadcastClient.java
@@ -42,8 +42,6 @@ main/GUIPane.java
  main.GUIPane
 main/Page.java
  main.Page
-example/chatroom/ChatServer.java
- example.chatroom.ChatServer
 main/browse/BrowseFilePage.java
  main.browse.BrowseFilePage
 main/connectpage/Connection.java

@@ -12,6 +12,15 @@ import java.io.PrintWriter;
 public class BaseFile {
     protected File file;
 
+    public BaseFile() {
+        if (addressFileExists()) {
+            loadBasePath();
+        }
+    }
+    public BaseFile(File file) {
+        this.file = file;
+    }
+
     public File getFileAt(String appendDir) throws IOException {
         File result = new File(getFile().getPath() + "/" + appendDir);
 
@@ -77,7 +86,7 @@ public class BaseFile {
         return (new File(Main.LOCAL_ADDRESS_FILE_PATH)).exists();
     }
 
-    public void loadBasePath() {
+    private void loadBasePath() {
         showMessageIfBaseAddressDoesNotExist();
 
         BufferedReader br = initializeBufferedReader();
