@@ -2,24 +2,35 @@ package main.browse;
 
 import javafx.application.Platform;
 import main.Main;
-import org.junit.Rule;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.Before;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.rules.TemporaryFolder;
+import org.junit.jupiter.api.io.TempDir;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.util.WaitForAsyncUtils;
+
+import java.io.File;
+import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BrowseFilePageControllerTest extends ApplicationTest {
     private static BrowseFilePageController controller;
 
-    @Rule
-    public TemporaryFolder base = new TemporaryFolder();
+    @TempDir
+    public static File baseFolder;
 
-    @BeforeEach
-    public void before() throws Exception {
-        Main.activateTest(base.newFile());
+    @Before
+    public void before() throws IOException {
+    }
+
+    @BeforeAll
+    public static void beforeEach() throws Exception {
+        baseFolder = new File("test");
+        baseFolder.mkdir();
+
+        Main.activateTest(baseFolder);
         launch(Main.class);
         Platform.runLater(() -> {
             controller = new BrowseFilePageController();
@@ -35,5 +46,24 @@ public class BrowseFilePageControllerTest extends ApplicationTest {
     @Test
     public void testAddProject() {
         //BrowseFilePage page = controller.getPage();
+    }
+
+    @AfterAll
+    public static void after() {
+        File projectsFile = new File(baseFolder + "/projects");
+        String[] projectNames = projectsFile.list();
+
+        for (String name : projectNames) {
+            String internalFilePath = projectsFile.getPath() + "/" + name;
+            File internalFile = new File(internalFilePath);
+
+            internalFile.delete();
+        }
+        projectsFile.delete();
+
+        boolean deleted = baseFolder.delete();
+        if (!deleted) {
+            System.out.println("COULD NOT DELETE TEST BASE FOLDER>");
+        }
     }
 }
