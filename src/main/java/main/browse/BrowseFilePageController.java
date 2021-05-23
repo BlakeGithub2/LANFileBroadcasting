@@ -21,10 +21,6 @@ import java.util.ResourceBundle;
 public class BrowseFilePageController implements Initializable {
     private static BrowseFilePage page;
 
-    public static void addModel(BrowseFilePage page) {
-        BrowseFilePageController.page = page;
-    }
-
     @FXML
     private ListView projectList;
 
@@ -101,6 +97,7 @@ public class BrowseFilePageController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         page = new BrowseFilePage();
+
         // Has to check if address file exists or program will not go to install
         // screen if file isn't found, due to program being in initialization phase
         if (Main.getBaseFile().addressFileExists()) {

@@ -2,7 +2,6 @@ package main.browse;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import main.Main;
 import main.Page;
@@ -106,10 +105,5 @@ public class BrowseFilePage implements Page {
 
     public ObservableList<Project> getProjects() {
         return projects;
-    }
-
-    @Override
-    public Scene getScene() {
-        return null;
     }
 }
