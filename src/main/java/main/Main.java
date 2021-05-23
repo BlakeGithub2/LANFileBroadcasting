@@ -44,9 +44,7 @@ public class Main extends Application {
         sceneController = new SceneController(primaryStage);
         baseFile = new BaseFileTest();
         ((BaseFileTest) baseFile).setFile(new File("test"));
-
     }
-
     private static ArrayList<String> initializePageList() {
         ArrayList<String> pageList = new ArrayList<>();
         pageList.add("newconnect");

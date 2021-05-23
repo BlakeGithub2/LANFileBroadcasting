@@ -1,5 +1,5 @@
-main/browse/BrowseFilePage.java
- main.browse.BrowseFilePage
+main/install/InstallPage.java
+ main.install.InstallPage
 main/connectpage/ConnectPage.java
  main.connectpage.ConnectPage
 broadcast/BroadcastServer.java
@@ -8,21 +8,20 @@ example/simpleconnection/ClientHandler.java
  example.simpleconnection.ClientHandler
 example/chatroom/Client.java
  example.chatroom.Client
-utils/ImageUtils.java
- utils.ImageUtils
+main/BaseFileTest.java
+ main.BaseFileTest
 example/simpleconnection/ServerConnection.java
  example.simpleconnection.ServerConnection
-main/connectpage/Connection.java
- main.connectpage.Connection
- main.connectpage.Connection$1
+broadcast/BroadcastClient.java
+ broadcast.BroadcastClient
 example/chatroom/ClientThread.java
  example.chatroom.ClientThread
 main/connectpage/ConnectionList.java
  main.connectpage.ConnectionList
 example/simpleconnection/Server.java
  example.simpleconnection.Server
-main/install/InstallPageController.java
- main.install.InstallPageController
+broadcast/BroadcastServerThread.java
+ broadcast.BroadcastServerThread
 main/browse/Project.java
  main.browse.Project
 broadcast/BroadcastClientThread.java
@@ -34,8 +33,9 @@ example/chatroom/ServerThread.java
  example.chatroom.ServerThread
 example/simpleconnection/Client.java
  example.simpleconnection.Client
-main/BaseFile.java
- main.BaseFile
+utils/FileUtils.java
+ utils.FileUtils
+ utils.FileUtils$1
 main/connectpage/ConnectPageController.java
  main.connectpage.ConnectPageController
 main/GUIPane.java
@@ -44,22 +44,22 @@ main/Page.java
  main.Page
 example/chatroom/ChatServer.java
  example.chatroom.ChatServer
-main/BaseFileTest.java
- main.BaseFileTest
+main/browse/BrowseFilePage.java
+ main.browse.BrowseFilePage
+main/connectpage/Connection.java
+ main.connectpage.Connection
+ main.connectpage.Connection$1
 main/browse/BrowseFilePageController.java
  main.browse.BrowseFilePageController
  main.browse.BrowseFilePageController$1
 main/Main.java
  main.Main
-utils/FileUtils.java
- utils.FileUtils
- utils.FileUtils$1
 main/SceneController.java
  main.SceneController
  main.SceneController$1
-broadcast/BroadcastServerThread.java
- broadcast.BroadcastServerThread
-broadcast/BroadcastClient.java
- broadcast.BroadcastClient
-main/install/InstallPage.java
- main.install.InstallPage
+main/BaseFile.java
+ main.BaseFile
+main/install/InstallPageController.java
+ main.install.InstallPageController
+utils/ImageUtils.java
+ utils.ImageUtils
