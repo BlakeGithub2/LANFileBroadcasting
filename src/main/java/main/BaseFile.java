@@ -68,7 +68,6 @@ public class BaseFile {
             out.println(info);
         } catch (FileNotFoundException e) {
             showCouldNotCreateAddressFileMessage();
-            System.out.println("Could not find file.");
         } finally {
             if (out != null) {
                 out.close();

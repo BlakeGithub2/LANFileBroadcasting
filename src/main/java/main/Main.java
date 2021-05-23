@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Main extends Application {
@@ -35,9 +34,8 @@ public class Main extends Application {
         goToFirstScene();
     }
 
-    public static void activateTest(File file) throws IOException {
+    public static void activateTest(File file) {
         baseFile = new BaseFile(file);
-        System.out.println("FILE: " + baseFile.getFile());
     }
 
     private static ArrayList<String> initializePageList() {

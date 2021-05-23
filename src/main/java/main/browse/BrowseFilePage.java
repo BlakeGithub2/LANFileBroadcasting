@@ -28,6 +28,21 @@ public class BrowseFilePage implements Page {
         }
     }
 
+    public boolean contains(String projectName) throws NullPointerException {
+        if (projectName == null) {
+            throw new NullPointerException("Cannot determine if project list contains a project with " +
+                    "a null name.");
+        }
+
+        for (Project project : projects) {
+            if (project.getName().equals(projectName)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     // TODO: Refactor save/load methods into separate class
     public void save() throws IOException {
         File file = Main.getBaseFile().getDirectoryAt("projects");
