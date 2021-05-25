@@ -69,4 +69,8 @@ public class Main extends Application {
     public static ArrayList<String> getPageList() {
         return pageList;
     }
+
+    public static void setBaseFile(File file) {
+        Main.baseFile = new BaseFile(file);
+    }
 }

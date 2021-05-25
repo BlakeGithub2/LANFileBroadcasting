@@ -84,6 +84,9 @@ public class BaseFile {
     public boolean addressFileExists() {
         return (new File(Main.LOCAL_ADDRESS_FILE_PATH)).exists();
     }
+    public boolean exists() {
+        return file.exists();
+    }
 
     private void loadBasePath() {
         showMessageIfBaseAddressDoesNotExist();

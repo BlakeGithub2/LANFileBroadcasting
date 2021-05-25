@@ -2,7 +2,6 @@ package main.browse;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
 import main.Main;
 import main.Page;
 
@@ -31,11 +30,11 @@ public class BrowseFilePage implements Page {
         projects.add(project);
     }
 
-    public void deleteProject(String projectName) {
+    public void deleteProject(String projectName) throws FileNotFoundException {
         Project project = findProject(projectName);
 
         if (project == null) {
-            throw new NullPointerException("No project found with project name: " + projectName);
+            throw new FileNotFoundException("No project found with project name: " + projectName);
         }
 
         deleteProject(project);
@@ -94,6 +93,10 @@ public class BrowseFilePage implements Page {
 
     // TODO: Refactor save/load methods into separate class
     public void save() throws IOException {
+        if (!Main.getBaseFile().exists()) {
+            throw new FileNotFoundException("Base file not found.");
+        }
+
         File file = Main.getBaseFile().getDirectoryAt("projects");
 
         for (Project project : projects) {
@@ -132,17 +135,16 @@ public class BrowseFilePage implements Page {
                 boolean couldDelete;
                 couldDelete = projectInfoFile.delete() && internalProjectFile.delete();
                 if (!couldDelete) {
-                    showCouldNotDeleteMessage();
+                    throw new IOException("Could not delete project.");
                 }
             }
         }
     }
-    private void showCouldNotDeleteMessage() {
-        Alert a = new Alert(Alert.AlertType.ERROR);
-        a.setContentText("Could not delete project.");
-        a.showAndWait();
-    }
     public void load() throws IOException {
+        if (!Main.getBaseFile().exists()) {
+            throw new FileNotFoundException("Base file not found.");
+        }
+
         File file = Main.getBaseFile().getDirectoryAt("projects");
         projects.clear();
 
