@@ -2,64 +2,32 @@ package main.browse;
 
 import javafx.application.Platform;
 import main.Main;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import org.testfx.framework.junit.ApplicationTest;
-import org.testfx.util.WaitForAsyncUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class BrowseFilePageTest extends ApplicationTest {
+public class BrowseFilePageTest extends BaseFileUnitTest {
     private static BrowseFilePageController controller;
 
     @TempDir
     public static File baseFolder;
 
-    @BeforeAll
-    public static void beforeAll() {
-    }
-
     @BeforeEach
     public void beforeEach() throws Exception {
-        createEmptyBaseFolder();
-
-        Main.activateTest(baseFolder);
-        launch(Main.class);
+        super.beforeEach();
         Platform.runLater(() -> {
             controller = new BrowseFilePageController();
         });
-        WaitForAsyncUtils.waitForFxEvents();
     }
 
-    private void createEmptyBaseFolder() {
-        int counter = 0;
-        baseFolder = new File("test");
-
-        if (baseFolder.exists()) {
-            try {
-                deleteTestBaseFile();
-            } catch (IOException e) {
-                System.out.println("WARNING: TEST BASE FOLDER ALREADY EXISTS. CREATING NEW FOLDER.");
-            }
-        }
-
-        while (baseFolder.exists()) {
-            baseFolder = new File("test" + counter);
-            counter++;
-        }
-
-        baseFolder.mkdir();
-    }
 
     @Test
     public void testProjectsListEmpty() {
@@ -391,35 +359,5 @@ public class BrowseFilePageTest extends ApplicationTest {
                 });
 
         newFile.delete();
-    }
-
-    @AfterEach
-    public void afterEach() throws IOException {
-        deleteTestBaseFile();
-    }
-
-    private static void deleteTestBaseFile() throws IOException {
-        File projectsFile = new File(baseFolder.getPath() + "/projects");
-
-        String[] projectNames = projectsFile.list();
-
-        if (projectNames != null) {
-            for (String name : projectNames) {
-                String projectFilePath = projectsFile.getPath() + "/" + name;
-                File projectFile = new File(projectFilePath);
-                File projectInfo = new File(projectFile + "/" + Main.PROJECT_INFO_FILE_PATH);
-
-                System.gc();
-                Files.delete(projectInfo.toPath());
-                Files.delete(projectFile.toPath());
-            }
-            Files.delete(projectsFile.toPath());
-        }
-
-        try {
-            Files.delete(baseFolder.toPath());
-        } catch (Exception e) {
-            throw new IOException("WARNING: Could not delete base folder.");
-        }
     }
 }
