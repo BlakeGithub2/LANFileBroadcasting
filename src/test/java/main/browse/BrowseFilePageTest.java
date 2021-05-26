@@ -31,7 +31,6 @@ public class BrowseFilePageTest extends BaseFileUnitTest {
 
     @Test
     public void testProjectsListEmpty() {
-        System.out.println(Main.getBaseFile());
         assertEquals(0, controller.getPage().getProjects().size());
     }
     @Test

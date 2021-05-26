@@ -37,7 +37,7 @@
       </ScrollPane>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="630.0" spacing="10.0">
          <children>
-            <Button mnemonicParsing="false" onMouseClicked="#add" prefHeight="32.0" prefWidth="106.0" text="Add Project">
+            <Button fx:id="addButton" mnemonicParsing="false" onMouseClicked="#add" prefHeight="32.0" prefWidth="106.0" text="Add Project">
                <font>
                   <Font size="14.0" />
                </font>
@@ -66,7 +66,7 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="52.0" prefWidth="654.0">
          <children>
-            <Button fx:id="backbutton" mnemonicParsing="false" onMouseClicked="#goBack" text="Back to Main Menu">
+            <Button id="backButton" fx:id="backButton" mnemonicParsing="false" onMouseClicked="#goBack" text="Back to Main Menu">
                <font>
                   <Font size="14.0" />
                </font>

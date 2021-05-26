@@ -46,20 +46,20 @@ main/browse/CannotAddRepeatException.java
  main.browse.CannotAddRepeatException
 utils/ImageUtils.java
  utils.ImageUtils
+main/browse/BrowseFilePage.java
+ main.browse.BrowseFilePage
 main/connectpage/Connection.java
  main.connectpage.Connection
  main.connectpage.Connection$1
+main/install/InstallPageController.java
+ main.install.InstallPageController
+main/Main.java
+ main.Main
 main/SceneController.java
  main.SceneController
  main.SceneController$1
-main/install/InstallPageController.java
- main.install.InstallPageController
 main/BaseFile.java
  main.BaseFile
-main/Main.java
- main.Main
-main/browse/BrowseFilePage.java
- main.browse.BrowseFilePage
 main/browse/BrowseFilePageController.java
  main.browse.BrowseFilePageController
  main.browse.BrowseFilePageController$1

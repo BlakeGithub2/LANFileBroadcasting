@@ -27,6 +27,7 @@ public class BrowseFilePageController implements Initializable {
     @FXML
     private void goBack() {
         Main.getSceneController().activate("newconnect");
+        System.out.println("clicked");
     }
 
     @FXML
@@ -39,6 +40,7 @@ public class BrowseFilePageController implements Initializable {
     private File chooseDirectory() {
         DirectoryChooser chooser = new DirectoryChooser();
         chooser.setTitle("Select Project Directory");
+
         File selectedDir = chooser.showDialog(Main.getSceneController().getMainWindow());
 
         return selectedDir;
