@@ -30,7 +30,7 @@
                         </Text>
                      </children>
                   </HBox>
-                  <ListView fx:id="projectList" prefHeight="248.0" prefWidth="654.0" />
+                  <ListView id="projectList" fx:id="projectList" prefHeight="248.0" prefWidth="654.0" />
                </children>
             </VBox>
          </content>

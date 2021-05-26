@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import main.Main;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.testfx.util.WaitForAsyncUtils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -17,9 +18,7 @@ public class BrowseFilePageControllerTest extends BaseFileUnitTest {
 
     @Test
     public void testBackToMainMenu() {
-        Platform.runLater(() -> {
-            clickOn(lookup("#backButton").queryButton());
-        });
+        clickOn(lookup("#backButton").queryButton());
         assertEquals("newconnect", Main.getSceneController().getCurrentScene());
     }
 
@@ -30,6 +29,8 @@ public class BrowseFilePageControllerTest extends BaseFileUnitTest {
             controller = new BrowseFilePageController();
             Main.getSceneController().activate("browse");
         });
+
+        WaitForAsyncUtils.waitForFxEvents();
     }
 
 
