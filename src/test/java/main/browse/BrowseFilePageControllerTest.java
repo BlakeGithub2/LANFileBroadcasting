@@ -1,6 +1,7 @@
 package main.browse;
 
 import javafx.application.Platform;
+import javafx.scene.input.KeyCode;
 import main.Main;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,6 +23,26 @@ public class BrowseFilePageControllerTest extends BaseFileUnitTest {
         assertEquals("newconnect", Main.getSceneController().getCurrentScene());
     }
 
+    @Test
+    public void testCancelAddProject() {
+        clickOn(lookup("#addButton").queryButton());
+        press(KeyCode.ESCAPE);
+        assertEquals(0, lookup("#projectList").queryListView().getItems().size());
+    }
+
+    @Test
+    public void testAddProject() {
+        clickOn(lookup("#addButton").queryButton());
+        press(KeyCode.N);
+        press(KeyCode.ENTER);
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //clickOn(lookup("#nonexistentFileAlertOkButton").queryButton());
+    }
+
     @BeforeEach
     public void beforeEach() throws Exception {
         super.beforeEach();
@@ -32,6 +53,5 @@ public class BrowseFilePageControllerTest extends BaseFileUnitTest {
 
         WaitForAsyncUtils.waitForFxEvents();
     }
-
 
 }
