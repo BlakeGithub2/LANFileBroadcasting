@@ -23,7 +23,7 @@
 <tr>
 <td>
 <div class="infoBox" id="tests">
-<div class="counter">5</div>
+<div class="counter">6</div>
 <p>tests</p>
 </div>
 </td>
@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">9.983s</div>
+<div class="counter">15.636s</div>
 <p>duration</p>
 </div>
 </td>
@@ -64,7 +64,10 @@
 <a href="#tab0">Tests</a>
 </li>
 <li>
-<a href="#tab1">Standard error</a>
+<a href="#tab1">Standard output</a>
+</li>
+<li>
+<a href="#tab2">Standard error</a>
 </li>
 </ul>
 <div id="tab0" class="tab">
@@ -79,63 +82,86 @@
 </thead>
 <tr>
 <td class="success">testAddNonexistentProject()</td>
-<td class="success">3.379s</td>
+<td class="success">3.324s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testAddProject()</td>
-<td class="success">4.807s</td>
+<td class="success">4.893s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testBackToMainMenu()</td>
-<td class="success">0.716s</td>
+<td class="success">0.727s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testCancelAddProject()</td>
-<td class="success">0.851s</td>
+<td class="success">0.842s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testDeleteProject()</td>
+<td class="success">5.604s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testProjectsListEmpty()</td>
-<td class="success">0.230s</td>
+<td class="success">0.246s</td>
 <td class="success">passed</td>
 </tr>
 </table>
 </div>
 <div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>WARNING: TEST BASE FOLDER ALREADY EXISTS. CREATING NEW FOLDER.
+WARNING: TEST BASE FOLDER ALREADY EXISTS. CREATING NEW FOLDER.
+WARNING: TEST BASE FOLDER ALREADY EXISTS. CREATING NEW FOLDER.
+WARNING: TEST BASE FOLDER ALREADY EXISTS. CREATING NEW FOLDER.
+WARNING: TEST BASE FOLDER ALREADY EXISTS. CREATING NEW FOLDER.
+WARNING: TEST BASE FOLDER ALREADY EXISTS. CREATING NEW FOLDER.
+</pre>
+</span>
+</div>
+<div id="tab2" class="tab">
 <h2>Standard error</h2>
 <span class="code">
-<pre>May 30, 2021 2:24:54 PM javafx.fxml.FXMLLoader$ValueElement processValue
+<pre>May 30, 2021 2:34:06 PM javafx.fxml.FXMLLoader$ValueElement processValue
 WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
-May 30, 2021 2:24:54 PM javafx.fxml.FXMLLoader$ValueElement processValue
+May 30, 2021 2:34:06 PM javafx.fxml.FXMLLoader$ValueElement processValue
 WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
-May 30, 2021 2:24:54 PM javafx.fxml.FXMLLoader$ValueElement processValue
+May 30, 2021 2:34:06 PM javafx.fxml.FXMLLoader$ValueElement processValue
 WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
-May 30, 2021 2:24:56 PM javafx.fxml.FXMLLoader$ValueElement processValue
+May 30, 2021 2:34:09 PM javafx.fxml.FXMLLoader$ValueElement processValue
 WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
-May 30, 2021 2:24:56 PM javafx.fxml.FXMLLoader$ValueElement processValue
+May 30, 2021 2:34:09 PM javafx.fxml.FXMLLoader$ValueElement processValue
 WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
-May 30, 2021 2:24:57 PM javafx.fxml.FXMLLoader$ValueElement processValue
+May 30, 2021 2:34:09 PM javafx.fxml.FXMLLoader$ValueElement processValue
 WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
-May 30, 2021 2:24:57 PM javafx.fxml.FXMLLoader$ValueElement processValue
+May 30, 2021 2:34:10 PM javafx.fxml.FXMLLoader$ValueElement processValue
 WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
-May 30, 2021 2:24:57 PM javafx.fxml.FXMLLoader$ValueElement processValue
+May 30, 2021 2:34:10 PM javafx.fxml.FXMLLoader$ValueElement processValue
 WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
-May 30, 2021 2:24:57 PM javafx.fxml.FXMLLoader$ValueElement processValue
+May 30, 2021 2:34:10 PM javafx.fxml.FXMLLoader$ValueElement processValue
 WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
-May 30, 2021 2:24:58 PM javafx.fxml.FXMLLoader$ValueElement processValue
+May 30, 2021 2:34:10 PM javafx.fxml.FXMLLoader$ValueElement processValue
 WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
-May 30, 2021 2:24:58 PM javafx.fxml.FXMLLoader$ValueElement processValue
+May 30, 2021 2:34:10 PM javafx.fxml.FXMLLoader$ValueElement processValue
 WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
-May 30, 2021 2:24:58 PM javafx.fxml.FXMLLoader$ValueElement processValue
+May 30, 2021 2:34:10 PM javafx.fxml.FXMLLoader$ValueElement processValue
 WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
-May 30, 2021 2:25:02 PM javafx.fxml.FXMLLoader$ValueElement processValue
+May 30, 2021 2:34:15 PM javafx.fxml.FXMLLoader$ValueElement processValue
 WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
-May 30, 2021 2:25:02 PM javafx.fxml.FXMLLoader$ValueElement processValue
+May 30, 2021 2:34:15 PM javafx.fxml.FXMLLoader$ValueElement processValue
 WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
-May 30, 2021 2:25:02 PM javafx.fxml.FXMLLoader$ValueElement processValue
+May 30, 2021 2:34:15 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
+May 30, 2021 2:34:15 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
+May 30, 2021 2:34:15 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
+May 30, 2021 2:34:15 PM javafx.fxml.FXMLLoader$ValueElement processValue
 WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
 </pre>
 </span>
@@ -148,7 +174,7 @@ WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime o
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 6.7</a> at May 30, 2021, 2:25:04 PM</p>
+<a href="http://www.gradle.org">Gradle 6.7</a> at May 30, 2021, 2:34:22 PM</p>
 </div>
 </div>
 </body>

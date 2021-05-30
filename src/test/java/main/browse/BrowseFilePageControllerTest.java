@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.testfx.util.WaitForAsyncUtils;
 
 import java.io.File;
-import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -53,7 +52,7 @@ public class BrowseFilePageControllerTest extends BaseFileUnitTest {
     }
 
     @Test
-    public void testAddProject() throws IOException {
+    public void testAddProject() {
         // TODO: Same code in BrowseFilePageTest. Refactor?
         File newFile = new File(baseFolder + "/test");
         newFile.mkdir();
@@ -79,6 +78,41 @@ public class BrowseFilePageControllerTest extends BaseFileUnitTest {
 
         Project project = (Project) lookup("#projectList").queryListView().getItems().get(0);
         assertEquals("test", project.getName());
+
+        newFile.delete();
+    }
+
+    @Test
+    public void testDeleteProject() {
+        File newFile = new File(baseFolder + "/test");
+        newFile.mkdir();
+
+        // Add the project
+        clickOn(lookup("#addButton").queryButton());
+
+        utils.inputText(FileUtils.getPrintableString(baseFolder.getAbsoluteFile().toString() + "/test"));
+        utils.tap(KeyCode.ENTER);
+
+        WaitForAsyncUtils.waitForFxEvents();
+
+        utils.tap(KeyCode.ENTER);
+
+        WaitForAsyncUtils.waitForFxEvents();
+
+        // Project storage cost prompt
+        utils.tap(KeyCode.ENTER);
+
+        WaitForAsyncUtils.waitForFxEvents();
+
+        assertEquals(1, lookup("#projectList").queryListView().getItems().size());
+
+        Project project = (Project) lookup("#projectList").queryListView().getItems().get(0);
+        assertEquals("test", project.getName());
+
+        lookup("#projectList").queryListView().getSelectionModel().select(0);
+        clickOn(lookup("#deleteButton").queryButton());
+
+        assertEquals(0, lookup("#projectList").queryListView().getItems().size());
 
         newFile.delete();
     }
