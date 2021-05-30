@@ -9,8 +9,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.stage.DirectoryChooser;
 import main.Main;
-import utils.FileUtils;
-import utils.ImageUtils;
+import main.utils.FileUtils;
+import main.utils.ImageUtils;
 
 import java.io.File;
 import java.io.IOException;

@@ -3,6 +3,7 @@ package main.browse;
 import javafx.application.Platform;
 import javafx.scene.input.KeyCode;
 import main.Main;
+import main.utils.TestFXUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.util.WaitForAsyncUtils;
@@ -14,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BrowseFilePageControllerTest extends BaseFileUnitTest {
     private static BrowseFilePageController controller;
+    private TestFXUtils utils = new TestFXUtils();
 
     @Test
     public void testProjectsListEmpty() {
@@ -29,7 +31,7 @@ public class BrowseFilePageControllerTest extends BaseFileUnitTest {
     @Test
     public void testCancelAddProject() {
         clickOn(lookup("#addButton").queryButton());
-        press(KeyCode.ESCAPE);
+        utils.tap(KeyCode.ESCAPE);
         assertEquals(0, lookup("#projectList").queryListView().getItems().size());
     }
 
@@ -37,14 +39,14 @@ public class BrowseFilePageControllerTest extends BaseFileUnitTest {
     public void testAddNonexistentProject() {
         clickOn(lookup("#addButton").queryButton());
 
-        press(KeyCode.N);
-        press(KeyCode.ENTER);
+        utils.tap(KeyCode.N);
+        utils.tap(KeyCode.ENTER);
 
         WaitForAsyncUtils.waitForFxEvents();
         // TODO: Check alert text
 
-        press(KeyCode.ENTER);
-        press(KeyCode.ESCAPE);
+        utils.tap(KeyCode.ENTER);
+        utils.tap(KeyCode.ESCAPE);
 
         assertEquals(0, lookup("#projectList").queryListView().getItems().size());
     }
@@ -53,29 +55,15 @@ public class BrowseFilePageControllerTest extends BaseFileUnitTest {
     public void testAddProject() throws IOException {
         // TODO: Same code in BrowseFilePageTest. Refactor?
         File newFile = new File(baseFolder + "/test");
-        newFile.createNewFile();
+        newFile.mkdir();
 
         // Add the project
         clickOn(lookup("#addButton").queryButton());
 
-        inputText(baseFolder.getAbsoluteFile() + "/test");
-        press(KeyCode.ENTER);
+        utils.inputText(baseFolder.getAbsoluteFile() + "/test");
+        utils.tap(KeyCode.ENTER);
 
         newFile.delete();
-    }
-    private void inputText(String text) {
-        text = text.toUpperCase();
-        for (int i = 0; i < text.length(); i++) {
-            char c = text.charAt(i);
-            System.out.println(c);
-            if (c == ':') {
-                press(KeyCode.COLON);
-            } else if (c == '\\') {
-                press(KeyCode.BACK_SLASH);
-            } else {
-                press(KeyCode.getKeyCode(c + ""));
-            }
-        }
     }
 
     @BeforeEach
