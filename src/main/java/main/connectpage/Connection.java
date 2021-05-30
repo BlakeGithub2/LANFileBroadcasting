@@ -11,7 +11,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import main.GUIPane;
 import main.Main;
-import utils.ImageUtils;
+import main.utils.ImageUtils;
 
 import java.net.InetAddress;
 

@@ -1,13 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="main.browse.BrowseFilePageControllerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-05-25T06:53:37" hostname="BLAKE" time="1.459">
+<testsuite name="main.browse.BrowseFilePageControllerTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2021-05-30T21:37:05" hostname="BLAKE" time="15.572">
   <properties/>
-  <testcase name="testProjectsListEmpty()" classname="main.browse.BrowseFilePageControllerTest" time="1.459"/>
+  <testcase name="testAddNonexistentProject()" classname="main.browse.BrowseFilePageControllerTest" time="3.379"/>
+  <testcase name="testCancelAddProject()" classname="main.browse.BrowseFilePageControllerTest" time="0.857"/>
+  <testcase name="testProjectsListEmpty()" classname="main.browse.BrowseFilePageControllerTest" time="0.238"/>
+  <testcase name="testAddProject()" classname="main.browse.BrowseFilePageControllerTest" time="4.833"/>
+  <testcase name="testBackToMainMenu()" classname="main.browse.BrowseFilePageControllerTest" time="0.738"/>
+  <testcase name="testDeleteProject()" classname="main.browse.BrowseFilePageControllerTest" time="5.525"/>
   <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[May 24, 2021 11:53:37 PM javafx.fxml.FXMLLoader$ValueElement processValue
+  <system-err><![CDATA[May 30, 2021 2:37:05 PM javafx.fxml.FXMLLoader$ValueElement processValue
 WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
-May 24, 2021 11:53:37 PM javafx.fxml.FXMLLoader$ValueElement processValue
+May 30, 2021 2:37:05 PM javafx.fxml.FXMLLoader$ValueElement processValue
 WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
-May 24, 2021 11:53:38 PM javafx.fxml.FXMLLoader$ValueElement processValue
+May 30, 2021 2:37:05 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
+May 30, 2021 2:37:08 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
+May 30, 2021 2:37:08 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
+May 30, 2021 2:37:08 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
+May 30, 2021 2:37:09 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
+May 30, 2021 2:37:09 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
+May 30, 2021 2:37:09 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
+May 30, 2021 2:37:09 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
+May 30, 2021 2:37:09 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
+May 30, 2021 2:37:09 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
+May 30, 2021 2:37:14 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
+May 30, 2021 2:37:14 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
+May 30, 2021 2:37:14 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
+May 30, 2021 2:37:15 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
+May 30, 2021 2:37:15 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
+May 30, 2021 2:37:15 PM javafx.fxml.FXMLLoader$ValueElement processValue
 WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
 ]]></system-err>
 </testsuite>

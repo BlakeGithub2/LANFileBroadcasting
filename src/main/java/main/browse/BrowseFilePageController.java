@@ -9,8 +9,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.stage.DirectoryChooser;
 import main.Main;
-import utils.FileUtils;
-import utils.ImageUtils;
+import main.utils.FileUtils;
+import main.utils.ImageUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -39,6 +39,7 @@ public class BrowseFilePageController implements Initializable {
     private File chooseDirectory() {
         DirectoryChooser chooser = new DirectoryChooser();
         chooser.setTitle("Select Project Directory");
+
         File selectedDir = chooser.showDialog(Main.getSceneController().getMainWindow());
 
         return selectedDir;
@@ -69,6 +70,7 @@ public class BrowseFilePageController implements Initializable {
     private void showNonexistentFileErrorMessage() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setContentText("Could not find the project file.");
+
         alert.show();
     }
     private void addProject(File selectedDir) throws Exception {

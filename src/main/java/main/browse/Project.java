@@ -5,7 +5,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import main.GUIPane;
-import utils.ImageUtils;
+import main.utils.ImageUtils;
 
 import java.nio.file.Path;
 

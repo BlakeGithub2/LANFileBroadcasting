@@ -15,6 +15,7 @@ public class SceneController {
     // Thanks to https://stackoverflow.com/questions/37200845/how-to-switch-scenes-in-javafx!
     private HashMap<String, Scene> sceneMap = new HashMap<>();
     private Stage mainWindow;
+    private String currentScene;
 
     public SceneController(Stage primaryStage) {
         mainWindow = primaryStage;
@@ -56,8 +57,13 @@ public class SceneController {
             throw new IllegalArgumentException("Scene with that name has not been registered in sceneMap.");
         }
 
+        currentScene = name;
         mainWindow.setScene(scene);
         mainWindow.show();
+    }
+
+    public String getCurrentScene() {
+        return currentScene;
     }
 
     public Scene getScene(String name) {
