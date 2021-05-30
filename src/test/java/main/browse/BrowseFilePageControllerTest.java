@@ -12,6 +12,7 @@ import org.testfx.util.WaitForAsyncUtils;
 import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class BrowseFilePageControllerTest extends BaseFileUnitTest {
     private static BrowseFilePageController controller;
@@ -113,6 +114,8 @@ public class BrowseFilePageControllerTest extends BaseFileUnitTest {
         clickOn(lookup("#deleteButton").queryButton());
 
         assertEquals(0, lookup("#projectList").queryListView().getItems().size());
+
+        assertTrue(newFile.exists());
 
         newFile.delete();
     }

@@ -285,6 +285,7 @@ public class BrowseFilePageTest extends BaseFileUnitTest {
         assertTrue(page.contains("test4"));
 
         for (File file : files) {
+            assertTrue(file.exists());
             file.delete();
         }
     }
