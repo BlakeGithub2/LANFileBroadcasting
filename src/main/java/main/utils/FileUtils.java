@@ -9,6 +9,8 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.text.DecimalFormat;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public final class FileUtils {
     public static long BYTES_PER_KILOBYTE = 1024;
@@ -46,6 +48,23 @@ public final class FileUtils {
     private static double getUnitsOf(long numBytes, long bytesPerUnit) {
         double units = numBytes / ((double) bytesPerUnit);
         return units;
+    }
+
+    // Copied from https://stackoverflow.com/questions/16308183/add-colon-to-file-path-after-drive-letter-ie-change-c-or-c-to-c-in-java
+    public static String addColonToDrive(String pathStr) {
+        Pattern p = Pattern.compile("^(/?[cdefghCDEFGH])/");
+        Matcher m = p.matcher(pathStr);
+
+        return m.replaceAll("$1:/");
+    }
+
+    public static String replaceSlashesWithBackslashes(String pathStr) {
+        return pathStr.replaceAll("/", "\\\\");
+    }
+
+    public static String getPrintableString(String pathStr) {
+        String s = addColonToDrive(replaceSlashesWithBackslashes(pathStr));
+        return s;
     }
 
     // Copied from https://stackoverflow.com/questions/2149785/get-size-of-folder-or-file

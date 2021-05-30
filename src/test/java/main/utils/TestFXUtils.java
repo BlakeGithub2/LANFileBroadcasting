@@ -12,8 +12,6 @@ public class TestFXUtils extends ApplicationTest {
     // NOTE: press method is not static
 
     public void inputText(String text) {
-        HashMap<Character, KeyCode> keyCodeMap = new HashMap<>();
-
         text = text.toUpperCase();
         for (int i = 0; i < text.length(); i++) {
             char c = text.charAt(i);
@@ -26,6 +24,11 @@ public class TestFXUtils extends ApplicationTest {
                 code = specialKeyCode;
             }
 
+            if (specialKeyCode == KeyCode.COLON) {
+                typeColon();
+                continue;
+            }
+
             if (code != null) {
                 tap(code);
             } else {
@@ -35,6 +38,14 @@ public class TestFXUtils extends ApplicationTest {
                 throw new InvalidKeyCodeException(message);
             }
         }
+    }
+
+    public void typeColon() {
+        // Colon KeyCode is glitchy.
+        // Copied from https://github.com/TestFX/TestFX/issues/74
+        press(KeyCode.SHIFT);
+        tap(KeyCode.SEMICOLON);
+        release(KeyCode.SHIFT);
     }
 
     public HashMap<Character, KeyCode> initializeKeyCodeMap() {

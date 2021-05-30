@@ -1,9 +1,9 @@
 main/browse/BaseFileUnitTest.java
  main.browse.BaseFileUnitTest
-main/browse/BrowseFilePageTest.java
- main.browse.BrowseFilePageTest
 main/exceptions/InvalidKeyCodeException.java
  main.exceptions.InvalidKeyCodeException
+main/browse/BrowseFilePageTest.java
+ main.browse.BrowseFilePageTest
 main/utils/TestFXUtils.java
  main.utils.TestFXUtils
 main/browse/BrowseFilePageControllerTest.java

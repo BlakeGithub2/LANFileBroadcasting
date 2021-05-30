@@ -3,6 +3,7 @@ package main.browse;
 import javafx.application.Platform;
 import javafx.scene.input.KeyCode;
 import main.Main;
+import main.utils.FileUtils;
 import main.utils.TestFXUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -60,8 +61,24 @@ public class BrowseFilePageControllerTest extends BaseFileUnitTest {
         // Add the project
         clickOn(lookup("#addButton").queryButton());
 
-        utils.inputText(baseFolder.getAbsoluteFile() + "/test");
+        utils.inputText(FileUtils.getPrintableString(baseFolder.getAbsoluteFile().toString() + "/test"));
         utils.tap(KeyCode.ENTER);
+
+        WaitForAsyncUtils.waitForFxEvents();
+
+        utils.tap(KeyCode.ENTER);
+
+        WaitForAsyncUtils.waitForFxEvents();
+
+        // Project storage cost prompt
+        utils.tap(KeyCode.ENTER);
+
+        WaitForAsyncUtils.waitForFxEvents();
+
+        assertEquals(1, lookup("#projectList").queryListView().getItems().size());
+
+        Project project = (Project) lookup("#projectList").queryListView().getItems().get(0);
+        assertEquals("test", project.getName());
 
         newFile.delete();
     }

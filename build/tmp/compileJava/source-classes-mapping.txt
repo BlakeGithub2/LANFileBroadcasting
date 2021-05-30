@@ -51,15 +51,15 @@ main/browse/BrowseFilePage.java
 main/connectpage/Connection.java
  main.connectpage.Connection
  main.connectpage.Connection$1
+main/utils/ImageUtils.java
+ main.utils.ImageUtils
+main/browse/Project.java
+ main.browse.Project
+main/connectpage/ConnectionList.java
+ main.connectpage.ConnectionList
 main/utils/FileUtils.java
  main.utils.FileUtils
  main.utils.FileUtils$1
 main/browse/BrowseFilePageController.java
  main.browse.BrowseFilePageController
  main.browse.BrowseFilePageController$1
-main/connectpage/ConnectionList.java
- main.connectpage.ConnectionList
-main/browse/Project.java
- main.browse.Project
-main/utils/ImageUtils.java
- main.utils.ImageUtils
