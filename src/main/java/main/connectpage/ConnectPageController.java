@@ -1,6 +1,5 @@
 package main.connectpage;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -40,23 +39,18 @@ public class ConnectPageController implements Initializable {
             protected void updateItem(Connection item, boolean empty) {
                 super.updateItem(item, empty);
 
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (empty || item == null) {
-                            setText(null);
-                            setGraphic(null);
-                        } else {
-                            setText("connection");
+                if (empty || item == null) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    setText("connection");
 
-                            ImageView graphic = ImageUtils.loadImageView("server.png");
-                            graphic.setFitWidth(64);
-                            graphic.setFitHeight(64);
+                    ImageView graphic = ImageUtils.loadImageView("server.png");
+                    graphic.setFitWidth(64);
+                    graphic.setFitHeight(64);
 
-                            setGraphic(graphic);
-                        }
-                    }
-                });
+                    setGraphic(graphic);
+                }
             }
         });
     }

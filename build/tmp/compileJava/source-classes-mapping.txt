@@ -3,8 +3,8 @@ main/browse/BrowseFilePage.java
 main/utils/FileUtils.java
  main.utils.FileUtils
  main.utils.FileUtils$1
-main/connectpage/ConnectPage.java
- main.connectpage.ConnectPage
+broadcast/BroadcastServerThread.java
+ broadcast.BroadcastServerThread
 broadcast/BroadcastServer.java
  broadcast.BroadcastServer
 example/simpleconnection/ClientHandler.java
@@ -25,8 +25,9 @@ main/install/InstallPageController.java
  main.install.InstallPageController
 main/browse/Project.java
  main.browse.Project
-broadcast/BroadcastClientThread.java
- broadcast.BroadcastClientThread
+main/SceneController.java
+ main.SceneController
+ main.SceneController$1
 example/chatroom/ServerThread.java
  example.chatroom.ServerThread
 example/simpleconnection/Client.java
@@ -46,14 +47,13 @@ main/browse/BrowseFilePageController.java
  main.browse.BrowseFilePageController$1
 main/Main.java
  main.Main
-main/SceneController.java
- main.SceneController
- main.SceneController$1
-broadcast/BroadcastServerThread.java
- broadcast.BroadcastServerThread
+main/connectpage/ConnectPage.java
+ main.connectpage.ConnectPage
+ main.connectpage.ConnectPage$1
 broadcast/BroadcastClient.java
  broadcast.BroadcastClient
+broadcast/BroadcastClientThread.java
+ broadcast.BroadcastClientThread
 main/connectpage/ConnectPageController.java
  main.connectpage.ConnectPageController
  main.connectpage.ConnectPageController$1
- main.connectpage.ConnectPageController$1$1
