@@ -14,7 +14,7 @@ public final class ImageUtils {
         try {
             URL url = ImageUtils.class.getResource(Main.IMAGE_PACKAGE + imagePath);
             fileImage = new FileInputStream(url.getFile());
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException | NullPointerException e) {
             System.out.println("Image was not found or could not be loaded.");
         }
 

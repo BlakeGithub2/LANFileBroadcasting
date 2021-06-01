@@ -87,7 +87,7 @@ public class ConnectPage implements Page {
         return server.isBroadcasting();
     }
 
-    public ObservableList<Connection> getConnectionList() {
+    public ObservableList<Connection> getConnections() {
         return connections;
     }
 }

@@ -1,65 +1,59 @@
-main/install/InstallPage.java
- main.install.InstallPage
+main/browse/BrowseFilePage.java
+ main.browse.BrowseFilePage
 main/utils/FileUtils.java
  main.utils.FileUtils
  main.utils.FileUtils$1
+main/connectpage/ConnectPage.java
+ main.connectpage.ConnectPage
 broadcast/BroadcastServer.java
  broadcast.BroadcastServer
 example/simpleconnection/ClientHandler.java
  example.simpleconnection.ClientHandler
 example/chatroom/Client.java
  example.chatroom.Client
-example/chatroom/ChatServer.java
- example.chatroom.ChatServer
+main/browse/CannotAddRepeatException.java
+ main.browse.CannotAddRepeatException
+main/connectpage/Connection.java
+ main.connectpage.Connection
 example/simpleconnection/ServerConnection.java
  example.simpleconnection.ServerConnection
-main/browse/Project.java
- main.browse.Project
 example/chatroom/ClientThread.java
  example.chatroom.ClientThread
-main/Main.java
- main.Main
 example/simpleconnection/Server.java
  example.simpleconnection.Server
-broadcast/BroadcastServerThread.java
- broadcast.BroadcastServerThread
-main/SceneController.java
- main.SceneController
- main.SceneController$1
-main/browse/BrowseFilePageController.java
- main.browse.BrowseFilePageController
- main.browse.BrowseFilePageController$1
-main/GUIPaneList.java
- main.GUIPaneList
- main.GUIPaneList$1
+main/install/InstallPageController.java
+ main.install.InstallPageController
+main/browse/Project.java
+ main.browse.Project
+broadcast/BroadcastClientThread.java
+ broadcast.BroadcastClientThread
 example/chatroom/ServerThread.java
  example.chatroom.ServerThread
 example/simpleconnection/Client.java
  example.simpleconnection.Client
-main/install/InstallPageController.java
- main.install.InstallPageController
-main/utils/ImageUtils.java
- main.utils.ImageUtils
-main/GUIPane.java
- main.GUIPane
-main/Page.java
- main.Page
-main/browse/CannotAddRepeatException.java
- main.browse.CannotAddRepeatException
 main/BaseFile.java
  main.BaseFile
-main/browse/BrowseFilePage.java
- main.browse.BrowseFilePage
-main/connectpage/Connection.java
- main.connectpage.Connection
- main.connectpage.Connection$1
-main/connectpage/ConnectionList.java
- main.connectpage.ConnectionList
-main/connectpage/ConnectPage.java
- main.connectpage.ConnectPage
+main/install/InstallPage.java
+ main.install.InstallPage
+main/utils/ImageUtils.java
+ main.utils.ImageUtils
+main/Page.java
+ main.Page
+example/chatroom/ChatServer.java
+ example.chatroom.ChatServer
+main/browse/BrowseFilePageController.java
+ main.browse.BrowseFilePageController
+ main.browse.BrowseFilePageController$1
+main/Main.java
+ main.Main
+main/SceneController.java
+ main.SceneController
+ main.SceneController$1
+broadcast/BroadcastServerThread.java
+ broadcast.BroadcastServerThread
 broadcast/BroadcastClient.java
  broadcast.BroadcastClient
 main/connectpage/ConnectPageController.java
  main.connectpage.ConnectPageController
-broadcast/BroadcastClientThread.java
- broadcast.BroadcastClientThread
+ main.connectpage.ConnectPageController$1
+ main.connectpage.ConnectPageController$1$1

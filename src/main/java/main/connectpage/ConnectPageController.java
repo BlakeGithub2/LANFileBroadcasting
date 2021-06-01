@@ -1,9 +1,13 @@
 package main.connectpage;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.layout.TilePane;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.image.ImageView;
+import main.utils.ImageUtils;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -19,7 +23,7 @@ public class ConnectPageController implements Initializable {
     private Button broadcastButton;
 
     @FXML
-    private TilePane explorePane;
+    private ListView connectionList;
 
     @FXML
     private void triggerBroadcasting() {
@@ -30,5 +34,30 @@ public class ConnectPageController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         addModel(new ConnectPage());
+        connectionList.setItems(page.getConnections());
+        connectionList.setCellFactory(param -> new ListCell<Connection>() {
+            @Override
+            protected void updateItem(Connection item, boolean empty) {
+                super.updateItem(item, empty);
+
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (empty || item == null) {
+                            setText(null);
+                            setGraphic(null);
+                        } else {
+                            setText("connection");
+
+                            ImageView graphic = ImageUtils.loadImageView("server.png");
+                            graphic.setFitWidth(64);
+                            graphic.setFitHeight(64);
+
+                            setGraphic(graphic);
+                        }
+                    }
+                });
+            }
+        });
     }
 }
