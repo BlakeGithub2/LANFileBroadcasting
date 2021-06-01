@@ -43,7 +43,11 @@ public class ConnectPageController implements Initializable {
                     setText(null);
                     setGraphic(null);
                 } else {
-                    setText("connection");
+                    if (item.getAddress() == null) {
+                        setText("Your files");
+                    } else {
+                        setText(item.getAddress().getHostName());
+                    }
 
                     ImageView graphic = ImageUtils.loadImageView("server.png");
                     graphic.setFitWidth(64);
