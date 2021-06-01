@@ -72,7 +72,7 @@ public class BroadcastClientThread extends Thread {
 
                 // Find received message
                 String received = new String(packet.getData(), 0, packet.getLength());
-                if (!page.getConnectionList().addConnection(received, packet.getAddress())) {
+                if (!page.addConnection(received, packet.getAddress())) {
                     shouldSleep = false;
                 }
             } catch (IOException e) {
@@ -89,7 +89,7 @@ public class BroadcastClientThread extends Thread {
                 }
             }
         }
-        System.out.println("disconnecting socket...");
+
         try {
             socket.leaveGroup(address);
         } catch (IOException e) {
