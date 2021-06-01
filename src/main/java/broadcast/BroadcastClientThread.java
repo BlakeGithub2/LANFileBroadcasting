@@ -89,7 +89,7 @@ public class BroadcastClientThread extends Thread {
                 }
             }
         }
-        System.out.println("disconnecting socket...");
+
         try {
             socket.leaveGroup(address);
         } catch (IOException e) {

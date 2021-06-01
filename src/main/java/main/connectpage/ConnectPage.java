@@ -43,6 +43,7 @@ public class ConnectPage implements Page {
                     connections.add(connection);
                 }
             });
+
             return true;
         }
 

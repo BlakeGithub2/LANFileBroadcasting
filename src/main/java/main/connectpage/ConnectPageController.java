@@ -2,10 +2,12 @@ package main.connectpage;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
+import main.Main;
 import main.utils.ImageUtils;
 
 import java.net.URL;
@@ -22,12 +24,40 @@ public class ConnectPageController implements Initializable {
     private Button broadcastButton;
 
     @FXML
+    private Button connectButton;
+
+    @FXML
     private ListView connectionList;
 
     @FXML
     private void triggerBroadcasting() {
         page.triggerBroadcasting();
         page.triggerButton(broadcastButton);
+    }
+
+    @FXML
+    private void triggerConnect() {
+        Connection selected = (Connection) connectionList.getSelectionModel().getSelectedItem();
+
+        // Nothing is selected
+        if (selected == null) {
+            displayNothingSelectedMessage();
+            return;
+        }
+
+        // Self is selected
+        if (selected.getAddress() == null) {
+            Main.getSceneController().activate("browse");
+            return;
+        }
+
+        // Other server is selected
+        System.out.println("CONNECTING TO EXTERNAL SERVER");
+    }
+    private void displayNothingSelectedMessage() {
+        Alert a = new Alert(Alert.AlertType.ERROR);
+        a.setContentText("Please select a server to connect to!");
+        a.show();
     }
 
     @Override
