@@ -14,8 +14,8 @@
             <Font size="36.0" />
          </font>
       </Text>
-      <ListView id="connectionList" fx:id="connectionList" prefHeight="324.0" prefWidth="600.0" />
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+      <ListView id="connectionList" fx:id="connectionList" prefHeight="255.0" prefWidth="600.0" VBox.vgrow="ALWAYS" />
+      <HBox alignment="CENTER" prefHeight="50.0" prefWidth="600.0" spacing="10.0">
          <children>
             <Button id="connectButton" fx:id="connectButton" mnemonicParsing="false" onMouseClicked="#triggerConnect" text="Connect">
                <font>
@@ -24,7 +24,7 @@
             </Button>
          </children>
       </HBox>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+      <HBox alignment="CENTER" prefHeight="50.0" prefWidth="600.0" spacing="10.0">
          <children>
             <Button id="broadcastButton" fx:id="broadcastButton" mnemonicParsing="false" onMouseClicked="#triggerBroadcasting" text="Start Broadcasting">
                <font>
