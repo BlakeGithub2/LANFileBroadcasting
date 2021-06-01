@@ -29,6 +29,6 @@ public class ConnectPageController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        addModel(new ConnectPage(explorePane));
+        addModel(new ConnectPage());
     }
 }

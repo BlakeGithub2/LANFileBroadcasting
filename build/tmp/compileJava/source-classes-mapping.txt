@@ -1,7 +1,8 @@
 main/install/InstallPage.java
  main.install.InstallPage
-main/connectpage/ConnectPage.java
- main.connectpage.ConnectPage
+main/utils/FileUtils.java
+ main.utils.FileUtils
+ main.utils.FileUtils$1
 broadcast/BroadcastServer.java
  broadcast.BroadcastServer
 example/simpleconnection/ClientHandler.java
@@ -12,8 +13,8 @@ example/chatroom/ChatServer.java
  example.chatroom.ChatServer
 example/simpleconnection/ServerConnection.java
  example.simpleconnection.ServerConnection
-broadcast/BroadcastClient.java
- broadcast.BroadcastClient
+main/browse/Project.java
+ main.browse.Project
 example/chatroom/ClientThread.java
  example.chatroom.ClientThread
 main/Main.java
@@ -25,8 +26,9 @@ broadcast/BroadcastServerThread.java
 main/SceneController.java
  main.SceneController
  main.SceneController$1
-broadcast/BroadcastClientThread.java
- broadcast.BroadcastClientThread
+main/browse/BrowseFilePageController.java
+ main.browse.BrowseFilePageController
+ main.browse.BrowseFilePageController$1
 main/GUIPaneList.java
  main.GUIPaneList
  main.GUIPaneList$1
@@ -36,8 +38,8 @@ example/simpleconnection/Client.java
  example.simpleconnection.Client
 main/install/InstallPageController.java
  main.install.InstallPageController
-main/connectpage/ConnectPageController.java
- main.connectpage.ConnectPageController
+main/utils/ImageUtils.java
+ main.utils.ImageUtils
 main/GUIPane.java
  main.GUIPane
 main/Page.java
@@ -51,15 +53,13 @@ main/browse/BrowseFilePage.java
 main/connectpage/Connection.java
  main.connectpage.Connection
  main.connectpage.Connection$1
-main/utils/ImageUtils.java
- main.utils.ImageUtils
-main/browse/Project.java
- main.browse.Project
 main/connectpage/ConnectionList.java
  main.connectpage.ConnectionList
-main/utils/FileUtils.java
- main.utils.FileUtils
- main.utils.FileUtils$1
-main/browse/BrowseFilePageController.java
- main.browse.BrowseFilePageController
- main.browse.BrowseFilePageController$1
+main/connectpage/ConnectPage.java
+ main.connectpage.ConnectPage
+broadcast/BroadcastClient.java
+ broadcast.BroadcastClient
+main/connectpage/ConnectPageController.java
+ main.connectpage.ConnectPageController
+broadcast/BroadcastClientThread.java
+ broadcast.BroadcastClientThread

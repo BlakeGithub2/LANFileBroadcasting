@@ -2,29 +2,27 @@ package main.connectpage;
 
 import broadcast.BroadcastClient;
 import broadcast.BroadcastServer;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Pane;
 import main.Page;
 
 import java.io.IOException;
+import java.net.InetAddress;
 
 public class ConnectPage implements Page {
-    private ConnectionList connections;
     private BroadcastServer server;
 
-    public ConnectPage(Pane explorePane) {
-        createConnectionsList(explorePane);
+    private ObservableList<Connection> connections = FXCollections.observableArrayList();
+
+    public ConnectPage() {
         onCreation();
         server = new BroadcastServer();
     }
 
-    private void createConnectionsList(Pane explorePane) {
-        connections = new ConnectionList(explorePane);
-    }
-
     private void onCreation() {
-        connections.addConnection("Your Files", null);
+        addConnection("Your Files", null);
 
         try {
             addConnections();
@@ -32,6 +30,28 @@ public class ConnectPage implements Page {
             System.out.println("Could not add connections. (ConnectPage.java)");
             e.printStackTrace();
         }
+    }
+
+    public boolean addConnection(String name, InetAddress ip) {
+        Connection connection = new Connection(name, ip);
+
+        if (!containsAddress(connection.getAddress())) {
+            connections.add(connection);
+            return true;
+        }
+
+        return false;
+    }
+    public boolean containsAddress(InetAddress ip) {
+        for (Connection c : connections) {
+            if (c.getAddress() == null) {
+                continue;
+            }
+            if (c.getAddress().equals(ip)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void addConnections() throws IOException {
@@ -67,7 +87,7 @@ public class ConnectPage implements Page {
         return server.isBroadcasting();
     }
 
-    public ConnectionList getConnectionList() {
+    public ObservableList<Connection> getConnectionList() {
         return connections;
     }
 }

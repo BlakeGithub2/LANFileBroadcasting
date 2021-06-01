@@ -13,16 +13,6 @@ public class ConnectionList extends GUIPaneList {
     }
 
     // Misc.
-    public boolean addConnection(String name, InetAddress ip) {
-        Connection connection = new Connection(name, ip);
-
-        if (!containsAddress(connection.getAddress())) {
-            add(connection);
-            return true;
-        }
-
-        return false;
-    }
     public boolean containsAddress(InetAddress ip) {
         for (GUIPane element : getElementList()) {
             Connection c = (Connection) element;
