@@ -53,7 +53,6 @@ public class BroadcastClientThread extends Thread {
         socket = new MulticastSocket(4446);
         address = InetAddress.getByName("230.0.0.255");
         socket.joinGroup(address);
-        socket.setSoTimeout(5000);
         this.page = page;
     }
 
