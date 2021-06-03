@@ -50,10 +50,10 @@ main/Main.java
 main/connectpage/ConnectPage.java
  main.connectpage.ConnectPage
  main.connectpage.ConnectPage$1
+main/connectpage/ConnectPageController.java
+ main.connectpage.ConnectPageController
+ main.connectpage.ConnectPageController$1
 broadcast/BroadcastClient.java
  broadcast.BroadcastClient
 broadcast/BroadcastClientThread.java
  broadcast.BroadcastClientThread
-main/connectpage/ConnectPageController.java
- main.connectpage.ConnectPageController
- main.connectpage.ConnectPageController$1
