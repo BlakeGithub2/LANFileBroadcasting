@@ -52,7 +52,8 @@ public class ConnectPageController implements Initializable {
         }
 
         // Other server is selected
-        System.out.println("CONNECTING TO EXTERNAL SERVER");
+        System.out.println("CONNECTING TO " + selected.getAddress());
+
     }
     private void displayNothingSelectedMessage() {
         Alert a = new Alert(Alert.AlertType.ERROR);

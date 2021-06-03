@@ -1,7 +1,7 @@
 package main.connectpage;
 
-import broadcast.BroadcastClient;
-import broadcast.BroadcastServer;
+import connections.broadcast.BroadcastClient;
+import connections.broadcast.BroadcastServer;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -41,7 +41,6 @@ public class ConnectPage implements Page {
                 @Override
                 public void run() {
                     connections.add(connection);
-                    System.out.println(connections.size());
                 }
             });
 
@@ -68,11 +67,11 @@ public class ConnectPage implements Page {
     }
 
     public void triggerBroadcasting() {
-        // Toggle server broadcast
+        // Toggle server connections.broadcast
         try {
             server.toggle();
         } catch (IOException e) {
-            System.out.println("Could not toggle broadcast.");
+            System.out.println("Could not toggle connections.broadcast.");
 
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setContentText(e.getMessage());

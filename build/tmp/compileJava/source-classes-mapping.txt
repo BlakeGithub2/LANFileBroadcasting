@@ -3,18 +3,23 @@ main/browse/BrowseFilePage.java
 main/utils/FileUtils.java
  main.utils.FileUtils
  main.utils.FileUtils$1
-main/install/InstallPage.java
- main.install.InstallPage
-broadcast/BroadcastServerThread.java
- broadcast.BroadcastServerThread
+connections/broadcast/BroadcastServer.java
+ connections.broadcast.BroadcastServer
+main/SceneController.java
+ main.SceneController
+ main.SceneController$1
 example/simpleconnection/ClientHandler.java
  example.simpleconnection.ClientHandler
 example/chatroom/Client.java
  example.chatroom.Client
+connections/ConnectionThread.java
+ connections.ConnectionThread
 main/browse/CannotAddRepeatException.java
  main.browse.CannotAddRepeatException
 main/connectpage/Connection.java
  main.connectpage.Connection
+connections/tcp/TCPServerThread.java
+ connections.tcp.TCPServerThread
 example/simpleconnection/ServerConnection.java
  example.simpleconnection.ServerConnection
 example/chatroom/ClientThread.java
@@ -25,17 +30,16 @@ main/install/InstallPageController.java
  main.install.InstallPageController
 main/browse/Project.java
  main.browse.Project
-main/SceneController.java
- main.SceneController
- main.SceneController$1
 example/chatroom/ServerThread.java
  example.chatroom.ServerThread
+connections/broadcast/BroadcastServerThread.java
+ connections.broadcast.BroadcastServerThread
 example/simpleconnection/Client.java
  example.simpleconnection.Client
 main/BaseFile.java
  main.BaseFile
-broadcast/BroadcastServer.java
- broadcast.BroadcastServer
+main/Main.java
+ main.Main
 main/utils/ImageUtils.java
  main.utils.ImageUtils
 main/Page.java
@@ -45,15 +49,15 @@ example/chatroom/ChatServer.java
 main/browse/BrowseFilePageController.java
  main.browse.BrowseFilePageController
  main.browse.BrowseFilePageController$1
-main/Main.java
- main.Main
+main/install/InstallPage.java
+ main.install.InstallPage
+connections/broadcast/BroadcastClient.java
+ connections.broadcast.BroadcastClient
 main/connectpage/ConnectPage.java
  main.connectpage.ConnectPage
  main.connectpage.ConnectPage$1
+connections/broadcast/BroadcastClientThread.java
+ connections.broadcast.BroadcastClientThread
 main/connectpage/ConnectPageController.java
  main.connectpage.ConnectPageController
  main.connectpage.ConnectPageController$1
-broadcast/BroadcastClient.java
- broadcast.BroadcastClient
-broadcast/BroadcastClientThread.java
- broadcast.BroadcastClientThread
