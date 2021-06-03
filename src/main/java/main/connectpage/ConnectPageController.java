@@ -76,7 +76,8 @@ public class ConnectPageController implements Initializable {
                     if (item.getAddress() == null) {
                         setText("Your files");
                     } else {
-                        setText(item.getAddress().getHostName());
+                        // TODO: Temp fix, getHost() slow
+                        setText(item.getAddress().toString());
                     }
 
                     ImageView graphic = ImageUtils.loadImageView("server.png");

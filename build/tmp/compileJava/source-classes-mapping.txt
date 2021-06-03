@@ -3,10 +3,10 @@ main/browse/BrowseFilePage.java
 main/utils/FileUtils.java
  main.utils.FileUtils
  main.utils.FileUtils$1
+main/install/InstallPage.java
+ main.install.InstallPage
 broadcast/BroadcastServerThread.java
  broadcast.BroadcastServerThread
-broadcast/BroadcastServer.java
- broadcast.BroadcastServer
 example/simpleconnection/ClientHandler.java
  example.simpleconnection.ClientHandler
 example/chatroom/Client.java
@@ -34,8 +34,8 @@ example/simpleconnection/Client.java
  example.simpleconnection.Client
 main/BaseFile.java
  main.BaseFile
-main/install/InstallPage.java
- main.install.InstallPage
+broadcast/BroadcastServer.java
+ broadcast.BroadcastServer
 main/utils/ImageUtils.java
  main.utils.ImageUtils
 main/Page.java

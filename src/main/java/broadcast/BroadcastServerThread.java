@@ -67,7 +67,6 @@ public class BroadcastServerThread extends Thread {
                 buffer = message.getBytes();
 
                 DatagramPacket packet = new DatagramPacket(buffer, buffer.length, group, 4446);
-
                 socket.send(packet);
             } catch (IOException e) {
                 System.out.println("Failed to broadcast packet.");

@@ -41,6 +41,7 @@ public class ConnectPage implements Page {
                 @Override
                 public void run() {
                     connections.add(connection);
+                    System.out.println(connections.size());
                 }
             });
 

@@ -53,6 +53,7 @@ public class BroadcastClientThread extends Thread {
         socket = new MulticastSocket(4446);
         address = InetAddress.getByName("230.0.0.255");
         socket.joinGroup(address);
+        socket.setSoTimeout(2000);
         this.page = page;
     }
 
@@ -72,7 +73,10 @@ public class BroadcastClientThread extends Thread {
 
                 // Find received message
                 String received = new String(packet.getData(), 0, packet.getLength());
-                if (!page.addConnection(received, packet.getAddress())) {
+                InetAddress address = packet.getAddress();
+
+                if (page.addConnection(received, address)) {
+                    System.out.println("connection added.");
                     shouldSleep = false;
                 }
             } catch (IOException e) {
