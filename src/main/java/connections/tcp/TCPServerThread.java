@@ -24,6 +24,7 @@ public class TCPServerThread extends ConnectionThread {
         while (!shouldStop) {
             try {
                 Socket client = socket.accept();
+                System.out.println("Client accepted.");
             } catch (IOException e) {
                 e.printStackTrace();
             }

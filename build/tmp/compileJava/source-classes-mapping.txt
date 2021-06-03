@@ -3,8 +3,8 @@ main/browse/BrowseFilePage.java
 main/utils/FileUtils.java
  main.utils.FileUtils
  main.utils.FileUtils$1
-connections/broadcast/BroadcastServer.java
- connections.broadcast.BroadcastServer
+connections/tcp/TCPClientThread.java
+ connections.tcp.TCPClientThread
 main/SceneController.java
  main.SceneController
  main.SceneController$1
@@ -12,14 +12,14 @@ example/simpleconnection/ClientHandler.java
  example.simpleconnection.ClientHandler
 example/chatroom/Client.java
  example.chatroom.Client
-connections/ConnectionThread.java
- connections.ConnectionThread
+connections/tcp/TCPServerThread.java
+ connections.tcp.TCPServerThread
 main/browse/CannotAddRepeatException.java
  main.browse.CannotAddRepeatException
 main/connectpage/Connection.java
  main.connectpage.Connection
-connections/tcp/TCPServerThread.java
- connections.tcp.TCPServerThread
+connections/ConnectionThread.java
+ connections.ConnectionThread
 example/simpleconnection/ServerConnection.java
  example.simpleconnection.ServerConnection
 example/chatroom/ClientThread.java
@@ -51,6 +51,8 @@ main/browse/BrowseFilePageController.java
  main.browse.BrowseFilePageController$1
 main/install/InstallPage.java
  main.install.InstallPage
+connections/ConnectionServer.java
+ connections.ConnectionServer
 connections/broadcast/BroadcastClient.java
  connections.broadcast.BroadcastClient
 main/connectpage/ConnectPage.java

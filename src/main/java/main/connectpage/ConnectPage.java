@@ -1,7 +1,7 @@
 package main.connectpage;
 
 import connections.broadcast.BroadcastClient;
-import connections.broadcast.BroadcastServer;
+import connections.ConnectionServer;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,13 +13,13 @@ import java.io.IOException;
 import java.net.InetAddress;
 
 public class ConnectPage implements Page {
-    private BroadcastServer server;
+    private ConnectionServer server;
 
     private ObservableList<Connection> connections = FXCollections.observableArrayList();
 
     public ConnectPage() {
         onCreation();
-        server = new BroadcastServer();
+        server = new ConnectionServer();
     }
 
     private void onCreation() {
