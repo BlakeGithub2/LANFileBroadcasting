@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import main.Main;
 import main.utils.ImageUtils;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -51,13 +52,21 @@ public class ConnectPageController implements Initializable {
             return;
         }
 
-        // Other server is selected
-        System.out.println("CONNECTING TO " + selected.getAddress());
-
+        try {
+            page.connect(selected.getAddress());
+        } catch (IOException e) {
+            displayCouldNotConnectMessage();
+            e.printStackTrace();
+        }
+    }
+    private void displayCouldNotConnectMessage() {
+        Alert a = new Alert(Alert.AlertType.ERROR);
+        a.setContentText("Could not connect to the server.");
+        a.show();
     }
     private void displayNothingSelectedMessage() {
         Alert a = new Alert(Alert.AlertType.ERROR);
-        a.setContentText("Please select a server to connect to!");
+        a.setContentText("Please select a server to connect to.");
         a.show();
     }
 

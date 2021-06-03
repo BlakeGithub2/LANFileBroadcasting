@@ -12,16 +12,14 @@ example/simpleconnection/ClientHandler.java
  example.simpleconnection.ClientHandler
 example/chatroom/Client.java
  example.chatroom.Client
-main/connectpage/ConnectPageController.java
- main.connectpage.ConnectPageController
- main.connectpage.ConnectPageController$1
+connections/tcp/TCPServerThread.java
+ connections.tcp.TCPServerThread
 main/browse/CannotAddRepeatException.java
  main.browse.CannotAddRepeatException
 main/connectpage/Connection.java
  main.connectpage.Connection
-main/connectpage/ConnectPage.java
- main.connectpage.ConnectPage
- main.connectpage.ConnectPage$1
+connections/tcp/TCPClientThread.java
+ connections.tcp.TCPClientThread
 example/simpleconnection/ServerConnection.java
  example.simpleconnection.ServerConnection
 example/chatroom/ClientThread.java
@@ -34,8 +32,8 @@ main/browse/Project.java
  main.browse.Project
 example/chatroom/ServerThread.java
  example.chatroom.ServerThread
-connections/broadcast/BroadcastClient.java
- connections.broadcast.BroadcastClient
+connections/ConnectionServer.java
+ connections.ConnectionServer
 example/simpleconnection/Client.java
  example.simpleconnection.Client
 main/BaseFile.java
@@ -55,11 +53,19 @@ connections/ConnectionThread.java
  connections.ConnectionThread
 connections/broadcast/BroadcastServerThread.java
  connections.broadcast.BroadcastServerThread
+connections/exceptions/AlreadyActivatedException.java
+ connections.exceptions.AlreadyActivatedException
+connections/broadcast/BroadcastClient.java
+ connections.broadcast.BroadcastClient
+connections/tcp/TCPClient.java
+ connections.tcp.TCPClient
+connections/ConnectionClient.java
+ connections.ConnectionClient
+main/connectpage/ConnectPage.java
+ main.connectpage.ConnectPage
+ main.connectpage.ConnectPage$1
 connections/broadcast/BroadcastClientThread.java
  connections.broadcast.BroadcastClientThread
-connections/tcp/TCPClientThread.java
- connections.tcp.TCPClientThread
-connections/ConnectionServer.java
- connections.ConnectionServer
-connections/tcp/TCPServerThread.java
- connections.tcp.TCPServerThread
+main/connectpage/ConnectPageController.java
+ main.connectpage.ConnectPageController
+ main.connectpage.ConnectPageController$1

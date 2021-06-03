@@ -22,7 +22,7 @@ public class TCPClientThread extends ConnectionThread {
     @Override
     public void run() {
         while (!shouldStop) {
-            System.out.println("Client accepted.");
+
         }
         try {
             socket.close();
