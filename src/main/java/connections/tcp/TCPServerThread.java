@@ -26,9 +26,15 @@ public class TCPServerThread extends ConnectionThread {
                 Socket client = socket.accept();
                 System.out.println("Client accepted.");
             } catch (IOException e) {
-                e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void stopConnection() {
+        super.stopConnection();
+
+        // Socket close code only works here
         try {
             socket.close();
         } catch (IOException e) {

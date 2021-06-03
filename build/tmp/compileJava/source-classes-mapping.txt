@@ -3,8 +3,8 @@ main/browse/BrowseFilePage.java
 main/utils/FileUtils.java
  main.utils.FileUtils
  main.utils.FileUtils$1
-connections/tcp/TCPClientThread.java
- connections.tcp.TCPClientThread
+main/install/InstallPage.java
+ main.install.InstallPage
 main/SceneController.java
  main.SceneController
  main.SceneController$1
@@ -12,14 +12,16 @@ example/simpleconnection/ClientHandler.java
  example.simpleconnection.ClientHandler
 example/chatroom/Client.java
  example.chatroom.Client
-connections/tcp/TCPServerThread.java
- connections.tcp.TCPServerThread
+main/connectpage/ConnectPageController.java
+ main.connectpage.ConnectPageController
+ main.connectpage.ConnectPageController$1
 main/browse/CannotAddRepeatException.java
  main.browse.CannotAddRepeatException
 main/connectpage/Connection.java
  main.connectpage.Connection
-connections/ConnectionThread.java
- connections.ConnectionThread
+main/connectpage/ConnectPage.java
+ main.connectpage.ConnectPage
+ main.connectpage.ConnectPage$1
 example/simpleconnection/ServerConnection.java
  example.simpleconnection.ServerConnection
 example/chatroom/ClientThread.java
@@ -32,8 +34,8 @@ main/browse/Project.java
  main.browse.Project
 example/chatroom/ServerThread.java
  example.chatroom.ServerThread
-connections/broadcast/BroadcastServerThread.java
- connections.broadcast.BroadcastServerThread
+connections/broadcast/BroadcastClient.java
+ connections.broadcast.BroadcastClient
 example/simpleconnection/Client.java
  example.simpleconnection.Client
 main/BaseFile.java
@@ -49,17 +51,15 @@ example/chatroom/ChatServer.java
 main/browse/BrowseFilePageController.java
  main.browse.BrowseFilePageController
  main.browse.BrowseFilePageController$1
-main/install/InstallPage.java
- main.install.InstallPage
-connections/ConnectionServer.java
- connections.ConnectionServer
-connections/broadcast/BroadcastClient.java
- connections.broadcast.BroadcastClient
-main/connectpage/ConnectPage.java
- main.connectpage.ConnectPage
- main.connectpage.ConnectPage$1
+connections/ConnectionThread.java
+ connections.ConnectionThread
+connections/broadcast/BroadcastServerThread.java
+ connections.broadcast.BroadcastServerThread
 connections/broadcast/BroadcastClientThread.java
  connections.broadcast.BroadcastClientThread
-main/connectpage/ConnectPageController.java
- main.connectpage.ConnectPageController
- main.connectpage.ConnectPageController$1
+connections/tcp/TCPClientThread.java
+ connections.tcp.TCPClientThread
+connections/ConnectionServer.java
+ connections.ConnectionServer
+connections/tcp/TCPServerThread.java
+ connections.tcp.TCPServerThread
