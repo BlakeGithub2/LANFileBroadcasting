@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="main.browse.viewown.BrowseOwnFilePageControllerTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2021-06-05T06:21:32" hostname="BLAKE" time="15.593">
+  <properties/>
+  <testcase name="testAddNonexistentProject()" classname="main.browse.viewown.BrowseOwnFilePageControllerTest" time="3.402"/>
+  <testcase name="testCancelAddProject()" classname="main.browse.viewown.BrowseOwnFilePageControllerTest" time="0.863"/>
+  <testcase name="testProjectsListEmpty()" classname="main.browse.viewown.BrowseOwnFilePageControllerTest" time="0.254"/>
+  <testcase name="testAddProject()" classname="main.browse.viewown.BrowseOwnFilePageControllerTest" time="4.798"/>
+  <testcase name="testBackToMainMenu()" classname="main.browse.viewown.BrowseOwnFilePageControllerTest" time="0.748"/>
+  <testcase name="testDeleteProject()" classname="main.browse.viewown.BrowseOwnFilePageControllerTest" time="5.525"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[Jun 04, 2021 11:21:32 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
+Jun 04, 2021 11:21:33 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
+Jun 04, 2021 11:21:33 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
+Jun 04, 2021 11:21:35 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
+Jun 04, 2021 11:21:35 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
+Jun 04, 2021 11:21:35 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
+Jun 04, 2021 11:21:36 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
+Jun 04, 2021 11:21:36 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
+Jun 04, 2021 11:21:36 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
+Jun 04, 2021 11:21:36 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
+Jun 04, 2021 11:21:36 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
+Jun 04, 2021 11:21:36 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
+Jun 04, 2021 11:21:41 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
+Jun 04, 2021 11:21:41 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
+Jun 04, 2021 11:21:41 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
+Jun 04, 2021 11:21:42 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
+Jun 04, 2021 11:21:42 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
+Jun 04, 2021 11:21:42 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 16 by JavaFX runtime of version 15.0.1
+]]></system-err>
+</testsuite>

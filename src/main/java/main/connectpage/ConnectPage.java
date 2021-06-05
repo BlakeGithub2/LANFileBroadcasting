@@ -93,7 +93,6 @@ public class ConnectPage implements Page {
 
     public void connect(InetAddress address) throws IOException {
         client.connect(address);
-        Main.getSceneController().activate("browse");
     }
 
     // Getters

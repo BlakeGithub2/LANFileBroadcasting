@@ -54,6 +54,7 @@ public class ConnectPageController implements Initializable {
 
         try {
             page.connect(selected.getAddress());
+            Main.getSceneController().activate("browse");
         } catch (IOException e) {
             displayCouldNotConnectMessage();
             e.printStackTrace();
