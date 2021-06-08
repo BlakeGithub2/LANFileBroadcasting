@@ -27,7 +27,7 @@ public class BrowseOwnFilePageController implements Initializable {
 
     @FXML
     private void goBack() {
-        Main.getSceneController().activate("newconnect");
+        Main.getSceneController().activate("connect");
     }
 
     @FXML

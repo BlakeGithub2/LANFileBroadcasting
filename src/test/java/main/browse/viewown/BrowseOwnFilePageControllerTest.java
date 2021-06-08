@@ -27,7 +27,7 @@ public class BrowseOwnFilePageControllerTest extends BaseFileUnitTest {
     @Test
     public void testBackToMainMenu() {
         clickOn(lookup("#backButton").queryButton());
-        assertEquals("newconnect", Main.getSceneController().getCurrentScene());
+        assertEquals("connect", Main.getSceneController().getCurrentScene());
     }
 
     @Test

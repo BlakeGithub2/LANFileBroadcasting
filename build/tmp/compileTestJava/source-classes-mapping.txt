@@ -1,10 +1,12 @@
+main/browse/viewown/BaseFileUnitTest.java
+ main.browse.viewown.BaseFileUnitTest
 main/exceptions/InvalidKeyCodeException.java
  main.exceptions.InvalidKeyCodeException
 main/utils/TestFXUtils.java
  main.utils.TestFXUtils
 main/browse/viewown/BrowseOwnFilePageTest.java
  main.browse.viewown.BrowseOwnFilePageTest
-main/browse/viewown/BaseFileUnitTest.java
- main.browse.viewown.BaseFileUnitTest
 main/browse/viewown/BrowseOwnFilePageControllerTest.java
  main.browse.viewown.BrowseOwnFilePageControllerTest
+main/browse/BrowseFilePageTest.java
+ main.browse.BrowseFilePageTest

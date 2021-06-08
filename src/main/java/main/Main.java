@@ -40,15 +40,16 @@ public class Main extends Application {
 
     private static ArrayList<String> initializePageList() {
         ArrayList<String> pageList = new ArrayList<>();
-        pageList.add("newconnect");
+        pageList.add("connect");
         pageList.add("browse");
         pageList.add("installer");
+        pageList.add("download");
 
         return pageList;
     }
     private static void goToFirstScene() {
         if (baseFile.addressFileExists()) {
-            sceneController.activate("newconnect");
+            sceneController.activate("connect");
         } else {
             sceneController.activate("installer");
         }
