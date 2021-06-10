@@ -30,14 +30,15 @@ example/simpleconnection/ServerConnection.java
  example.simpleconnection.ServerConnection
 example/chatroom/ClientThread.java
  example.chatroom.ClientThread
-main/install/InstallPage.java
- main.install.InstallPage
+main/browse/viewown/BrowseOwnFilePage.java
+ main.browse.viewown.BrowseOwnFilePage
 example/simpleconnection/Server.java
  example.simpleconnection.Server
-connections/ConnectionThread.java
- connections.ConnectionThread
-connections/broadcast/BroadcastClient.java
- connections.broadcast.BroadcastClient
+main/browse/viewown/BrowseOwnFilePageController.java
+ main.browse.viewown.BrowseOwnFilePageController
+ main.browse.viewown.BrowseOwnFilePageController$1
+main/install/InstallPageController.java
+ main.install.InstallPageController
 main/browse/Project.java
  main.browse.Project
 main/browse/download/DownloadPageController.java
@@ -51,28 +52,27 @@ connections/broadcast/BroadcastServerThread.java
  connections.broadcast.BroadcastServerThread
 example/simpleconnection/Client.java
  example.simpleconnection.Client
-connections/exceptions/AlreadyActivatedException.java
- connections.exceptions.AlreadyActivatedException
-example/chatroom/ChatServer.java
- example.chatroom.ChatServer
-main/Page.java
- main.Page
-main/browse/viewown/BrowseOwnFilePage.java
- main.browse.viewown.BrowseOwnFilePage
-main/Main.java
- main.Main
-main/SceneController.java
- main.SceneController
- main.SceneController$1
+main/BaseFile.java
+ main.BaseFile
 main/connectpage/ConnectPageController.java
  main.connectpage.ConnectPageController
  main.connectpage.ConnectPageController$1
-main/BaseFile.java
- main.BaseFile
-main/install/InstallPageController.java
- main.install.InstallPageController
 main/utils/ImageUtils.java
  main.utils.ImageUtils
-main/browse/viewown/BrowseOwnFilePageController.java
- main.browse.viewown.BrowseOwnFilePageController
- main.browse.viewown.BrowseOwnFilePageController$1
+main/Page.java
+ main.Page
+example/chatroom/ChatServer.java
+ example.chatroom.ChatServer
+connections/broadcast/BroadcastClient.java
+ connections.broadcast.BroadcastClient
+connections/exceptions/AlreadyActivatedException.java
+ connections.exceptions.AlreadyActivatedException
+main/Main.java
+ main.Main
+connections/ConnectionThread.java
+ connections.ConnectionThread
+main/SceneController.java
+ main.SceneController
+ main.SceneController$1
+main/install/InstallPage.java
+ main.install.InstallPage

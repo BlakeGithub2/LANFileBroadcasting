@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
+import main.Main;
 import main.browse.Project;
 import main.utils.ImageUtils;
 
@@ -16,6 +17,16 @@ public class DownloadPageController implements Initializable {
 
     @FXML
     private ListView projectList;
+
+    @FXML
+    public void download() {
+        System.out.println("preparing to download...");
+    }
+
+    @FXML
+    public void goBack() {
+        Main.getSceneController().activate("connect");
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
