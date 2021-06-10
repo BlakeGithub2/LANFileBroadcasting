@@ -17,7 +17,7 @@ public class ConnectionClient {
     public ConnectionClient(ConnectPage page) {
         this.connectPage = page;
         broadcastClient = new BroadcastClient(page);
-        tcpClient = new TCPClient(page);
+        tcpClient = new TCPClient();
     }
 
     public void searchForBroadcasts() throws IOException {

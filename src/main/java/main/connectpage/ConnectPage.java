@@ -1,13 +1,12 @@
 package main.connectpage;
 
-import connections.ConnectionClient;
 import connections.ConnectionServer;
+import connections.broadcast.BroadcastClient;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import main.Main;
 import main.Page;
 
 import java.io.IOException;
@@ -15,13 +14,13 @@ import java.net.InetAddress;
 
 public class ConnectPage implements Page {
     private ConnectionServer server;
-    private ConnectionClient client;
+    private BroadcastClient client;
 
     private ObservableList<Connection> connections = FXCollections.observableArrayList();
 
     public ConnectPage() {
         server = new ConnectionServer();
-        client = new ConnectionClient(this);
+        client = new BroadcastClient(this);
         onCreation();
     }
 
@@ -89,10 +88,6 @@ public class ConnectPage implements Page {
         } else {
             broadcastButton.setText("Start Broadcasting");
         }
-    }
-
-    public void connect(InetAddress address) throws IOException {
-        client.connect(address);
     }
 
     // Getters
