@@ -7,3 +7,5 @@ settings.gradle
 build/*
 gradle/*
 openjfx-11.0.2_windows-x64_bin-sdk/*
+gradlew
+basefile.txt
