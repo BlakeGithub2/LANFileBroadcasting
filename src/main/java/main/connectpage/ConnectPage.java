@@ -80,10 +80,9 @@ public class ConnectPage implements Page {
             e.printStackTrace();
             return;
         }
-
     }
     public void triggerButton(Button broadcastButton) {
-        if (server.isBroadcasting()) {
+        if (isBroadcasting()) {
             broadcastButton.setText("Stop Broadcasting");
         } else {
             broadcastButton.setText("Start Broadcasting");

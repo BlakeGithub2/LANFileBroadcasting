@@ -57,7 +57,6 @@ public class ConnectPageController implements Initializable {
             Main.getSceneController().activate("download");
         } catch (IOException e) {
             displayCouldNotConnectMessage();
-            e.printStackTrace();
         }
     }
     private void displayCouldNotConnectMessage() {

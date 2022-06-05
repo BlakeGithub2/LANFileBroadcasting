@@ -27,4 +27,8 @@ public class TCPClient {
             throw new AlreadyActivatedException("Already connected to nothing.");
         }
     }
+
+    public void sendInstruction(TCPInstruction instruction) {
+        tcpThread.addInstruction(instruction);
+    }
 }

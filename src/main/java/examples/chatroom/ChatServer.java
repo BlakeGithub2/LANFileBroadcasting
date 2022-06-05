@@ -1,4 +1,4 @@
-package example.chatroom;
+package examples.chatroom;
 
 import java.io.IOException;
 import java.io.PrintWriter;

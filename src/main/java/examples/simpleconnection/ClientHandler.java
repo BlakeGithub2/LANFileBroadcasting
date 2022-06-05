@@ -1,4 +1,4 @@
-package example.simpleconnection;
+package examples.simpleconnection;
 
 import java.io.BufferedReader;
 import java.io.IOException;
