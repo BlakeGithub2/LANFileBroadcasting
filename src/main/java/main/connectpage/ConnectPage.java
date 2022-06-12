@@ -1,11 +1,10 @@
 package main.connectpage;
 
-import connections.ConnectionServer;
-import connections.broadcast.BroadcastClient;
+import connections.broadcast.BroadcastClientThread;
+import connections.broadcast.BroadcastServer;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import main.Page;
 
@@ -13,15 +12,21 @@ import java.io.IOException;
 import java.net.InetAddress;
 
 public class ConnectPage implements Page {
-    private ConnectionServer server;
-    private BroadcastClient client;
+    private BroadcastServer server;
+    private BroadcastClientThread client;
+    private boolean broadcasting;
 
     private ObservableList<Connection> connections = FXCollections.observableArrayList();
 
     public ConnectPage() {
-        server = new ConnectionServer();
-        client = new BroadcastClient(this);
-        onCreation();
+        try {
+            server = new BroadcastServer();
+            client = new BroadcastClientThread(this);
+            broadcasting = false;
+            onCreation();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void onCreation() {
@@ -64,25 +69,15 @@ public class ConnectPage implements Page {
     }
 
     private void addConnections() throws IOException {
-        client.searchForBroadcasts();
+        client.start();
     }
 
     public void triggerBroadcasting() {
-        // Toggle server connections.broadcast
-        try {
-            server.toggle();
-        } catch (IOException e) {
-            System.out.println("Could not toggle connections.broadcast.");
-
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setContentText(e.getMessage());
-            a.show();
-            e.printStackTrace();
-            return;
-        }
+        server.toggle();
+        broadcasting = !broadcasting;
     }
     public void triggerButton(Button broadcastButton) {
-        if (isBroadcasting()) {
+        if (server.isActive()) {
             broadcastButton.setText("Stop Broadcasting");
         } else {
             broadcastButton.setText("Start Broadcasting");
@@ -90,10 +85,6 @@ public class ConnectPage implements Page {
     }
 
     // Getters
-    public boolean isBroadcasting() {
-        return server.isBroadcasting();
-    }
-
     public ObservableList<Connection> getConnections() {
         return connections;
     }

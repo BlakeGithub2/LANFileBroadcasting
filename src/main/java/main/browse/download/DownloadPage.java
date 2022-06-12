@@ -1,11 +1,16 @@
 package main.browse.download;
 
-import main.Main;
 import main.browse.BrowseFilePage;
+import main.browse.Project;
+
+import java.util.List;
 
 public class DownloadPage extends BrowseFilePage {
-    public void findDownloadableProjects() {
-        System.out.println("finding downloadable projects...");
-        Main.getTCPClient().sendInstruction(new GetDownloadableProjectsInstruction(projects));
+    // TODO: Fix dependency on Main
+    public DownloadPage() {
+    }
+
+    public List<Project> getDownloadableProjects() {
+        return projects;
     }
 }

@@ -1,12 +1,10 @@
 package connections.tcp;
 
-import connections.ConnectionThread;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class TCPServerThread extends ConnectionThread {
+public class TCPServerThread extends Thread {
     // SEE: https://www.youtube.com/watch?v=dg2V2-ob_NU
     private ServerSocket socket;
 
@@ -21,7 +19,7 @@ public class TCPServerThread extends ConnectionThread {
 
     @Override
     public void run() {
-        while (!shouldStop) {
+        while (isAlive()) {
             try {
                 Socket client = socket.accept();
                 System.out.println("Client accepted.");
@@ -31,8 +29,8 @@ public class TCPServerThread extends ConnectionThread {
     }
 
     @Override
-    public void stopConnection() {
-        super.stopConnection();
+    public void interrupt() {
+        super.interrupt();
 
         // Socket close code only works here
         try {

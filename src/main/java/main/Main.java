@@ -1,6 +1,5 @@
 package main;
 
-import connections.tcp.TCPClient;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -22,11 +21,11 @@ public class Main extends Application {
 
     private static BaseFile baseFile;
     private static ArrayList<String> pageList = initializePageList();
-    private static TCPClient tcpClient;
+
+    public static String GET_DOWNLOADS_COMMAND = "GET_DOWNLOADS";
 
     public static void main(String[] args) {
         baseFile = new BaseFile();
-        tcpClient = new TCPClient();
         launch(args);
     }
 
@@ -68,10 +67,6 @@ public class Main extends Application {
 
     public static BaseFile getBaseFile() {
         return baseFile;
-    }
-    
-    public static TCPClient getTCPClient() {
-        return tcpClient;
     }
 
     public static ArrayList<String> getPageList() {

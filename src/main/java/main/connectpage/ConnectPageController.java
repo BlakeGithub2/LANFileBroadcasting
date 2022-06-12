@@ -10,7 +10,6 @@ import javafx.scene.image.ImageView;
 import main.Main;
 import main.utils.ImageUtils;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -52,12 +51,14 @@ public class ConnectPageController implements Initializable {
             return;
         }
 
+        Main.getSceneController().activate("download");
+        /*
         try {
             Main.getTCPClient().connect(selected.getAddress());
-            Main.getSceneController().activate("download");
         } catch (IOException e) {
             displayCouldNotConnectMessage();
         }
+         */
     }
     private void displayCouldNotConnectMessage() {
         Alert a = new Alert(Alert.AlertType.ERROR);

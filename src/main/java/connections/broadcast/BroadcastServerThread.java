@@ -31,15 +31,13 @@
 
 package connections.broadcast;
 
-import connections.ConnectionThread;
-
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 
-public class BroadcastServerThread extends ConnectionThread {
+public class BroadcastServerThread extends Thread {
 
     private DatagramSocket socket = null;
 
@@ -54,7 +52,7 @@ public class BroadcastServerThread extends ConnectionThread {
 
     @Override
     public void run() {
-        while (!shouldStop) {
+        while (!Thread.currentThread().isInterrupted()) {
             try {
                 byte[] buffer = new byte[256];
 
@@ -70,14 +68,13 @@ public class BroadcastServerThread extends ConnectionThread {
                 DatagramPacket packet = new DatagramPacket(buffer, buffer.length, group, 4446);
                 socket.send(packet);
             } catch (IOException e) {
-                System.out.println("Failed to connections.broadcast packet.");
                 e.printStackTrace();
             }
 
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
-                // sleep was interrupted
+                break;
             }
         }
         socket.close();

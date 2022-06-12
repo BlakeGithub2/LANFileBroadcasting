@@ -31,7 +31,6 @@
 
 package connections.broadcast;
 
-import connections.ConnectionThread;
 import main.connectpage.ConnectPage;
 
 import java.io.IOException;
@@ -39,7 +38,7 @@ import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
 
-public class BroadcastClientThread extends ConnectionThread {
+public class BroadcastClientThread extends Thread {
     private MulticastSocket socket;
     private InetAddress address;
     private ConnectPage page;
@@ -58,7 +57,7 @@ public class BroadcastClientThread extends ConnectionThread {
 
     @Override
     public void run() {
-        while (!shouldStop) {
+        while (isAlive()) {
             boolean shouldSleep = true;
 
             try {
