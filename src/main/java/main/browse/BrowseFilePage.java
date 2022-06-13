@@ -10,11 +10,6 @@ import java.io.FileNotFoundException;
 public class BrowseFilePage implements Page {
     protected ObservableList<Project> projects = FXCollections.observableArrayList();
 
-    public void addRemoteProject(String name) {
-        Project project = new Project(null);
-
-        projects.add(project);
-    }
     public void addProject(File selectedDir) throws CannotAddRepeatException, FileNotFoundException {
         Project project = new Project(selectedDir.getAbsoluteFile().toPath());
 

@@ -2,26 +2,32 @@ package main.connectpage;
 
 import connections.broadcast.BroadcastClientThread;
 import connections.broadcast.BroadcastServer;
+import connections.tcp.TCPClientThread;
+import connections.tcp.TCPServer;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
+import main.Main;
 import main.Page;
 
 import java.io.IOException;
 import java.net.InetAddress;
 
 public class ConnectPage implements Page {
-    private BroadcastServer server;
-    private BroadcastClientThread client;
+    private BroadcastServer broadcastServer;
+    private BroadcastClientThread broadcastClient;
+    private TCPClientThread targetClient;
+    private TCPServer targetServer;
     private boolean broadcasting;
 
     private ObservableList<Connection> connections = FXCollections.observableArrayList();
 
     public ConnectPage() {
         try {
-            server = new BroadcastServer();
-            client = new BroadcastClientThread(this);
+            broadcastServer = new BroadcastServer();
+            broadcastClient = new BroadcastClientThread(this);
+            targetServer = new TCPServer();
             broadcasting = false;
             onCreation();
         } catch (IOException e) {
@@ -69,19 +75,26 @@ public class ConnectPage implements Page {
     }
 
     private void addConnections() throws IOException {
-        client.start();
+        broadcastClient.start();
     }
 
     public void triggerBroadcasting() {
-        server.toggle();
+        broadcastServer.toggle();
+        targetServer.toggle();
         broadcasting = !broadcasting;
     }
     public void triggerButton(Button broadcastButton) {
-        if (server.isActive()) {
+        if (broadcastServer.isActive()) {
             broadcastButton.setText("Stop Broadcasting");
         } else {
             broadcastButton.setText("Start Broadcasting");
         }
+    }
+
+    public void connectTo(InetAddress address) throws IOException {
+        targetClient = new TCPClientThread(address);
+        targetClient.start();
+        Main.getSceneController().addDataToTransfer("tcpClient", targetClient);
     }
 
     // Getters

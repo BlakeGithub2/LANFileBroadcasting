@@ -14,6 +14,7 @@ import java.util.HashMap;
 public class SceneController {
     // Thanks to https://stackoverflow.com/questions/37200845/how-to-switch-scenes-in-javafx!
     private HashMap<String, Scene> sceneMap = new HashMap<>();
+    private HashMap<String, Object> transferredData = new HashMap<>();
     private Stage mainWindow;
     private String currentScene;
 
@@ -60,6 +61,14 @@ public class SceneController {
         currentScene = name;
         mainWindow.setScene(scene);
         mainWindow.show();
+    }
+
+    public void addDataToTransfer(String name, Object obj) {
+        transferredData.put(name, obj);
+    }
+
+    public HashMap<String, Object> getTransferredData() {
+        return transferredData;
     }
 
     public String getCurrentScene() {
