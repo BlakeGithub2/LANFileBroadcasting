@@ -67,6 +67,9 @@ public class SceneController {
         transferredData.put(name, obj);
     }
 
+    public Object getTransferredData(String name) {
+        return transferredData.get(name);
+    }
     public HashMap<String, Object> getTransferredData() {
         return transferredData;
     }

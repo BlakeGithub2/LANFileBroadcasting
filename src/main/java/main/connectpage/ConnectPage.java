@@ -11,10 +11,12 @@ import javafx.scene.control.Button;
 import main.Main;
 import main.Page;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.net.InetAddress;
 
-public class ConnectPage implements Page {
+public class ConnectPage implements Page, PropertyChangeListener {
     private BroadcastServer broadcastServer;
     private BroadcastClientThread broadcastClient;
     private TCPClientThread targetClient;
@@ -26,8 +28,9 @@ public class ConnectPage implements Page {
     public ConnectPage() {
         try {
             broadcastServer = new BroadcastServer();
-            broadcastClient = new BroadcastClientThread(this);
+            broadcastClient = new BroadcastClientThread();
             targetServer = new TCPServer();
+            broadcastClient.addListener(this);
             broadcasting = false;
             onCreation();
         } catch (IOException e) {
@@ -100,5 +103,18 @@ public class ConnectPage implements Page {
     // Getters
     public ObservableList<Connection> getConnections() {
         return connections;
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Connection newConnection = broadcastClient.getNewConnection();
+                if (!containsAddress(newConnection.getAddress())) {
+                    connections.add(newConnection);
+                }
+            }
+        });
     }
 }

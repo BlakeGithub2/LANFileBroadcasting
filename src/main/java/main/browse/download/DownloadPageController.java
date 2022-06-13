@@ -20,7 +20,6 @@ public class DownloadPageController implements Initializable {
 
     @FXML
     public void download() {
-        System.out.println("preparing to download...");
         page.getDownloadableProjects();
     }
 

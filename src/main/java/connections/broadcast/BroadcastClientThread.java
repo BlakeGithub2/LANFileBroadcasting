@@ -31,28 +31,34 @@
 
 package connections.broadcast;
 
-import main.connectpage.ConnectPage;
+import main.connectpage.Connection;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BroadcastClientThread extends Thread {
     private MulticastSocket socket;
     private InetAddress address;
-    private ConnectPage page;
+    private Connection newConnection;
 
-    public BroadcastClientThread(ConnectPage page) throws IOException {
-        this("BroadcastClientThread", page);
+    private List<PropertyChangeListener> listeners;
+
+    public BroadcastClientThread() throws IOException {
+        this("BroadcastClientThread");
     }
 
-    public BroadcastClientThread(String name, ConnectPage page) throws IOException {
+    public BroadcastClientThread(String name) throws IOException {
         super(name);
         socket = new MulticastSocket(4446);
         address = InetAddress.getByName("230.0.0.255");
         socket.joinGroup(address);
-        this.page = page;
+        listeners = new ArrayList<>();
     }
 
     @Override
@@ -72,9 +78,13 @@ public class BroadcastClientThread extends Thread {
                 // Find received message
                 String received = new String(packet.getData(), 0, packet.getLength());
                 InetAddress address = packet.getAddress();
+                newConnection = new Connection(received, address);
 
-                if (page.addConnection(received, address)) {
-                    shouldSleep = false;
+                synchronized (this) {
+                    PropertyChangeEvent event = new PropertyChangeEvent(this, "connection", null, newConnection);
+                    for (PropertyChangeListener listener : listeners) {
+                        listener.propertyChange(event);
+                    }
                 }
             } catch (IOException e) {
                 System.out.println("Could not receive broadcasted messages.");
@@ -98,5 +108,13 @@ public class BroadcastClientThread extends Thread {
             e.printStackTrace();
         }
         socket.close();
+    }
+
+    public void addListener(PropertyChangeListener listener) {
+        listeners.add(listener);
+    }
+
+    public Connection getNewConnection() {
+        return newConnection;
     }
 }
