@@ -1,6 +1,12 @@
 package connections.tcp;
 
-import java.io.*;
+import main.browse.Project;
+import main.browse.ProjectLoader;
+
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -51,11 +57,13 @@ public class TCPServerThread extends Thread {
     private void receiveInstruction() throws IOException {
         String instruction = in.readUTF();
         if (instruction.equals("get downloads")) {
-            List<String> projects = new ArrayList<>();
-            projects.add("test");
-            projects.add("test2");
+            List<Project> projects = ProjectLoader.loadProjectList();
+            List<String> projectNames = new ArrayList<>();
+            for (Project project : projects) {
+                projectNames.add(project.getName());
+            }
 
-            out.writeObject(projects);
+            out.writeObject(projectNames);
             out.flush();
         }
     }

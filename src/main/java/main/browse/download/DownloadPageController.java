@@ -5,7 +5,6 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import main.IController;
-import main.Main;
 import main.utils.ImageUtils;
 
 import java.net.URL;
@@ -24,7 +23,6 @@ public class DownloadPageController implements IController {
 
     @FXML
     public void goBack() {
-        Main.getSceneController().activate("connect");
         try {
             page.exit();
         } catch (Exception e) {

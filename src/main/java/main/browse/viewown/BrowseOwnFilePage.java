@@ -3,15 +3,10 @@ package main.browse.viewown;
 import main.Main;
 import main.browse.BrowseFilePage;
 import main.browse.Project;
+import main.browse.ProjectLoader;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Path;
+import java.io.*;
+import java.util.List;
 
 public class BrowseOwnFilePage extends BrowseFilePage {
     public void save() throws IOException {
@@ -22,7 +17,7 @@ public class BrowseOwnFilePage extends BrowseFilePage {
         File file = Main.getBaseFile().getDirectoryAt("projects");
 
         for (Project project : projects) {
-            File internalProjectFile = getInternalProjectFile(file, project.getName());
+            File internalProjectFile = ProjectLoader.getInternalProjectFile(file, project.getName());
             File projectInfo = new File(internalProjectFile.getPath()
                     + "/" + Main.PROJECT_INFO_FILE_PATH);
 
@@ -51,7 +46,7 @@ public class BrowseOwnFilePage extends BrowseFilePage {
 
             // TODO: If could not delete file, adds project back
             if (projectDeleted) {
-                File internalProjectFile = getInternalProjectFile(file, name);
+                File internalProjectFile = ProjectLoader.getInternalProjectFile(file, name);
                 File projectInfoFile = new File(internalProjectFile + "/" + Main.PROJECT_INFO_FILE_PATH);
 
                 boolean couldDelete;
@@ -63,39 +58,9 @@ public class BrowseOwnFilePage extends BrowseFilePage {
         }
     }
     public void load() throws IOException {
-        if (!Main.getBaseFile().exists()) {
-            throw new FileNotFoundException("Base file not found.");
+        List<Project> nonObservableProjectsList = ProjectLoader.loadProjectList();
+        for (Project project : nonObservableProjectsList) {
+            projects.add(project);
         }
-
-        File file = Main.getBaseFile().getDirectoryAt("projects");
-        projects.clear();
-
-        String[] projectNames = file.list();
-
-        for (String name : projectNames) {
-            File internalProjectFile = getInternalProjectFile(file, name);
-
-            // Add project
-            if (internalProjectFile.exists()) {
-                String externalProjectPathStr = loadExternalPathToProject(internalProjectFile);
-                Path externalProjectPath = new File(externalProjectPathStr).getCanonicalFile().toPath();
-                projects.add(new Project(externalProjectPath));
-            } else {
-                // TODO: Implement corrupted project
-            }
-        }
-    }
-    private String loadExternalPathToProject(File internalProjectFile) throws IOException {
-        File projectInfo = new File(internalProjectFile.getPath()
-                + "/" + Main.PROJECT_INFO_FILE_PATH);
-
-        BufferedReader br = new BufferedReader(new FileReader(projectInfo));
-        String filePath = br.readLine();
-        br.close();
-
-        return filePath;
-    }
-    private File getInternalProjectFile(File projectsFile, String name) {
-        return new File(projectsFile.getPath() + "/" + name);
     }
 }

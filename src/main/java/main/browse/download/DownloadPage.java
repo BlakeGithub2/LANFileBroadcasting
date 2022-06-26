@@ -38,6 +38,7 @@ public class DownloadPage {
     }
 
     public void exit() throws Exception {
+        Main.getSceneController().activate("connect");
         if (client != null) {
             client.toggle();
         } else {
