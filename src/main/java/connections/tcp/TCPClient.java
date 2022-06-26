@@ -3,22 +3,28 @@ package connections.tcp;
 import connections.ThreadHandler;
 
 import java.io.IOException;
-import java.net.Inet4Address;
+import java.net.InetAddress;
 
 public class TCPClient extends ThreadHandler {
-    private Inet4Address address;
+    private InetAddress address;
+    private TCPClientThread clientThread;
 
-    public TCPClient(Inet4Address address) {
+    public TCPClient(InetAddress address) {
         this.address = address;
     }
 
     @Override
     public Thread createThread() {
         try {
-            return new TCPClientThread(address);
+            this.clientThread = new TCPClientThread(address);
+            return this.clientThread;
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public Object sendInstruction(String instruction) throws IOException, ClassNotFoundException {
+        return clientThread.sendInstruction(instruction);
     }
 }

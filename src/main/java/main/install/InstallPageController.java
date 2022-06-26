@@ -1,17 +1,17 @@
 package main.install;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
+import main.IController;
 import main.Main;
 
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class InstallPageController implements Initializable {
+public class InstallPageController implements IController {
     private static InstallPage page;
 
     @FXML
@@ -75,5 +75,10 @@ public class InstallPageController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         InstallPageController.addModel(new InstallPage());
+    }
+
+    @Override
+    public void onLoad() {
+
     }
 }

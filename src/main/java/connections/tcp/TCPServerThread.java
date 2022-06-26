@@ -40,7 +40,7 @@ public class TCPServerThread extends Thread {
             e.printStackTrace();
         }
 
-        while (isAlive()) {
+        while (!Thread.currentThread().isInterrupted()) {
             try {
                 receiveInstruction();
             } catch (IOException e) {

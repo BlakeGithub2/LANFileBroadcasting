@@ -2,7 +2,7 @@ package main.connectpage;
 
 import connections.broadcast.BroadcastClientThread;
 import connections.broadcast.BroadcastServer;
-import connections.tcp.TCPClientThread;
+import connections.tcp.TCPClient;
 import connections.tcp.TCPServer;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -19,7 +19,7 @@ import java.net.InetAddress;
 public class ConnectPage implements Page, PropertyChangeListener {
     private BroadcastServer broadcastServer;
     private BroadcastClientThread broadcastClient;
-    private TCPClientThread targetClient;
+    private TCPClient targetClient;
     private TCPServer targetServer;
     private boolean broadcasting;
 
@@ -95,8 +95,8 @@ public class ConnectPage implements Page, PropertyChangeListener {
     }
 
     public void connectTo(InetAddress address) throws IOException {
-        targetClient = new TCPClientThread(address);
-        targetClient.start();
+        targetClient = new TCPClient(address);
+        targetClient.toggle();
         Main.getSceneController().addDataToTransfer("tcpClient", targetClient);
     }
 

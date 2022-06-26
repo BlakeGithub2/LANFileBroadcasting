@@ -1,18 +1,17 @@
 package main.browse.download;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
+import main.IController;
 import main.Main;
-import main.browse.Project;
 import main.utils.ImageUtils;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class DownloadPageController implements Initializable {
+public class DownloadPageController implements IController {
     private static DownloadPage page;
 
     @FXML
@@ -20,12 +19,17 @@ public class DownloadPageController implements Initializable {
 
     @FXML
     public void download() {
-        page.getDownloadableProjects();
+        page.findDownloadableProjects();
     }
 
     @FXML
     public void goBack() {
         Main.getSceneController().activate("connect");
+        try {
+            page.exit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -33,16 +37,16 @@ public class DownloadPageController implements Initializable {
         page = new DownloadPage();
 
         projectList.setItems(page.getProjects());
-        projectList.setCellFactory(param -> new ListCell<Project>() {
+        projectList.setCellFactory(param -> new ListCell<String>() {
             @Override
-            protected void updateItem(Project item, boolean empty) {
+            protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
 
                 if (empty || item == null) {
                     setText(null);
                     setGraphic(null);
                 } else {
-                    setText(item.getName());
+                    setText(item);
 
                     ImageView graphic = ImageUtils.loadImageView("folder.png");
                     graphic.setFitWidth(64);
@@ -52,5 +56,10 @@ public class DownloadPageController implements Initializable {
                 }
             }
         });
+    }
+
+    @Override
+    public void onLoad() {
+        page.onLoad();
     }
 }

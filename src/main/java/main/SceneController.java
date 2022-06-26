@@ -3,8 +3,8 @@ package main;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -14,6 +14,7 @@ import java.util.HashMap;
 public class SceneController {
     // Thanks to https://stackoverflow.com/questions/37200845/how-to-switch-scenes-in-javafx!
     private HashMap<String, Scene> sceneMap = new HashMap<>();
+    private HashMap<String, IController> controllerMap = new HashMap<>();
     private HashMap<String, Object> transferredData = new HashMap<>();
     private Stage mainWindow;
     private String currentScene;
@@ -33,22 +34,26 @@ public class SceneController {
     }
 
     public void addPage(String name) {
-        Scene scene = loadScene(name);
-        if (scene == null) {
-            throw new IllegalArgumentException("Scene cannot be loaded.");
+        FXMLLoader loader = getSceneLoader(name);
+        try {
+            Parent root = loader.load();
+
+            Scene scene = new Scene(root, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
+            if (scene == null) {
+                throw new IllegalArgumentException("Scene cannot be loaded.");
+            }
+            sceneMap.put(name, scene);
+
+            IController controller = loader.getController();
+            controllerMap.put(name, controller);
+        } catch (IOException e) {
+            System.out.println("Exception loading login page scene. Attempted to load: " + name);
+            e.printStackTrace();
         }
-        sceneMap.put(name, scene);
     }
 
-    private Scene loadScene(String loadText) {
-        try {
-            Pane root = FXMLLoader.load(getClass().getResource("/scenes/" + loadText + ".fxml"));
-            return new Scene(root, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
-        } catch (IOException e) {
-            System.out.println("Exception loading login page scene. Attempted to load: " + loadText);
-            e.printStackTrace();
-            return null;
-        }
+    private FXMLLoader getSceneLoader(String name) {
+        return new FXMLLoader(getClass().getResource("/scenes/" + name + ".fxml"));
     }
 
     public void activate(String name) {
@@ -57,6 +62,10 @@ public class SceneController {
         if (!sceneMap.containsKey(name)) {
             throw new IllegalArgumentException("Scene with that name has not been registered in sceneMap.");
         }
+
+        IController controller = controllerMap.get(name);
+
+        controller.onLoad();
 
         currentScene = name;
         mainWindow.setScene(scene);

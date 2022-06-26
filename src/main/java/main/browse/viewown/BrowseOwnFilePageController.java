@@ -1,13 +1,13 @@
 package main.browse.viewown;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.stage.DirectoryChooser;
+import main.IController;
 import main.Main;
 import main.browse.Project;
 import main.utils.FileUtils;
@@ -19,7 +19,7 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class BrowseOwnFilePageController implements Initializable {
+public class BrowseOwnFilePageController implements IController {
     private static BrowseOwnFilePage page;
 
     @FXML
@@ -146,5 +146,10 @@ public class BrowseOwnFilePageController implements Initializable {
 
     public BrowseOwnFilePage getPage() {
         return page;
+    }
+
+    @Override
+    public void onLoad() {
+
     }
 }

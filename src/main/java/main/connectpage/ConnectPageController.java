@@ -1,12 +1,12 @@
 package main.connectpage;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
+import main.IController;
 import main.Main;
 import main.utils.ImageUtils;
 
@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ConnectPageController implements Initializable {
+public class ConnectPageController implements IController {
     private static ConnectPage page;
 
     public static void addModel(ConnectPage page) {
@@ -100,5 +100,10 @@ public class ConnectPageController implements Initializable {
                 }
             }
         });
+    }
+
+    @Override
+    public void onLoad() {
+
     }
 }

@@ -28,11 +28,11 @@ public class TCPClientThread extends Thread {
      */
     @Override
     public void run() {
-        while (isAlive()) {
+        while (!Thread.currentThread().isInterrupted()) {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                break;
             }
         }
         try {
