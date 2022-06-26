@@ -89,7 +89,7 @@ public class ConnectPageController implements Initializable {
                         setText("Your files");
                     } else {
                         // TODO: Temp fix, getHost() slow
-                        setText(item.getAddress().toString());
+                        setText(item.getAddress().getHostAddress());
                     }
 
                     ImageView graphic = ImageUtils.loadImageView("server.png");

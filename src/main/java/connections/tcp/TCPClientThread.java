@@ -1,17 +1,16 @@
 package connections.tcp;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.util.LinkedList;
-import java.util.Queue;
 
 public class TCPClientThread extends Thread {
     // SEE: https://www.youtube.com/watch?v=dg2V2-ob_NU
     private Socket socket;
-    private PrintWriter out;
-    private Queue<TCPInstruction> instructions;
+    private ObjectOutputStream out;
+    private ObjectInputStream in;
 
     public TCPClientThread(InetAddress host) throws IOException {
         this("TCPClientThread", host);
@@ -20,8 +19,8 @@ public class TCPClientThread extends Thread {
     public TCPClientThread(String name, InetAddress host) throws IOException {
         super(name);
         socket = new Socket(host, 4447);
-        out = new PrintWriter(socket.getOutputStream(), true);
-        instructions = new LinkedList<>();
+        out = new ObjectOutputStream(socket.getOutputStream());
+        in = new ObjectInputStream(socket.getInputStream());
     }
 
     /*
@@ -30,9 +29,6 @@ public class TCPClientThread extends Thread {
     @Override
     public void run() {
         while (isAlive()) {
-            while (instructions.size() > 0) {
-                instructions.poll();
-            }
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -46,12 +42,9 @@ public class TCPClientThread extends Thread {
         }
     }
 
-    public void addInstruction(TCPInstruction instruction) {
-        instructions.add(instruction);
-        System.out.println("Added instruction");
-    }
-
-    public PrintWriter getOutputWriter() {
-        return out;
+    public Object sendInstruction(String instruction) throws IOException, ClassNotFoundException {
+        out.writeUTF(instruction);
+        out.flush();
+        return in.readObject();
     }
 }
