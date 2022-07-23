@@ -30,6 +30,7 @@ public class ConnectPage implements Page, PropertyChangeListener {
             broadcastServer = new BroadcastServer();
             broadcastClient = new BroadcastClientThread();
             targetServer = new TCPServer();
+            targetClient = new TCPClient();
             broadcastClient.addListener(this);
             broadcasting = false;
             onCreation();
@@ -81,9 +82,10 @@ public class ConnectPage implements Page, PropertyChangeListener {
         broadcastClient.start();
     }
 
-    public void triggerBroadcasting() {
+    public void triggerBroadcasting() throws IOException {
         broadcastServer.toggle();
         targetServer.toggle();
+
         broadcasting = !broadcasting;
     }
     public void triggerButton(Button broadcastButton) {
@@ -95,8 +97,7 @@ public class ConnectPage implements Page, PropertyChangeListener {
     }
 
     public void connectTo(InetAddress address) throws IOException {
-        targetClient = new TCPClient(address);
-        targetClient.toggle();
+        targetClient.start(address);
         Main.getSceneController().addDataToTransfer("tcpClient", targetClient);
     }
 

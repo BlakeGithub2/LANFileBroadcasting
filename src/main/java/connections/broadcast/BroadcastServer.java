@@ -1,10 +1,15 @@
 package connections.broadcast;
 
-import connections.ThreadHandler;
+import connections.UDPThreadHandler;
 
 import java.io.IOException;
 
-public class BroadcastServer extends ThreadHandler {
+public class BroadcastServer extends UDPThreadHandler {
+    @Override
+    public String getName() {
+        return "BroadcastServer";
+    }
+
     @Override
     public Thread createThread() {
         try {

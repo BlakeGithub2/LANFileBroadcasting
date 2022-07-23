@@ -3,36 +3,31 @@ package connections.tcp;
 import main.browse.Project;
 import main.browse.ProjectLoader;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.ServerSocket;
+import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TCPServerThread extends Thread {
     // SEE: https://www.youtube.com/watch?v=dg2V2-ob_NU, https://www.baeldung.com/a-guide-to-java-sockets
-    private ServerSocket serverSocket;
     private Socket clientSocket;
     private ObjectOutputStream out;
     private ObjectInputStream in;
     private boolean started;
 
-    public TCPServerThread() throws IOException {
-        this("TCPServerThread");
+    public TCPServerThread(Socket socket) throws IOException {
+        this("TCPServerThread", socket);
     }
 
-    public TCPServerThread(String name) throws IOException {
+    public TCPServerThread(String name, Socket socket) throws IOException {
         super(name);
-        serverSocket = new ServerSocket(4447);
+        clientSocket = socket;
+        clientSocket.setSoTimeout(1000);
         started = false;
     }
 
     public void initialize() throws IOException {
         if (!started) {
-            clientSocket = serverSocket.accept();
             out = new ObjectOutputStream(clientSocket.getOutputStream());
             in = new ObjectInputStream(new BufferedInputStream(clientSocket.getInputStream()));
         }
@@ -50,12 +45,22 @@ public class TCPServerThread extends Thread {
             try {
                 receiveInstruction();
             } catch (IOException e) {
+                break;
             }
+        }
+
+        try {
+            clientSocket.close();
+            in.close();
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     private void receiveInstruction() throws IOException {
         String instruction = in.readUTF();
+
         if (instruction.equals("get downloads")) {
             List<Project> projects = ProjectLoader.loadProjectList();
             List<String> projectNames = new ArrayList<>();
@@ -73,10 +78,5 @@ public class TCPServerThread extends Thread {
         super.interrupt();
 
         // Socket close code only works here
-        try {
-            serverSocket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

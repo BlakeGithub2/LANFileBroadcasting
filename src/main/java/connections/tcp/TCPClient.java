@@ -1,30 +1,36 @@
 package connections.tcp;
 
-import connections.ThreadHandler;
+import connections.TCPThreadHandler;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.net.InetAddress;
 
-public class TCPClient extends ThreadHandler {
-    private InetAddress address;
+public class TCPClient extends TCPThreadHandler implements PropertyChangeListener {
     private TCPClientThread clientThread;
 
-    public TCPClient(InetAddress address) {
-        this.address = address;
+    @Override
+    public Thread createThread(InetAddress address) throws IOException {
+        clientThread = new TCPClientThread(address);
+        return clientThread;
+    }
+
+    public void addObserver(PropertyChangeListener l) {
+        clientThread.addObserver(l);
     }
 
     @Override
-    public Thread createThread() {
-        try {
-            this.clientThread = new TCPClientThread(address);
-            return this.clientThread;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
+    public String getName() {
+        return "TCPClient";
     }
 
     public Object sendInstruction(String instruction) throws IOException, ClassNotFoundException {
         return clientThread.sendInstruction(instruction);
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        stop();
     }
 }

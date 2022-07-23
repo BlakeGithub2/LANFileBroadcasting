@@ -4,12 +4,15 @@ import connections.tcp.TCPClient;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 import main.Main;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.List;
 
-public class DownloadPage {
+public class DownloadPage implements PropertyChangeListener {
     private TCPClient client;
     private ObservableList<String> downloadableProjects;
 
@@ -21,7 +24,11 @@ public class DownloadPage {
         try {
             pullTransferredInformation();
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            try {
+                exit();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
@@ -37,21 +44,45 @@ public class DownloadPage {
         });
     }
 
-    public void exit() throws Exception {
+    public void exit() throws IOException {
         Main.getSceneController().activate("connect");
+
         if (client != null) {
-            client.toggle();
+            client.stop();
         } else {
-            throw new Exception("Could not shut down null client.");
+            throw new IOException("Could not shut down null client.");
         }
     }
 
     public void onLoad() {
         client = (TCPClient) Main.getSceneController().getTransferredData("tcpClient");
+        client.addObserver(this);
         findDownloadableProjects();
     }
 
     public ObservableList<String> getProjects() {
         return downloadableProjects;
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    exit();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                showSendBackAlert();
+            }
+        });
+    }
+
+    private void showSendBackAlert() {
+        Alert a = new Alert(Alert.AlertType.WARNING);
+        a.setHeaderText("Disconnected");
+        a.setContentText("The computer you were connected to has gone offline.");
+        a.show();
     }
 }

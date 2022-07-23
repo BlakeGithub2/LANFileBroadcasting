@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 import main.IController;
 import main.utils.ImageUtils;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -25,7 +26,7 @@ public class DownloadPageController implements IController {
     public void goBack() {
         try {
             page.exit();
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

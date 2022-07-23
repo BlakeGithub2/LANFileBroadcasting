@@ -1,5 +1,7 @@
 package connections.tcp;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -11,6 +13,7 @@ public class TCPClientThread extends Thread {
     private Socket socket;
     private ObjectOutputStream out;
     private ObjectInputStream in;
+    private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
     public TCPClientThread(InetAddress host) throws IOException {
         this("TCPClientThread", host);
@@ -23,9 +26,10 @@ public class TCPClientThread extends Thread {
         in = new ObjectInputStream(socket.getInputStream());
     }
 
-    /*
-    TODO: Find a better way to separate protocol from clients
-     */
+    public void addObserver(PropertyChangeListener l) {
+        pcs.addPropertyChangeListener("connected", l);
+    }
+
     @Override
     public void run() {
         while (!Thread.currentThread().isInterrupted()) {
@@ -36,15 +40,23 @@ public class TCPClientThread extends Thread {
             }
         }
         try {
-            socket.close();
+            out.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            notifyDisconnected();
         }
     }
 
     public Object sendInstruction(String instruction) throws IOException, ClassNotFoundException {
-        out.writeUTF(instruction);
+        try {
+            out.writeUTF(instruction);
+        } catch (IOException e) {
+            throw new IOException("Connection closed by server.");
+        }
         out.flush();
         return in.readObject();
+    }
+
+    public void notifyDisconnected() {
+        pcs.firePropertyChange("connected", true, false);
     }
 }

@@ -1,17 +1,15 @@
 package connections.tcp;
 
-import connections.ThreadHandler;
+import connections.UDPThreadHandler;
 
-import java.io.IOException;
-
-public class TCPServer extends ThreadHandler {
+public class TCPServer extends UDPThreadHandler {
     @Override
     public Thread createThread() {
-        try {
-            return new TCPServerThread();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
+        return new TCPMultiServer();
+    }
+
+    @Override
+    public String getName() {
+        return "TCPServer";
     }
 }

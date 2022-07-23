@@ -32,8 +32,12 @@ public class ConnectPageController implements IController {
 
     @FXML
     private void triggerBroadcasting() {
-        page.triggerBroadcasting();
-        page.triggerButton(broadcastButton);
+        try {
+            page.triggerBroadcasting();
+            page.triggerButton(broadcastButton);
+        } catch (IOException e) {
+            displayCouldNotConnectMessage();
+        }
     }
 
     @FXML
