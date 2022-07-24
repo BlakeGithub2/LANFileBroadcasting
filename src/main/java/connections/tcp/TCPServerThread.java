@@ -3,7 +3,10 @@ package connections.tcp;
 import main.browse.Project;
 import main.browse.ProjectLoader;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +25,6 @@ public class TCPServerThread extends Thread {
     public TCPServerThread(String name, Socket socket) throws IOException {
         super(name);
         clientSocket = socket;
-        clientSocket.setSoTimeout(1000);
         started = false;
     }
 
@@ -60,8 +62,15 @@ public class TCPServerThread extends Thread {
 
     private void receiveInstruction() throws IOException {
         String instruction = in.readUTF();
+        String[] splitInstruction = instruction.split(" ");
 
-        if (instruction.equals("get downloads")) {
+        if (splitInstruction.length == 0) {
+            throw new IOException("Invalid instruction.");
+        }
+
+        String command = instruction.split(" ")[0];
+
+        if (command.equals("get") && instruction.equals("get downloads")) {
             List<Project> projects = ProjectLoader.loadProjectList();
             List<String> projectNames = new ArrayList<>();
             for (Project project : projects) {
@@ -71,6 +80,28 @@ public class TCPServerThread extends Thread {
             out.writeObject(projectNames);
             out.flush();
         }
+        if (command.equals("download")) {
+            String projectName = instruction.substring(instruction.indexOf(' ') + 1);
+            List<Project> projects = ProjectLoader.loadProjectList();
+
+            if (!projectListContains(projects, projectName)) {
+                //out.writeObject(new NoProjectExistsException("No project found on server for downloading with name " + projectName));
+                //out.flush();
+                //return;
+            }
+
+            out.writeObject("test");
+            out.flush();
+        }
+    }
+    private boolean projectListContains(List<Project> projectList, String projectName) {
+        for (Project project : projectList) {
+            if (project.getName().equals(projectName)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     @Override

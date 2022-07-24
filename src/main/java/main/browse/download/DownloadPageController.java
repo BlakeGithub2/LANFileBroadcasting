@@ -19,7 +19,7 @@ public class DownloadPageController implements IController {
 
     @FXML
     public void download() {
-        page.pullProject((String) projectList.getSelectionModel().getSelectedItem());
+        page.downloadProject((String) projectList.getSelectionModel().getSelectedItem());
     }
 
     @FXML

@@ -33,7 +33,7 @@ public class DownloadPage implements PropertyChangeListener {
         }
     }
 
-    public void pullProject(String projectName) {
+    public void downloadProject(String projectName) {
         if (projectName == null) {
             showNoPullProjectAlert();
             return;
@@ -53,8 +53,14 @@ public class DownloadPage implements PropertyChangeListener {
             return;
         }
 
-        // Proposed project file is unique and findable
-        
+        // Here, we know proposed project file is unique and findable
+        try {
+            String response = (String) client.sendInstruction("download " + projectName);
+            System.out.println(response);
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            showCouldNotDownloadProjectAlert();
+        }
     }
     private void showNoPullProjectAlert() {
         Alert a = new Alert(Alert.AlertType.ERROR);
@@ -72,6 +78,12 @@ public class DownloadPage implements PropertyChangeListener {
         Alert a = new Alert(Alert.AlertType.ERROR);
         a.setHeaderText("Error");
         a.setContentText("Project already exists locally.");
+        a.show();
+    }
+    private void showCouldNotDownloadProjectAlert() {
+        Alert a = new Alert(Alert.AlertType.ERROR);
+        a.setHeaderText("Error");
+        a.setContentText("Could not download project.");
         a.show();
     }
 
