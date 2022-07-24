@@ -9,6 +9,7 @@ import main.Main;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -30,6 +31,48 @@ public class DownloadPage implements PropertyChangeListener {
                 ex.printStackTrace();
             }
         }
+    }
+
+    public void pullProject(String projectName) {
+        if (projectName == null) {
+            showNoPullProjectAlert();
+            return;
+        }
+
+        File downloadedDir = null;
+        try {
+            downloadedDir = Main.getBaseFile().getDirectoryAt("downloads");
+        } catch (IOException e) {
+            showCannotCreateDirectoryAlert();
+            return;
+        }
+
+        File proposedFile = new File(downloadedDir.getPath() + "/" + projectName);
+        if (proposedFile.exists()) {
+            showProjectAlreadyExistsAlert();
+            return;
+        }
+
+        // Proposed project file is unique and findable
+        
+    }
+    private void showNoPullProjectAlert() {
+        Alert a = new Alert(Alert.AlertType.ERROR);
+        a.setHeaderText("Error");
+        a.setContentText("Could not start download, as no project was selected.");
+        a.show();
+    }
+    private void showCannotCreateDirectoryAlert() {
+        Alert a = new Alert(Alert.AlertType.ERROR);
+        a.setHeaderText("Error");
+        a.setContentText("Could not create directory to store downloaded projects in.");
+        a.show();
+    }
+    private void showProjectAlreadyExistsAlert() {
+        Alert a = new Alert(Alert.AlertType.ERROR);
+        a.setHeaderText("Error");
+        a.setContentText("Project already exists locally.");
+        a.show();
     }
 
     public void pullTransferredInformation() throws IOException, ClassNotFoundException {
