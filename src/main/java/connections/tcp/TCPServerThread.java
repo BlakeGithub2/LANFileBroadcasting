@@ -1,21 +1,23 @@
 package connections.tcp;
 
-import main.browse.Project;
-import main.browse.ProjectLoader;
+import connections.tcp.instructions.InstructionReceiver;
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
+import java.nio.charset.StandardCharsets;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 public class TCPServerThread extends Thread {
     // SEE: https://www.youtube.com/watch?v=dg2V2-ob_NU, https://www.baeldung.com/a-guide-to-java-sockets
     private Socket clientSocket;
-    private ObjectOutputStream out;
-    private ObjectInputStream in;
+    private OutputStream out;
+    private OutputStreamWriter outString;
+    private InputStream in;
+    private Scanner inString;
     private boolean started;
 
     public TCPServerThread(Socket socket) throws IOException {
@@ -25,13 +27,15 @@ public class TCPServerThread extends Thread {
     public TCPServerThread(String name, Socket socket) throws IOException {
         super(name);
         clientSocket = socket;
-        started = false;
     }
 
     public void initialize() throws IOException {
         if (!started) {
-            out = new ObjectOutputStream(clientSocket.getOutputStream());
-            in = new ObjectInputStream(new BufferedInputStream(clientSocket.getInputStream()));
+            out = clientSocket.getOutputStream();
+            in = clientSocket.getInputStream();
+            outString = new OutputStreamWriter(out, StandardCharsets.UTF_8);
+            inString = new Scanner(in).useDelimiter("\n");
+            // see: https://stackoverflow.com/questions/309424/how-do-i-read-convert-an-inputstream-into-a-string-in-java
         }
     }
 
@@ -52,58 +56,28 @@ public class TCPServerThread extends Thread {
         }
 
         try {
-            clientSocket.close();
             in.close();
             out.close();
+            clientSocket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     private void receiveInstruction() throws IOException {
-        String instruction = in.readUTF();
-        String[] splitInstruction = instruction.split(" ");
+        try {
+            String instruction = inString.next();
+            String[] splitInstruction = instruction.split(" ");
 
-        if (splitInstruction.length == 0) {
-            throw new IOException("Invalid instruction.");
-        }
-
-        String command = instruction.split(" ")[0];
-
-        if (command.equals("get") && instruction.equals("get downloads")) {
-            List<Project> projects = ProjectLoader.loadProjectList();
-            List<String> projectNames = new ArrayList<>();
-            for (Project project : projects) {
-                projectNames.add(project.getName());
+            if (splitInstruction.length == 0) {
+                throw new IOException("Invalid instruction.");
             }
 
-            out.writeObject(projectNames);
-            out.flush();
-        }
-        if (command.equals("download")) {
-            String projectName = instruction.substring(instruction.indexOf(' ') + 1);
-            List<Project> projects = ProjectLoader.loadProjectList();
-
-            if (!projectListContains(projects, projectName)) {
-                //out.writeObject(new NoProjectExistsException("No project found on server for downloading with name " + projectName));
-                //out.flush();
-                //return;
-            }
-
-            out.writeObject("test");
-            out.flush();
+            InstructionReceiver.serverReceiveInstruction(out, instruction);
+        } catch (NoSuchElementException e) {
+            return;
         }
     }
-    private boolean projectListContains(List<Project> projectList, String projectName) {
-        for (Project project : projectList) {
-            if (project.getName().equals(projectName)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     @Override
     public void interrupt() {
         super.interrupt();

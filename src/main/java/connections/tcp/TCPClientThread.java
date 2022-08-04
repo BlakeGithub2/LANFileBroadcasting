@@ -1,18 +1,21 @@
 package connections.tcp;
 
+import connections.tcp.instructions.InstructionReceiver;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
 
 public class TCPClientThread extends Thread {
     // SEE: https://www.youtube.com/watch?v=dg2V2-ob_NU
     private Socket socket;
-    private ObjectOutputStream out;
-    private ObjectInputStream in;
+    private OutputStreamWriter outString;
+    private Scanner inString;
     private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
     public TCPClientThread(InetAddress host) throws IOException {
@@ -22,8 +25,8 @@ public class TCPClientThread extends Thread {
     public TCPClientThread(String name, InetAddress host) throws IOException {
         super(name);
         socket = new Socket(host, 4447);
-        out = new ObjectOutputStream(socket.getOutputStream());
-        in = new ObjectInputStream(socket.getInputStream());
+        outString = new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8);
+        inString = new Scanner(socket.getInputStream()).useDelimiter("\\A");
     }
 
     public void addObserver(PropertyChangeListener l) {
@@ -40,20 +43,29 @@ public class TCPClientThread extends Thread {
             }
         }
         try {
-            out.close();
+            socket.getOutputStream().close();
         } catch (IOException e) {
             notifyDisconnected();
         }
     }
 
-    public Object sendInstruction(String instruction) throws IOException, ClassNotFoundException {
+    public Object sendInstruction(String instruction) throws IOException {
         try {
-            out.writeUTF(instruction);
+            outString.write(instruction + "\n");
         } catch (IOException e) {
             throw new IOException("Connection closed by server.");
         }
-        out.flush();
-        return in.readObject();
+        outString.flush();
+
+        Object result = null;
+        try {
+            result = InstructionReceiver.serverReturnInstruction(socket.getInputStream(), instruction);
+        }  catch (IOException e) {
+            notifyDisconnected();
+            throw new IOException(e.getMessage());
+        }
+
+        return result;
     }
 
     public void notifyDisconnected() {

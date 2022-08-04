@@ -91,7 +91,6 @@ public class DownloadPage implements PropertyChangeListener {
         downloadableProjects.clear();
 
         List<String> result = (List<String>) client.sendInstruction("get downloads");
-
         Platform.runLater(() -> {
             for (String projectName : result) {
                 downloadableProjects.add(projectName);

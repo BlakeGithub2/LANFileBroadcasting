@@ -10,6 +10,7 @@ public abstract class TCPThreadHandler {
     public void start(InetAddress address) throws IOException {
         if (!active) {
             thread = createThread(address);
+
             if (!canSuccessfullyConnect()) {
                 throw new IOException("TCP client unable to successfully connect.");
             }
