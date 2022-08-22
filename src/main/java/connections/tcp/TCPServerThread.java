@@ -3,22 +3,15 @@ package connections.tcp;
 import connections.tcp.instructions.InstructionReceiver;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.nio.charset.StandardCharsets;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 public class TCPServerThread extends Thread {
     // SEE: https://www.youtube.com/watch?v=dg2V2-ob_NU, https://www.baeldung.com/a-guide-to-java-sockets
     private Socket clientSocket;
-    private OutputStream out;
-    private OutputStreamWriter outString;
-    private InputStream in;
-    private Scanner inString;
-    private boolean started;
+    private ObjectOutputStream out;
+    private ObjectInputStream in;
 
     public TCPServerThread(Socket socket) throws IOException {
         this("TCPServerThread", socket);
@@ -30,13 +23,8 @@ public class TCPServerThread extends Thread {
     }
 
     public void initialize() throws IOException {
-        if (!started) {
-            out = clientSocket.getOutputStream();
-            in = clientSocket.getInputStream();
-            outString = new OutputStreamWriter(out, StandardCharsets.UTF_8);
-            inString = new Scanner(in).useDelimiter("\n");
-            // see: https://stackoverflow.com/questions/309424/how-do-i-read-convert-an-inputstream-into-a-string-in-java
-        }
+        out = new ObjectOutputStream(clientSocket.getOutputStream());
+        in = new ObjectInputStream(clientSocket.getInputStream());
     }
 
     @Override
@@ -49,7 +37,7 @@ public class TCPServerThread extends Thread {
 
         while (!Thread.currentThread().isInterrupted()) {
             try {
-                receiveInstruction();
+                InstructionReceiver.readInstructionFromSocket(out, in);
             } catch (IOException e) {
                 break;
             }
@@ -64,20 +52,6 @@ public class TCPServerThread extends Thread {
         }
     }
 
-    private void receiveInstruction() throws IOException {
-        try {
-            String instruction = inString.next();
-            String[] splitInstruction = instruction.split(" ");
-
-            if (splitInstruction.length == 0) {
-                throw new IOException("Invalid instruction.");
-            }
-
-            InstructionReceiver.serverReceiveInstruction(out, instruction);
-        } catch (NoSuchElementException e) {
-            return;
-        }
-    }
     @Override
     public void interrupt() {
         super.interrupt();

@@ -1,10 +1,10 @@
 package connections.tcp.instructions;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public interface IInstruction {
-    void onReceive(OutputStream out, String instruction) throws IOException;
-    Object onReturn(InputStream in, String instruction) throws IOException;
+    void onReceive(ObjectOutputStream out, ObjectInputStream in, String instruction) throws IOException;
+    Object onResponse(ObjectOutputStream out, ObjectInputStream in, String instruction) throws IOException;
 }

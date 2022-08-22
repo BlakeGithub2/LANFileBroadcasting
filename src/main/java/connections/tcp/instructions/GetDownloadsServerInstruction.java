@@ -1,32 +1,32 @@
 package connections.tcp.instructions;
 
 import main.browse.Project;
-import main.browse.ProjectLoader;
+import main.browse.ProjectList;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GetDownloadsServerInstruction implements IInstruction {
     @Override
-    public void onReceive(OutputStream out, String instruction) throws IOException {
-        ObjectOutputStream oos = new ObjectOutputStream(out);
-        List<Project> projects = ProjectLoader.loadProjectList();
+    public void onReceive(ObjectOutputStream out, ObjectInputStream in, String instruction) throws IOException {
+        List<Project> projects = ProjectList.loadProjectList();
 
         List<String> projectNames = new ArrayList<>();
         for (Project project : projects) {
             projectNames.add(project.getName());
         }
 
-        oos.writeObject(projectNames);
-        oos.flush();
+        out.writeObject(projectNames);
+        out.flush();
     }
 
     @Override
-    public Object onReturn(InputStream in, String instruction) throws IOException {
-        ObjectInputStream ois = new ObjectInputStream(in);
+    public Object onResponse(ObjectOutputStream out, ObjectInputStream in, String instruction) throws IOException {
         try {
-            Object result = ois.readObject();
+            Object result = in.readObject();
             return result;
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

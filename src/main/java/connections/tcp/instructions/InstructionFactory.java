@@ -10,6 +10,12 @@ public class InstructionFactory {
             result = new GetDownloadsServerInstruction();
         } else if (command.equals("download")) {
             result = new DownloadProjectServerInstruction();
+        } else if (command.equals("create-file")) {
+            result = new CreateFileServerInstruction();
+        } else if (command.equals("create-project")) {
+            result = new CreateProjectServerInstruction();
+        } else if (command.equals("append")) {
+
         }
 
         if (result == null) {

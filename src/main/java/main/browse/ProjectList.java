@@ -7,7 +7,9 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProjectLoader {
+public class ProjectList {
+    // TODO: Refactor class, make methods not static
+
     public static List<Project> loadProjectList() throws IOException {
         List<Project> projects = new ArrayList<>();
 
@@ -44,6 +46,17 @@ public class ProjectLoader {
         br.close();
 
         return filePath;
+    }
+    public static boolean contains(String projectName) throws IOException {
+        return find(projectName) != null;
+    }
+    public static Project find(String projectName) throws IOException {
+        for (Project project : loadProjectList()) {
+            if (project.getName().equals(projectName)) {
+                return project;
+            }
+        }
+        return null;
     }
     public static File getInternalProjectFile(File projectsFile, String name) {
         return new File(projectsFile.getPath() + "/" + name);

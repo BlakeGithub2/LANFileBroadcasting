@@ -3,7 +3,7 @@ package main.browse.viewown;
 import main.Main;
 import main.browse.BrowseFilePage;
 import main.browse.Project;
-import main.browse.ProjectLoader;
+import main.browse.ProjectList;
 
 import java.io.*;
 import java.util.List;
@@ -17,7 +17,7 @@ public class BrowseOwnFilePage extends BrowseFilePage {
         File file = Main.getBaseFile().getDirectoryAt("projects");
 
         for (Project project : projects) {
-            File internalProjectFile = ProjectLoader.getInternalProjectFile(file, project.getName());
+            File internalProjectFile = ProjectList.getInternalProjectFile(file, project.getName());
             File projectInfo = new File(internalProjectFile.getPath()
                     + "/" + Main.PROJECT_INFO_FILE_PATH);
 
@@ -46,7 +46,7 @@ public class BrowseOwnFilePage extends BrowseFilePage {
 
             // TODO: If could not delete file, adds project back
             if (projectDeleted) {
-                File internalProjectFile = ProjectLoader.getInternalProjectFile(file, name);
+                File internalProjectFile = ProjectList.getInternalProjectFile(file, name);
                 File projectInfoFile = new File(internalProjectFile + "/" + Main.PROJECT_INFO_FILE_PATH);
 
                 boolean couldDelete;
@@ -58,7 +58,7 @@ public class BrowseOwnFilePage extends BrowseFilePage {
         }
     }
     public void load() throws IOException {
-        List<Project> nonObservableProjectsList = ProjectLoader.loadProjectList();
+        List<Project> nonObservableProjectsList = ProjectList.loadProjectList();
         for (Project project : nonObservableProjectsList) {
             projects.add(project);
         }

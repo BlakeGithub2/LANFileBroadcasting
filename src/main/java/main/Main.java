@@ -24,6 +24,8 @@ public class Main extends Application {
 
     public static String GET_DOWNLOADS_COMMAND = "GET_DOWNLOADS";
 
+    public static int BYTE_BUFFER_SIZE = 1024;
+
     public static void main(String[] args) {
         baseFile = new BaseFile();
         launch(args);
