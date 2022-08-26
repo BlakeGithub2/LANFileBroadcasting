@@ -1,7 +1,7 @@
 package connections.tcp;
 
-import connections.tcp.instructions.InstructionReceiver;
-import connections.tcp.instructions.InstructionSender;
+import connections.tcp.instructions.distribution.InstructionReceiver;
+import connections.tcp.instructions.distribution.InstructionSender;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -16,6 +16,8 @@ public class TCPClientThread extends Thread {
     private Socket socket;
     private ObjectOutputStream out;
     private ObjectInputStream in;
+    private InstructionSender sender;
+    private InstructionReceiver receiver;
     private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
     public TCPClientThread(InetAddress host) throws IOException {
@@ -27,18 +29,23 @@ public class TCPClientThread extends Thread {
         socket = new Socket(host, 4447);
         out = new ObjectOutputStream(socket.getOutputStream());
         in = new ObjectInputStream(socket.getInputStream());
+        receiver = new InstructionReceiver(out, in);
+        sender = new InstructionSender(out, in);
     }
 
     public void addObserver(PropertyChangeListener l) {
         pcs.addPropertyChangeListener("connected", l);
+        pcs.addPropertyChangeListener("add-downloadable-project", l);
     }
 
     @Override
     public void run() {
         while (!Thread.currentThread().isInterrupted()) {
             try {
-                InstructionReceiver.readInstructionFromSocket(out, in);
+                receiver.executeInstructionFromSocket(sender);
             } catch (IOException e) {
+                e.printStackTrace();
+                notifyDisconnected();
                 break;
             }
         }
@@ -49,19 +56,16 @@ public class TCPClientThread extends Thread {
         }
     }
 
-
     public void notifyDisconnected() {
         pcs.firePropertyChange("connected", true, false);
     }
 
-    public Object sendInstruction(String instruction) {
+    public void sendInstruction(String instruction) {
         try {
-            return InstructionSender.sendInstruction(out, in, instruction);
+            sender.send(instruction);
         } catch (IOException e) {
             e.printStackTrace();
             notifyDisconnected();
         }
-
-        return null;
     }
 }

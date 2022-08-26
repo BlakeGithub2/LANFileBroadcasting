@@ -111,9 +111,11 @@ public class ConnectPage implements Page, PropertyChangeListener {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                Connection newConnection = broadcastClient.getNewConnection();
-                if (!containsAddress(newConnection.getAddress())) {
-                    connections.add(newConnection);
+                if (evt.getPropertyName().equals("connection") && (evt.getNewValue() != null)) {
+                    Connection newConnection = broadcastClient.getNewConnection();
+                    if (!containsAddress(newConnection.getAddress())) {
+                        connections.add(newConnection);
+                    }
                 }
             }
         });

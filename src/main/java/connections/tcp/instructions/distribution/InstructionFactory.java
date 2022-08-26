@@ -1,12 +1,14 @@
-package connections.tcp.instructions;
+package connections.tcp.instructions.distribution;
+
+import connections.tcp.instructions.*;
 
 public class InstructionFactory {
     public static IInstruction getInstruction(String instruction) {
-        String command = instruction.split(" ")[0];
+        String command = InstructionUtils.parseInstructionType(instruction);
         IInstruction result = null;
 
         // Instruction factory
-        if (command.equals("get") && instruction.equals("get downloads")) {
+        if (command.equals("get")) {
             result = new GetDownloadsServerInstruction();
         } else if (command.equals("download")) {
             result = new DownloadProjectServerInstruction();
@@ -15,7 +17,8 @@ public class InstructionFactory {
         } else if (command.equals("create-project")) {
             result = new CreateProjectServerInstruction();
         } else if (command.equals("append")) {
-
+        } else if (command.equals("return")) {
+            result = new ReturnInstruction();
         }
 
         if (result == null) {

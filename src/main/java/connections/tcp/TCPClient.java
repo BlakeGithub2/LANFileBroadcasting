@@ -25,8 +25,8 @@ public class TCPClient extends TCPThreadHandler implements PropertyChangeListene
         return "TCPClient";
     }
 
-    public Object sendInstruction(String instruction) throws IOException, ClassNotFoundException {
-        return clientThread.sendInstruction(instruction);
+    public void sendInstruction(String instruction) throws IOException, ClassNotFoundException {
+        clientThread.sendInstruction(instruction);
     }
 
     @Override

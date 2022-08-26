@@ -1,5 +1,8 @@
 package connections.tcp.instructions;
 
+import connections.tcp.instructions.distribution.IInstruction;
+import connections.tcp.instructions.distribution.InstructionSender;
+import connections.tcp.instructions.distribution.InstructionUtils;
 import main.Main;
 import main.browse.Project;
 import main.browse.ProjectList;
@@ -14,25 +17,24 @@ import java.util.Base64;
 
 public class DownloadProjectServerInstruction implements IInstruction {
     @Override
-    public void onReceive(ObjectOutputStream out, ObjectInputStream in, String instruction) throws IOException {
-        String projectName = instruction.substring(instruction.indexOf(' ') + 1);
-        ObjectOutputStream oos = new ObjectOutputStream(out);
+    public void onReceive(InstructionSender sender, String instruction) throws IOException {
+        String projectName = InstructionUtils.parseNameWithSpaces(instruction, 2);
 
         if (!ProjectList.contains(projectName)) {
-            oos.writeBoolean(false);
+            sender.sendReturn(InstructionUtils.parseInstructionId(instruction), "false");
             return;
         }
 
-        oos.writeBoolean(true);
-        downloadProject(out, in, ProjectList.find(projectName));
+        sender.sendReturn(InstructionUtils.parseInstructionId(instruction), "true");
+        //downloadProject(sender, Objects.requireNonNull(ProjectList.find(projectName)));
     }
 
-    private void downloadProject(ObjectOutputStream out, ObjectInputStream in, Project project) throws IOException {
+    private void downloadProject(InstructionSender sender, Project project) throws IOException {
         if (!ProjectList.contains(project.getName())) {
             throw new FileNotFoundException("Project " + project.getName() + " could not be found.");
         }
 
-        InstructionSender.sendInstruction(out, in, "create-project " + project.getName());
+        sender.send("create-project " + project.getName());
 
         try {
             File projectDirectory = project.getFilePath().toFile();
@@ -40,8 +42,8 @@ public class DownloadProjectServerInstruction implements IInstruction {
             Files.walkFileTree(projectDirectory.toPath(), new SimpleFileVisitor<Path>() {
                 @Override
                 public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                    System.out.println("Download file: " + file.toString());;
-                    downloadFile(out, in, projectDirectory, file.toFile());
+                    System.out.println("Download file: " + file.toString());
+                    downloadFile(sender, projectDirectory, file.toFile());
                     return FileVisitResult.CONTINUE;
                 }
 
@@ -62,36 +64,20 @@ public class DownloadProjectServerInstruction implements IInstruction {
         }
     }
 
-    private void downloadFile(ObjectOutputStream out, ObjectInputStream in, File projectDirectory, File file) throws IOException {
+    private void downloadFile(InstructionSender sender, File projectDirectory, File file) throws IOException {
         InputStream fileInputStream = new FileInputStream(file);
         String relativeFilePath = file.toString().substring(projectDirectory.toString().length() + 1);
 
-        boolean createdFile = (boolean) InstructionSender.sendInstruction(out, in, "create-file " + relativeFilePath);
+        sender.send("create-file " + relativeFilePath);
 
-        if (!createdFile) {
-            throw new IOException("Could not create file " + file.getName() + ".");
-        }
+        // TODO: Check file has been successfully created on client over network
 
         int bytesRead = 0;
         while (bytesRead != -1) {
             byte[] bytes = new byte[Main.BYTE_BUFFER_SIZE];
             bytesRead = fileInputStream.read(bytes);
-            out.write(bytes);
-            InstructionSender.sendInstruction(out, in, "append " + relativeFilePath + " " + Base64.getEncoder().encodeToString(bytes));
+            sender.send("append " + relativeFilePath + " " + Base64.getEncoder().encodeToString(bytes));
         }
-        InstructionSender.sendInstruction(out, in, "done");
-
-        out.flush();
+        sender.send("done");
     }
-
-    @Override
-    public Object onResponse(ObjectOutputStream out, ObjectInputStream in, String instruction) throws IOException {
-        // Ensure project was found
-
-        // Read in instructions until done
-        while (InstructionReceiver.readInstructionFromSocket(out, in)) {}
-
-        return true;
-    }
-
 }

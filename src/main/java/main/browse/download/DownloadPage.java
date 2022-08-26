@@ -11,7 +11,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 public class DownloadPage implements PropertyChangeListener {
     private TCPClient client;
@@ -55,8 +54,7 @@ public class DownloadPage implements PropertyChangeListener {
 
         // Here, we know proposed project file is unique and findable
         try {
-            String response = (String) client.sendInstruction("download " + projectName);
-            System.out.println(response);
+            client.sendInstruction("download " + projectName);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
             showCouldNotDownloadProjectAlert();
@@ -90,17 +88,7 @@ public class DownloadPage implements PropertyChangeListener {
     public void pullTransferredInformation() throws IOException, ClassNotFoundException {
         downloadableProjects.clear();
 
-        List<String> result = (List<String>) client.sendInstruction("get downloads");
-
-        if (result == null) {
-            return;
-        }
-
-        Platform.runLater(() -> {
-            for (String projectName : result) {
-                downloadableProjects.add(projectName);
-            }
-        });
+        client.sendInstruction("get downloads");
     }
 
     public void exit() throws IOException {

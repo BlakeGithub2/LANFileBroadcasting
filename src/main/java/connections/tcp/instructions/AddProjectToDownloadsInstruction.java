@@ -2,14 +2,17 @@ package connections.tcp.instructions;
 
 import connections.tcp.instructions.distribution.IInstruction;
 import connections.tcp.instructions.distribution.InstructionSender;
+import javafx.application.Platform;
 
 import java.io.IOException;
 
-public class CreateFileServerInstruction implements IInstruction {
+public class AddProjectToDownloadsInstruction implements IInstruction {
     @Override
     public void onReceive(InstructionSender sender, String instruction) throws IOException {
-        // TODO: Create file
-        System.out.println("Received create instruction: " + instruction);
+        String projectName = instruction.substring(instruction.charAt(' ') + 1);
 
+        Platform.runLater(() -> {
+            //downloadableProjects.add(projectName);
+        });
     }
 }

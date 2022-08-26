@@ -1,6 +1,7 @@
 package connections.tcp;
 
-import connections.tcp.instructions.InstructionReceiver;
+import connections.tcp.instructions.distribution.InstructionReceiver;
+import connections.tcp.instructions.distribution.InstructionSender;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -12,6 +13,8 @@ public class TCPServerThread extends Thread {
     private Socket clientSocket;
     private ObjectOutputStream out;
     private ObjectInputStream in;
+    private InstructionSender sender;
+    private InstructionReceiver receiver;
 
     public TCPServerThread(Socket socket) throws IOException {
         this("TCPServerThread", socket);
@@ -25,6 +28,8 @@ public class TCPServerThread extends Thread {
     public void initialize() throws IOException {
         out = new ObjectOutputStream(clientSocket.getOutputStream());
         in = new ObjectInputStream(clientSocket.getInputStream());
+        sender = new InstructionSender(out, in);
+        receiver = new InstructionReceiver(out, in);
     }
 
     @Override
@@ -37,7 +42,7 @@ public class TCPServerThread extends Thread {
 
         while (!Thread.currentThread().isInterrupted()) {
             try {
-                InstructionReceiver.readInstructionFromSocket(out, in);
+                receiver.executeInstructionFromSocket(sender);
             } catch (IOException e) {
                 break;
             }
