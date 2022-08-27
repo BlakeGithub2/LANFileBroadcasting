@@ -11,13 +11,17 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 public class DownloadPage implements PropertyChangeListener {
     private TCPClient client;
     private ObservableList<String> downloadableProjects;
+    private Set<Long> sentInstructions;
 
     public DownloadPage() {
         this.downloadableProjects = FXCollections.observableArrayList();
+        this.sentInstructions = new HashSet<>();
     }
 
     public void findDownloadableProjects() {
@@ -88,7 +92,7 @@ public class DownloadPage implements PropertyChangeListener {
     public void pullTransferredInformation() throws IOException, ClassNotFoundException {
         downloadableProjects.clear();
 
-        client.sendInstruction("get downloads");
+        sentInstructions.add(client.sendInstruction("get-downloads"));
     }
 
     public void exit() throws IOException {
@@ -104,6 +108,7 @@ public class DownloadPage implements PropertyChangeListener {
     public void onLoad() {
         client = (TCPClient) Main.getSceneController().getTransferredData("tcpClient");
         client.addObserver(this);
+        client.addNetworkData("downloadable-projects", downloadableProjects);
         findDownloadableProjects();
     }
 
@@ -113,17 +118,19 @@ public class DownloadPage implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    exit();
-                } catch (IOException e) {
-                    e.printStackTrace();
+        if (evt.getPropertyName().equalsIgnoreCase("connect")) {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        exit();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    showSendBackAlert();
                 }
-                showSendBackAlert();
-            }
-        });
+            });
+        }
     }
 
     private void showSendBackAlert() {

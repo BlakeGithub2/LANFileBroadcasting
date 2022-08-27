@@ -2,7 +2,6 @@ package connections.tcp.instructions.distribution;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -13,28 +12,29 @@ public class InstructionSender implements PropertyChangeListener {
     private ObjectOutputStream out;
     private ObjectInputStream in;
     private Map<Long, String> callsAwaitingReturn;
-    private Map<Long, Object> returnValues;
+    private Map<String, Object> transferredData;
     private static long instructionId = 0;
-    private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
     public InstructionSender(ObjectOutputStream out, ObjectInputStream in) {
         this.out = out;
         this.in = in;
         this.callsAwaitingReturn = new HashMap<>();
-        this.returnValues = new HashMap<>();
+        this.transferredData = new HashMap<>();
     }
 
-    public void send(String instructionStr) throws IOException {
+    public long send(String instructionStr) throws IOException {
+        String finishedInstructionStr = instructionId + " " + instructionStr;
+
         try {
-            System.out.println("Sending: " + instructionId + " " + instructionStr);
-            out.writeUTF("" + instructionId + " " + instructionStr);
+            System.out.println("Sending: " + finishedInstructionStr);
+            out.writeUTF("" + finishedInstructionStr);
         } catch (IOException e) {
             throw new IOException("Connection closed by server.");
         }
         out.flush();
 
-        callsAwaitingReturn.put(instructionId, null);
-        instructionId++;
+        callsAwaitingReturn.put(instructionId, finishedInstructionStr);
+        return instructionId++;
     }
     public void sendReturn(long receivedInstructionId, String value) throws IOException {
         try {
@@ -48,22 +48,24 @@ public class InstructionSender implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals("network-response-unregistered")) {
-            InstructionResponse response = (InstructionResponse) evt.getNewValue();
-            long targetInstruction = response.instructionId();
-            Object returnValue = response.returnValue();
-
-            returnValues.put(targetInstruction, returnValue);
-            pcs.firePropertyChange("network-response-registered", null, targetInstruction);
-        } else if (evt.getPropertyName().equals("network-end-response")) {
+        if (evt.getPropertyName().equalsIgnoreCase("network-end-response")) {
             long targetInstruction = (int) evt.getNewValue();
 
             callsAwaitingReturn.remove(targetInstruction);
-            returnValues.remove(targetInstruction);
         }
     }
 
-    public Object getReturnValue(int instructionId) {
-        return returnValues.get(instructionId);
+    public void executeResponse(long responseId, Object returnValue) {
+        if (!callsAwaitingReturn.containsKey(responseId)) {
+            throw new RuntimeException("Response ID " + responseId + " was not found when searching for open calls.");
+        }
+
+        IRespondableInstruction instruction =
+                (IRespondableInstruction) InstructionFactory.getInstruction(callsAwaitingReturn.get(responseId));
+        instruction.onResponse(transferredData, returnValue);
+    }
+
+    public void addNetworkData(String name, Object obj) {
+        transferredData.put(name, obj);
     }
 }

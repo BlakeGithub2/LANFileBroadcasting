@@ -8,7 +8,7 @@ public class InstructionFactory {
         IInstruction result = null;
 
         // Instruction factory
-        if (command.equals("get")) {
+        if (command.equals("get-downloads")) {
             result = new GetDownloadsServerInstruction();
         } else if (command.equals("download")) {
             result = new DownloadProjectServerInstruction();

@@ -1,5 +1,6 @@
 package main.browse.download;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -41,18 +42,23 @@ public class DownloadPageController implements IController {
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
 
-                if (empty || item == null) {
-                    setText(null);
-                    setGraphic(null);
-                } else {
-                    setText(item);
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (empty || item == null) {
+                            setText(null);
+                            setGraphic(null);
+                        } else {
+                            setText(item);
 
-                    ImageView graphic = ImageUtils.loadImageView("folder.png");
-                    graphic.setFitWidth(64);
-                    graphic.setFitHeight(64);
+                            ImageView graphic = ImageUtils.loadImageView("folder.png");
+                            graphic.setFitWidth(64);
+                            graphic.setFitHeight(64);
 
-                    setGraphic(graphic);
-                }
+                            setGraphic(graphic);
+                        }
+                    }
+                });
             }
         });
     }

@@ -17,6 +17,9 @@ public class InstructionUtils {
 
         StringBuilder result = new StringBuilder();
         for (int i = startingSlot; i < splitInstruction.length; i++) {
+            if (i > 0) {
+                result.append(" ");
+            }
             result.append(splitInstruction[i]);
         }
 
@@ -27,7 +30,8 @@ public class InstructionUtils {
         String[] splitInstruction = instruction.split(" ");
         if (splitInstruction.length <= position) {
             throw new RuntimeException("No spaces found in split instruction string of length "
-                    + splitInstruction.length + "to accommodate position " + position + ".");
+                    + splitInstruction.length + " to accommodate position " + position + ". " +
+                    "Instruction string: " + instruction);
         }
 
         return splitInstruction[position];

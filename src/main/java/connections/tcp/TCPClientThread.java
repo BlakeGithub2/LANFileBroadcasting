@@ -56,16 +56,23 @@ public class TCPClientThread extends Thread {
         }
     }
 
+    public void addNetworkData(String name, Object obj) {
+        sender.addNetworkData(name, obj);
+    }
+
+
     public void notifyDisconnected() {
         pcs.firePropertyChange("connected", true, false);
     }
 
-    public void sendInstruction(String instruction) {
+    public long sendInstruction(String instruction) {
         try {
-            sender.send(instruction);
+            return sender.send(instruction);
         } catch (IOException e) {
             e.printStackTrace();
             notifyDisconnected();
         }
+
+        return -1;
     }
 }
