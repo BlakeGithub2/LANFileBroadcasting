@@ -44,7 +44,6 @@ public class TCPClientThread extends Thread {
             try {
                 receiver.executeInstructionFromSocket(sender);
             } catch (IOException e) {
-                e.printStackTrace();
                 notifyDisconnected();
                 break;
             }
@@ -69,7 +68,6 @@ public class TCPClientThread extends Thread {
         try {
             return sender.send(instruction);
         } catch (IOException e) {
-            e.printStackTrace();
             notifyDisconnected();
         }
 
