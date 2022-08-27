@@ -14,30 +14,29 @@ public class BrowseOwnFilePage extends BrowseFilePage {
             throw new FileNotFoundException("Base file not found.");
         }
 
-        File file = Main.getBaseFile().getDirectoryAt("projects");
+        ProjectList projectList = new ProjectList("projects");
 
-        for (Project project : projects) {
-            File internalProjectFile = ProjectList.getInternalProjectFile(file, project.getName());
-            File projectInfo = new File(internalProjectFile.getPath()
-                    + "/" + Main.PROJECT_INFO_FILE_PATH);
+        for (Project project : unsavedProjects) {
+            File projectFile = projectList.getProjectFile(project.getName());
 
             // Create if not already made
-            boolean fileCreated = internalProjectFile.mkdir();
+            boolean fileCreated = projectFile.mkdir();
+            File projectInfoFile = projectList.getProjectInfoFile(project.getName());
             if (fileCreated) {
-                projectInfo.createNewFile();
+                projectInfoFile.createNewFile();
             }
 
             // Overwrite filepath to project
-            BufferedWriter out = new BufferedWriter(new FileWriter(projectInfo));
+            BufferedWriter out = new BufferedWriter(new FileWriter(projectInfoFile));
             out.write(project.getFilePath().toString());
             out.close();
         }
 
-        // Delete duplicate projects
-        String[] projectNames = file.list();
+        // Delete projects that no longer exist
+        String[] projectNames = projectList.getFile().list();
         for (String name : projectNames) {
             boolean projectDeleted = true;
-            for (Project project : projects) {
+            for (Project project : unsavedProjects) {
                 if (project.getName().equals(name)) {
                     projectDeleted = false;
                     break;
@@ -46,11 +45,7 @@ public class BrowseOwnFilePage extends BrowseFilePage {
 
             // TODO: If could not delete file, adds project back
             if (projectDeleted) {
-                File internalProjectFile = ProjectList.getInternalProjectFile(file, name);
-                File projectInfoFile = new File(internalProjectFile + "/" + Main.PROJECT_INFO_FILE_PATH);
-
-                boolean couldDelete;
-                couldDelete = projectInfoFile.delete() && internalProjectFile.delete();
+                boolean couldDelete = projectList.delete(name);
                 if (!couldDelete) {
                     throw new IOException("Could not delete project.");
                 }
@@ -58,9 +53,9 @@ public class BrowseOwnFilePage extends BrowseFilePage {
         }
     }
     public void load() throws IOException {
-        List<Project> nonObservableProjectsList = ProjectList.loadProjectList();
+        List<Project> nonObservableProjectsList = new ProjectList("projects").getProjects();
         for (Project project : nonObservableProjectsList) {
-            projects.add(project);
+            unsavedProjects.add(project);
         }
     }
 }

@@ -40,10 +40,10 @@ public class BrowseOwnFilePageTest extends BaseFileUnitTest {
         page.save();
         page.load();
 
-        assertEquals(1, page.getProjects().size());
-        assertEquals("test", page.getProjects().get(0).getName());
+        assertEquals(1, page.getUnsavedProjects().size());
+        assertEquals("test", page.getUnsavedProjects().get(0).getName());
         assertEquals(baseFolder.getAbsoluteFile() + "\\test",
-                page.getProjects().get(0).getFilePath().toString());
+                page.getUnsavedProjects().get(0).getFilePath().toString());
 
         newFile.delete();
     }
@@ -153,7 +153,7 @@ public class BrowseOwnFilePageTest extends BaseFileUnitTest {
         BrowseOwnFilePage page = controller.getPage();
 
         int instances = 0;
-        for (Project project : page.getProjects()) {
+        for (Project project : page.getUnsavedProjects()) {
             if (project.getName().equals(projectName)) {
                 instances++;
             }

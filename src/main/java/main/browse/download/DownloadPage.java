@@ -11,6 +11,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 
 public class DownloadPage implements PropertyChangeListener {
     private TCPClient client;
@@ -104,6 +105,7 @@ public class DownloadPage implements PropertyChangeListener {
         client = (TCPClient) Main.getSceneController().getTransferredData("tcpClient");
         client.addObserver(this);
         client.addNetworkData("downloadable-projects", downloadableProjects);
+        client.addNetworkData("download-tracker", new HashMap<Integer, DownloadEntry>());
         findDownloadableProjects();
     }
 

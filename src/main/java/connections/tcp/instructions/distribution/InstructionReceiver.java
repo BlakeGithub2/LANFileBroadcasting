@@ -12,7 +12,6 @@ public class InstructionReceiver {
 
     public boolean executeInstructionFromSocket(InstructionSender sender) throws IOException {
         String instruction = in.readUTF();
-        System.out.println("Received: " + instruction);
 
         if (InstructionUtils.parseInstructionType(instruction).equalsIgnoreCase("done")) {
             return false;

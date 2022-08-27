@@ -28,7 +28,7 @@ public class BrowseFilePageTest extends BaseFileUnitTest {
 
     @Test
     public void testProjectsListEmpty() {
-        assertEquals(0, controller.getPage().getProjects().size());
+        assertEquals(0, controller.getPage().getUnsavedProjects().size());
     }
     @Test
     public void testAddProject() throws IOException {
@@ -42,10 +42,10 @@ public class BrowseFilePageTest extends BaseFileUnitTest {
             fail();
         }
 
-        assertEquals(1, page.getProjects().size());
-        assertEquals("test", page.getProjects().get(0).getName());
+        assertEquals(1, page.getUnsavedProjects().size());
+        assertEquals("test", page.getUnsavedProjects().get(0).getName());
         assertEquals(baseFolder.getAbsoluteFile() + "\\test",
-                page.getProjects().get(0).getFilePath().toString());
+                page.getUnsavedProjects().get(0).getFilePath().toString());
 
         newFile.delete();
     }
@@ -57,7 +57,7 @@ public class BrowseFilePageTest extends BaseFileUnitTest {
             page.addProject(new File(baseFolder + "/nonexistent"));
         } catch (FileNotFoundException e) {}
 
-        assertEquals(0, page.getProjects().size());
+        assertEquals(0, page.getUnsavedProjects().size());
     }
     @Test
     public void testAddProjects() throws IOException {
@@ -124,7 +124,7 @@ public class BrowseFilePageTest extends BaseFileUnitTest {
         BrowseOwnFilePage page = controller.getPage();
 
         int instances = 0;
-        for (Project project : page.getProjects()) {
+        for (Project project : page.getUnsavedProjects()) {
             if (project.getName().equals(projectName)) {
                 instances++;
             }

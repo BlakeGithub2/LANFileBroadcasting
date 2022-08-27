@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 public class BrowseFilePage implements Page {
-    protected ObservableList<Project> projects = FXCollections.observableArrayList();
+    protected ObservableList<Project> unsavedProjects = FXCollections.observableArrayList();
 
     public void addProject(File selectedDir) throws CannotAddRepeatException, FileNotFoundException {
         Project project = new Project(selectedDir.getAbsoluteFile().toPath());
@@ -20,7 +20,7 @@ public class BrowseFilePage implements Page {
             throw new FileNotFoundException("Could not find project file.");
         }
 
-        projects.add(project);
+        unsavedProjects.add(project);
     }
 
     public void deleteProject(String projectName) throws FileNotFoundException {
@@ -37,7 +37,7 @@ public class BrowseFilePage implements Page {
             throw new NullPointerException("No project selected for deletion.");
         } else {
             // Delete the project
-            projects.remove(toDelete);
+            unsavedProjects.remove(toDelete);
         }
     }
 
@@ -47,7 +47,7 @@ public class BrowseFilePage implements Page {
                     "a null name.");
         }
 
-        for (Project project : projects) {
+        for (Project project : unsavedProjects) {
             if (project.getName().equals(projectName)) {
                 return project;
             }
@@ -61,7 +61,7 @@ public class BrowseFilePage implements Page {
                     "a null name.");
         }
 
-        for (Project project : projects) {
+        for (Project project : unsavedProjects) {
             if (projectName.equals(project.getName())) {
                 return true;
             }
@@ -75,7 +75,7 @@ public class BrowseFilePage implements Page {
                     "a null name.");
         }
 
-        for (Project project : projects) {
+        for (Project project : unsavedProjects) {
             if (project.getFilePath().equals(projectFile.getAbsoluteFile().toPath())) {
                 return true;
             }
@@ -84,7 +84,7 @@ public class BrowseFilePage implements Page {
         return false;
     }
 
-    public ObservableList<Project> getProjects() {
-        return projects;
+    public ObservableList<Project> getUnsavedProjects() {
+        return unsavedProjects;
     }
 }

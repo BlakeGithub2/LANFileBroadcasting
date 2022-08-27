@@ -11,10 +11,10 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-public class GetDownloadsServerInstruction implements IRespondableInstruction {
+public class GetDownloadsInstruction implements IRespondableInstruction {
     @Override
     public void onReceive(InstructionSender sender, String instruction) throws IOException {
-        List<Project> projects = ProjectList.loadProjectList();
+        List<Project> projects = new ProjectList("projects").getProjects();
 
         for (Project project : projects) {
             sender.sendReturn(InstructionUtils.parseInstructionId(instruction), project.getName());

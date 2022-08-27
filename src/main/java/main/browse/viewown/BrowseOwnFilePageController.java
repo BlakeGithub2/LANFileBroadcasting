@@ -76,7 +76,6 @@ public class BrowseOwnFilePageController implements IController {
     }
     private void addProject(File selectedDir) throws Exception {
         // TODO: Copy project over so that local version control works
-
         page.addProject(selectedDir);
         trySave();
     }
@@ -122,7 +121,7 @@ public class BrowseOwnFilePageController implements IController {
             }
         }
 
-        projectList.setItems(page.getProjects());
+        projectList.setItems(page.getUnsavedProjects());
         projectList.setCellFactory(param -> new ListCell<Project>() {
             @Override
             protected void updateItem(Project item, boolean empty) {

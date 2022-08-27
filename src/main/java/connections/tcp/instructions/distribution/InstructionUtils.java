@@ -9,6 +9,10 @@ public class InstructionUtils {
         return getStringAtPosition(instruction, 1);
     }
 
+    public static String parseArgument(String instruction, int slot) {
+        return getStringAtPosition(instruction, slot);
+    }
+
     public static String parseNameWithSpaces(String instruction, int startingSlot) {
         String[] splitInstruction = instruction.split(" ");
         if (splitInstruction.length <= startingSlot) {

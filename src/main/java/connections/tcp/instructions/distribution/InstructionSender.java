@@ -21,8 +21,11 @@ public class InstructionSender {
         String finishedInstructionStr = instructionId + " " + instructionStr;
         IInstruction instruction = InstructionFactory.getInstruction(finishedInstructionStr);
 
+        if (instruction instanceof IOnSendableInstruction) {
+            ((IOnSendableInstruction) instruction).onSend(transferredData, instructionStr);
+        }
+
         try {
-            System.out.println("Sending: " + finishedInstructionStr);
             out.writeUTF("" + finishedInstructionStr);
         } catch (IOException e) {
             throw new IOException("Connection closed by server.");
@@ -36,9 +39,16 @@ public class InstructionSender {
             return instructionId;
         }
     }
+    public void sendSuccess(long receivedInstructionId) throws IOException {
+        try {
+            out.writeUTF("" + receivedInstructionId + " success");
+        } catch (IOException e) {
+            throw new IOException("Connection closed by server.");
+        }
+        out.flush();
+    }
     public void sendError(long receivedInstructionId, String errorMessage) throws IOException {
         try {
-            System.out.println("Sending: " + receivedInstructionId + " error " + errorMessage);
             out.writeUTF("" + receivedInstructionId + " error " + errorMessage);
         } catch (IOException e) {
             throw new IOException("Connection closed by server.");
@@ -47,7 +57,6 @@ public class InstructionSender {
     }
     public void sendReturn(long receivedInstructionId, String value) throws IOException {
         try {
-            System.out.println("Sending: " + receivedInstructionId + " return " + value);
             out.writeUTF("" + receivedInstructionId + " return " + value);
         } catch (IOException e) {
             throw new IOException("Connection closed by server.");
@@ -87,5 +96,9 @@ public class InstructionSender {
 
     public void addNetworkData(String name, Object obj) {
         transferredData.put(name, obj);
+    }
+
+    public Map<String, Object> getTransferredData() {
+        return transferredData;
     }
 }
