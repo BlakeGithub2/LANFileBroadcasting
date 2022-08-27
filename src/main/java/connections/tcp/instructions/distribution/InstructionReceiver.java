@@ -2,14 +2,11 @@ package connections.tcp.instructions.distribution;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
 public class InstructionReceiver {
-    private ObjectOutputStream out;
     private ObjectInputStream in;
 
-    public InstructionReceiver(ObjectOutputStream out, ObjectInputStream in) {
-        this.out = out;
+    public InstructionReceiver(ObjectInputStream in) {
         this.in = in;
     }
 

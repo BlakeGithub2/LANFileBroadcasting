@@ -29,8 +29,8 @@ public class TCPClientThread extends Thread {
         socket = new Socket(host, 4447);
         out = new ObjectOutputStream(socket.getOutputStream());
         in = new ObjectInputStream(socket.getInputStream());
-        receiver = new InstructionReceiver(out, in);
-        sender = new InstructionSender(out, in);
+        receiver = new InstructionReceiver(in);
+        sender = new InstructionSender(out);
     }
 
     public void addObserver(PropertyChangeListener l) {

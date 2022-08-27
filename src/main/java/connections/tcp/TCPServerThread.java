@@ -28,8 +28,8 @@ public class TCPServerThread extends Thread {
     public void initialize() throws IOException {
         out = new ObjectOutputStream(clientSocket.getOutputStream());
         in = new ObjectInputStream(clientSocket.getInputStream());
-        sender = new InstructionSender(out, in);
-        receiver = new InstructionReceiver(out, in);
+        sender = new InstructionSender(out);
+        receiver = new InstructionReceiver(in);
     }
 
     @Override

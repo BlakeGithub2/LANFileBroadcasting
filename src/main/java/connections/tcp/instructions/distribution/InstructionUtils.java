@@ -17,7 +17,7 @@ public class InstructionUtils {
 
         StringBuilder result = new StringBuilder();
         for (int i = startingSlot; i < splitInstruction.length; i++) {
-            if (i > 0) {
+            if (i > startingSlot) {
                 result.append(" ");
             }
             result.append(splitInstruction[i]);

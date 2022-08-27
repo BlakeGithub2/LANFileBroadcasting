@@ -19,6 +19,8 @@ public class InstructionFactory {
         } else if (command.equals("append")) {
         } else if (command.equals("return")) {
             result = new ReturnInstruction();
+        } else if (command.equals("error")) {
+            result = new ErrorInstruction();
         }
 
         if (result == null) {

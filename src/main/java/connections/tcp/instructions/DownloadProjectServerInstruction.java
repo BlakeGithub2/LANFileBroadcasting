@@ -14,6 +14,7 @@ import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Base64;
+import java.util.Objects;
 
 public class DownloadProjectServerInstruction implements IInstruction {
     @Override
@@ -21,12 +22,13 @@ public class DownloadProjectServerInstruction implements IInstruction {
         String projectName = InstructionUtils.parseNameWithSpaces(instruction, 2);
 
         if (!ProjectList.contains(projectName)) {
-            sender.sendReturn(InstructionUtils.parseInstructionId(instruction), "false");
+            String errorMessage = "Project " + projectName + " not found on server. Was it deleted after" +
+                    " downloadable projects were refreshed?";
+            sender.sendError(InstructionUtils.parseInstructionId(instruction), errorMessage);
             return;
         }
 
-        sender.sendReturn(InstructionUtils.parseInstructionId(instruction), "true");
-        //downloadProject(sender, Objects.requireNonNull(ProjectList.find(projectName)));
+        downloadProject(sender, Objects.requireNonNull(ProjectList.find(projectName)));
     }
 
     private void downloadProject(InstructionSender sender, Project project) throws IOException {
