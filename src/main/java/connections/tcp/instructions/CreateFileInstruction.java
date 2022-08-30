@@ -23,6 +23,12 @@ public class CreateFileInstruction implements IErrorableInstruction {
 
     @Override
     public void throwError(Map<String, Object> transferredData, String instruction) {
+        Map<Long, DownloadEntry> downloadEntryMap = (Map<Long, DownloadEntry>) transferredData.get("download-tracker");
+        long downloadId = Long.parseLong(InstructionUtils.parseArgument(instruction, 2));
+        DownloadEntry download = downloadEntryMap.get(downloadId);
 
+        if (!download.hasFailed()) {
+            download.markFailed();
+        }
     }
 }

@@ -25,12 +25,7 @@ public class InstructionSender {
             ((IOnSendableInstruction) instruction).onSend(transferredData, instructionStr);
         }
 
-        try {
-            out.writeUTF("" + finishedInstructionStr);
-        } catch (IOException e) {
-            throw new IOException("Connection closed by server.");
-        }
-        out.flush();
+        sendMessageThroughStream("" + finishedInstructionStr);
 
         if (instruction instanceof IRespondableInstruction || instruction instanceof IErrorableInstruction) {
             callsAwaitingReturn.put(instructionId, finishedInstructionStr);
@@ -40,24 +35,25 @@ public class InstructionSender {
         }
     }
     public void sendSuccess(long receivedInstructionId) throws IOException {
-        try {
-            out.writeUTF("" + receivedInstructionId + " success");
-        } catch (IOException e) {
-            throw new IOException("Connection closed by server.");
-        }
-        out.flush();
+        sendMessageThroughStream("" + receivedInstructionId + " success");
     }
-    public void sendError(long receivedInstructionId, String errorMessage) throws IOException {
-        try {
-            out.writeUTF("" + receivedInstructionId + " error " + errorMessage);
-        } catch (IOException e) {
-            throw new IOException("Connection closed by server.");
+    public void sendError(long receivedInstructionId, String errorMessage, String... arguments) throws IOException {
+        StringBuilder argumentsString = new StringBuilder();
+        for (int i = 0; i < arguments.length; i++) {
+            if (i > 0) {
+                argumentsString.append(' ');
+            }
+            argumentsString.append(arguments[i]);
         }
-        out.flush();
+
+        sendMessageThroughStream("" + receivedInstructionId + " error " + argumentsString + " " + errorMessage);
     }
     public void sendReturn(long receivedInstructionId, String value) throws IOException {
+        sendMessageThroughStream("" + receivedInstructionId + " return " + value);
+    }
+    private void sendMessageThroughStream(String message) throws IOException {
         try {
-            out.writeUTF("" + receivedInstructionId + " return " + value);
+            out.writeUTF(message);
         } catch (IOException e) {
             throw new IOException("Connection closed by server.");
         }

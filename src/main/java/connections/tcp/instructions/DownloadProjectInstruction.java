@@ -99,6 +99,8 @@ public class DownloadProjectInstruction implements IErrorableInstruction {
 
             sender.send("append " + downloadId + " " + Base64.getEncoder().encodeToString(bytes));
         }
+
+        fileInputStream.close();
     }
 
     @Override

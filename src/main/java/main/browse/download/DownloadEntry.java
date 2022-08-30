@@ -146,4 +146,12 @@ public class DownloadEntry {
 
         return success;
     }
+
+    public boolean hasFailed() {
+        return failed;
+    }
+
+    public void markFailed() {
+        failed = true;
+    }
 }
