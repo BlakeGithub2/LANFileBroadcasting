@@ -11,6 +11,7 @@ public class ReturnInstruction implements IInstruction {
     public void onReceive(InstructionSender sender, String instruction) throws IOException {
         long instructionId = InstructionUtils.parseInstructionId(instruction);
         Object returnValue = InstructionUtils.parseNameWithSpaces(instruction, 2);
+
         sender.executeResponse(instructionId, returnValue);
     }
 }

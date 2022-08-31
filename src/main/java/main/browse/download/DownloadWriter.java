@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 
-public class DownloadEntry {
+public class DownloadWriter {
     private String currFile;
     private String currDirectory;
     private String projectPath;

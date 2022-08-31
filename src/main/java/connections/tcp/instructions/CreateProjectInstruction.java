@@ -3,7 +3,7 @@ package connections.tcp.instructions;
 import connections.tcp.instructions.distribution.IErrorableInstruction;
 import connections.tcp.instructions.distribution.InstructionSender;
 import connections.tcp.instructions.distribution.InstructionUtils;
-import main.browse.download.DownloadEntry;
+import main.browse.download.DownloadWriter;
 
 import java.io.IOException;
 import java.util.Map;
@@ -14,18 +14,22 @@ public class CreateProjectInstruction implements IErrorableInstruction {
         long instructionId = InstructionUtils.parseInstructionId(instruction);
         long downloadId = Long.parseLong(InstructionUtils.parseArgument(instruction, 2));
         String projectName = InstructionUtils.parseNameWithSpaces(instruction, 3);
-        Map<Long, DownloadEntry> downloadEntryMap = (Map<Long, DownloadEntry>) sender.getTransferredData().get("download-tracker");
+        Map<Long, DownloadWriter> downloadEntryMap = (Map<Long, DownloadWriter>) sender.getTransferredData().get("download-writer");
 
-        downloadEntryMap.put(downloadId, new DownloadEntry());
+        downloadEntryMap.put(downloadId, new DownloadWriter());
         boolean success = downloadEntryMap.get(downloadId).createProject(projectName);
 
         if (!success) {
-            sender.sendError(instructionId, "Unable to create project.");
+            sender.sendError(instructionId, "Unable to create project.", "" + downloadId);
+            downloadEntryMap.get(downloadId).markFailed();
         }
     }
 
     @Override
-    public void throwError(Map<String, Object> transferredData, String instruction) {
+    public void throwError(InstructionSender sender, String errorInstruction) {
+        long downloadId = Long.parseLong(InstructionUtils.parseArgument(errorInstruction, 2));
+        String error = InstructionUtils.parseNameWithSpaces(errorInstruction, 3);
 
+        DownloadProjectInstruction.recordError(error, downloadId);
     }
 }

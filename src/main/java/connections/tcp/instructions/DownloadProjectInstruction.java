@@ -1,8 +1,10 @@
 package connections.tcp.instructions;
 
-import connections.tcp.instructions.distribution.IErrorableInstruction;
+import connections.tcp.instructions.distribution.IOnSuccessInstruction;
 import connections.tcp.instructions.distribution.InstructionSender;
 import connections.tcp.instructions.distribution.InstructionUtils;
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
 import main.Main;
 import main.browse.Project;
 import main.browse.ProjectList;
@@ -17,11 +19,13 @@ import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class DownloadProjectInstruction implements IErrorableInstruction {
+public class DownloadProjectInstruction implements IOnSuccessInstruction {
     private static long nextAvailableDownloadId = 0;
+    private static final Map<Long, Boolean> downloadsHealth = new HashMap<>();
 
     @Override
     public void onReceive(InstructionSender sender, String instruction) throws IOException {
@@ -35,7 +39,13 @@ public class DownloadProjectInstruction implements IErrorableInstruction {
             return;
         }
 
-        downloadProject(sender, nextAvailableDownloadId++, Objects.requireNonNull(projectList.find(projectName)));
+        long downloadId = nextAvailableDownloadId++;
+        downloadsHealth.put(downloadId, true);
+
+        downloadProject(sender, downloadId, Objects.requireNonNull(projectList.find(projectName)));
+
+        downloadsHealth.remove(downloadId);
+
         sender.sendSuccess(InstructionUtils.parseInstructionId(instruction));
     }
 
@@ -79,32 +89,66 @@ public class DownloadProjectInstruction implements IErrorableInstruction {
     }
 
     private void downloadDirectory(InstructionSender sender, long downloadId, File projectDirectory, File directory) throws IOException {
-        if (!directory.equals(projectDirectory)) {
-            String relativeFilePath = directory.toString().substring(projectDirectory.toString().length() + 1);
-            sender.send("create-directory " + downloadId + " " + relativeFilePath);
+        if (downloadsHealth.get(downloadId)) {
+            if (!directory.equals(projectDirectory)) {
+                String relativeFilePath = directory.toString().substring(projectDirectory.toString().length() + 1);
+                sender.send("create-directory " + downloadId + " " + relativeFilePath);
+            }
         }
     }
 
     private void downloadFile(InstructionSender sender, long downloadId, File file) throws IOException {
-        InputStream fileInputStream = new FileInputStream(file);
-        sender.send("create-file " + downloadId + " " + file.getName());
+        if (downloadsHealth.get(downloadId)) {
+            InputStream fileInputStream = new FileInputStream(file);
+            sender.send("create-file " + downloadId + " " + file.getName());
 
-        // TODO: Check file has been successfully created on client over network
-        while (true) {
-            byte[] bytes = fileInputStream.readNBytes(Main.BYTE_BUFFER_SIZE);
+            // TODO: Check file has been successfully created on client over network
+            while (true) {
+                byte[] bytes = fileInputStream.readNBytes(Main.BYTE_BUFFER_SIZE);
 
-            if (bytes.length == 0) {
-                break;
+                if (bytes.length == 0) {
+                    break;
+                }
+
+                sender.send("append " + downloadId + " " + Base64.getEncoder().encodeToString(bytes));
             }
 
-            sender.send("append " + downloadId + " " + Base64.getEncoder().encodeToString(bytes));
+            fileInputStream.close();
         }
-
-        fileInputStream.close();
     }
 
     @Override
-    public void throwError(Map<String, Object> transferredData, String instruction) {
+    public void onSuccess(InstructionSender sender) {
+        showSuccessMessage();
+    }
 
+    public static void recordError(String error, long downloadId) {
+        downloadsHealth.put(downloadId, false);
+        showTransferFileError(error);
+    }
+
+    private static void showTransferFileError(String reason) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Alert a = new Alert(Alert.AlertType.ERROR);
+                a.setHeaderText("Transfer file error");
+                a.setContentText(reason + " To avoid (potentially dangerous) corrupted data, " +
+                        "please delete the partially downloaded file.");
+                a.show();
+            }
+        });
+    }
+
+    private static void showSuccessMessage() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+                a.setHeaderText("Transfer file success");
+                a.setContentText("File successfully transferred.");
+                a.show();
+            }
+        });
     }
 }

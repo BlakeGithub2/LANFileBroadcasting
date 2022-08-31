@@ -9,6 +9,6 @@ import java.io.IOException;
 public class SuccessInstruction implements IInstruction {
     @Override
     public void onReceive(InstructionSender sender, String instruction) throws IOException {
-        sender.terminateCall(InstructionUtils.parseInstructionId(instruction));
+        sender.terminateCall(InstructionUtils.parseInstructionId(instruction), true);
     }
 }

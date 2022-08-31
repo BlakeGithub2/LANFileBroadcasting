@@ -105,7 +105,7 @@ public class DownloadPage implements PropertyChangeListener {
         client = (TCPClient) Main.getSceneController().getTransferredData("tcpClient");
         client.addObserver(this);
         client.addNetworkData("downloadable-projects", downloadableProjects);
-        client.addNetworkData("download-tracker", new HashMap<Integer, DownloadEntry>());
+        client.addNetworkData("download-writer", new HashMap<Integer, DownloadWriter>());
         findDownloadableProjects();
     }
 
