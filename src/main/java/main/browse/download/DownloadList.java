@@ -34,7 +34,6 @@ public class DownloadList {
     public boolean create(String name) {
         if (getFile(name).mkdir()) {
             downloads.add(name);
-            System.out.println("created download: " + name);
             return true;
         } else {
             System.out.println("failed to create download: " + name);

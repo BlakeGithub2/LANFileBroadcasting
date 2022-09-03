@@ -1,5 +1,6 @@
 package connections.tcp.instructions;
 
+import connections.tcp.instructions.distribution.IErrorableInstruction;
 import connections.tcp.instructions.distribution.IOnSuccessInstruction;
 import connections.tcp.instructions.distribution.InstructionSender;
 import connections.tcp.instructions.distribution.InstructionUtils;
@@ -23,8 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class DownloadProjectInstruction implements IOnSuccessInstruction {
-    private static long nextAvailableDownloadId = 0;
+public class DownloadProjectInstruction implements IOnSuccessInstruction, IErrorableInstruction {
     private static final Map<Long, Boolean> downloadsHealth = new HashMap<>();
 
     @Override
@@ -39,7 +39,7 @@ public class DownloadProjectInstruction implements IOnSuccessInstruction {
             return;
         }
 
-        long downloadId = nextAvailableDownloadId++;
+        long downloadId = InstructionUtils.parseInstructionId(instruction);
         downloadsHealth.put(downloadId, true);
 
         downloadProject(sender, downloadId, Objects.requireNonNull(projectList.find(projectName)));
@@ -102,11 +102,16 @@ public class DownloadProjectInstruction implements IOnSuccessInstruction {
             InputStream fileInputStream = new FileInputStream(file);
             sender.send("create-file " + downloadId + " " + file.getName());
 
-            // TODO: Check file has been successfully created on client over network
             while (true) {
-                byte[] bytes = fileInputStream.readNBytes(Main.BYTE_BUFFER_SIZE);
+                byte[] bytes = new byte[0];
 
-                if (bytes.length == 0) {
+                try {
+                    bytes = fileInputStream.readNBytes(Main.BYTE_BUFFER_SIZE);
+                } catch (Exception e) {
+                    recordError("could not append to file.", downloadId);
+                }
+
+                if (bytes.length <= 0) {
                     break;
                 }
 
@@ -120,6 +125,14 @@ public class DownloadProjectInstruction implements IOnSuccessInstruction {
     @Override
     public void onSuccess(InstructionSender sender) {
         showSuccessMessage();
+    }
+
+    @Override
+    public void throwError(InstructionSender sender, String errorInstruction) {
+        long downloadId = Long.parseLong(InstructionUtils.parseArgument(errorInstruction, 2));
+        String error = InstructionUtils.parseNameWithSpaces(errorInstruction, 3);
+
+        recordError(error, downloadId);
     }
 
     public static void recordError(String error, long downloadId) {
@@ -144,7 +157,7 @@ public class DownloadProjectInstruction implements IOnSuccessInstruction {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+                Alert a = new Alert(Alert.AlertType.INFORMATION);
                 a.setHeaderText("Transfer file success");
                 a.setContentText("File successfully transferred.");
                 a.show();

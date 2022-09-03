@@ -1,23 +1,23 @@
 package connections.tcp.instructions.distribution;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 
 public class InstructionReceiver {
-    private ObjectInputStream in;
+    private BufferedReader in;
 
-    public InstructionReceiver(ObjectInputStream in) {
+    public InstructionReceiver(BufferedReader in) {
         this.in = in;
     }
 
     public boolean executeInstructionFromSocket(InstructionSender sender) throws IOException {
-        String instruction = in.readUTF();
+        String instruction = in.readLine();
 
-        if (InstructionUtils.parseInstructionType(instruction).equalsIgnoreCase("done")) {
-            return false;
+        if (instruction != null) {
+            executeInstruction(sender, instruction);
+        } else {
+            System.out.println("no instruction");
         }
-
-        executeInstruction(sender, instruction);
 
         return true;
     }

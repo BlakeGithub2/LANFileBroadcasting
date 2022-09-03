@@ -5,17 +5,15 @@ import connections.tcp.instructions.distribution.InstructionSender;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 
 public class TCPClientThread extends Thread {
     // SEE: https://www.youtube.com/watch?v=dg2V2-ob_NU
     private Socket socket;
-    private ObjectOutputStream out;
-    private ObjectInputStream in;
+    private BufferedWriter out;
+    private BufferedReader in;
     private InstructionSender sender;
     private InstructionReceiver receiver;
     private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
@@ -27,8 +25,9 @@ public class TCPClientThread extends Thread {
     public TCPClientThread(String name, InetAddress host) throws IOException {
         super(name);
         socket = new Socket(host, 4447);
-        out = new ObjectOutputStream(socket.getOutputStream());
-        in = new ObjectInputStream(socket.getInputStream());
+
+        out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+        in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         receiver = new InstructionReceiver(in);
         sender = new InstructionSender(out);
     }
@@ -44,6 +43,7 @@ public class TCPClientThread extends Thread {
             try {
                 receiver.executeInstructionFromSocket(sender);
             } catch (IOException e) {
+                e.printStackTrace();
                 notifyDisconnected();
                 break;
             }
@@ -51,6 +51,7 @@ public class TCPClientThread extends Thread {
         try {
             socket.getOutputStream().close();
         } catch (IOException e) {
+            e.printStackTrace();
             notifyDisconnected();
         }
     }
@@ -68,6 +69,7 @@ public class TCPClientThread extends Thread {
         try {
             return sender.send(instruction);
         } catch (IOException e) {
+            e.printStackTrace();
             notifyDisconnected();
         }
 

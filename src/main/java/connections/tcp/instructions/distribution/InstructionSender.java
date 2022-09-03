@@ -1,17 +1,17 @@
 package connections.tcp.instructions.distribution;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
 public class InstructionSender {
-    private ObjectOutputStream out;
+    private BufferedWriter out;
     private Map<Long, String> callsAwaitingReturn;
     private Map<String, Object> transferredData;
     private static long nextAvailableInstructionId = 0;
 
-    public InstructionSender(ObjectOutputStream out) {
+    public InstructionSender(BufferedWriter out) {
         this.out = out;
         this.callsAwaitingReturn = new HashMap<>();
         this.transferredData = new HashMap<>();
@@ -59,7 +59,7 @@ public class InstructionSender {
     }
     private void sendMessageThroughStream(String message) throws IOException {
         try {
-            out.writeUTF(message);
+            out.write(message + "\r");
         } catch (IOException e) {
             throw new IOException("Connection closed by server.");
         }
@@ -85,12 +85,14 @@ public class InstructionSender {
 
         if (successful) {
             String instructionStr = callsAwaitingReturn.get(instructionId);
-            IOnSuccessInstruction instruction = (IOnSuccessInstruction) InstructionFactory.getInstruction(instructionStr);
-            instruction.onSuccess(this);
+
+            IInstruction instruction = InstructionFactory.getInstruction(instructionStr);
+            if (instruction instanceof IOnSuccessInstruction) {
+                ((IOnSuccessInstruction) instruction).onSuccess(this);
+            }
         }
 
         callsAwaitingReturn.remove(instructionId);
-        System.out.println("" + instructionId + " cleared. " + successful);
     }
 
     public void executeResponse(long responseId, Object returnValue) {
@@ -101,6 +103,7 @@ public class InstructionSender {
         IRespondableInstruction instruction =
                 (IRespondableInstruction) InstructionFactory.getInstruction(callsAwaitingReturn.get(responseId));
         instruction.onResponse(transferredData, returnValue);
+
     }
 
     public void addNetworkData(String name, Object obj) {

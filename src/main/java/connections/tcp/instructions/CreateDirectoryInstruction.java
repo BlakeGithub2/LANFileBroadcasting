@@ -11,7 +11,6 @@ import java.util.Map;
 public class CreateDirectoryInstruction implements IErrorableInstruction {
     @Override
     public void onReceive(InstructionSender sender, String instruction) throws IOException {
-        long instructionId = InstructionUtils.parseInstructionId(instruction);
         long downloadId = Long.parseLong(InstructionUtils.parseArgument(instruction, 2));
         String directoryName = InstructionUtils.parseNameWithSpaces(instruction, 3);
         Map<Long, DownloadWriter> downloadEntryMap = (Map<Long, DownloadWriter>) sender.getTransferredData().get("download-writer");
@@ -19,7 +18,7 @@ public class CreateDirectoryInstruction implements IErrorableInstruction {
         boolean success = downloadEntryMap.get(downloadId).createDirectory(directoryName);
 
         if (!success) {
-            sender.sendError(instructionId, "Unable to create directory " + directoryName + ".", "" + downloadId);
+            sender.sendError(downloadId, "Unable to create directory " + directoryName + ".", "" + downloadId);
             downloadEntryMap.get(downloadId).markFailed();
         }
     }

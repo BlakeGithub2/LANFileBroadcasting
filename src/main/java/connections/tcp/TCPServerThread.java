@@ -3,16 +3,14 @@ package connections.tcp;
 import connections.tcp.instructions.distribution.InstructionReceiver;
 import connections.tcp.instructions.distribution.InstructionSender;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.Socket;
 
 public class TCPServerThread extends Thread {
     // SEE: https://www.youtube.com/watch?v=dg2V2-ob_NU, https://www.baeldung.com/a-guide-to-java-sockets
     private Socket clientSocket;
-    private ObjectOutputStream out;
-    private ObjectInputStream in;
+    private BufferedWriter out;
+    private BufferedReader in;
     private InstructionSender sender;
     private InstructionReceiver receiver;
 
@@ -26,8 +24,8 @@ public class TCPServerThread extends Thread {
     }
 
     public void initialize() throws IOException {
-        out = new ObjectOutputStream(clientSocket.getOutputStream());
-        in = new ObjectInputStream(clientSocket.getInputStream());
+        out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
+        in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         sender = new InstructionSender(out);
         receiver = new InstructionReceiver(in);
     }
